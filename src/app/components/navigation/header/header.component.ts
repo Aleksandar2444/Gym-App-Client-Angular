@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	@Output() sidenavToggle = new EventEmitter<void>();
 	isAuth = false;
 	authSubscription: Subscription;
-	constructor(private authService: AuthService) {}
+	constructor(private readonly authService: AuthService) {}
 	ngOnInit(): void {
 		this.authSubscription = this.authService.authChange.subscribe(
 			(authStatus) => {

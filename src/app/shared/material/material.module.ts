@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 @NgModule({
 	declarations: [],
@@ -15,6 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
 		MatSidenavModule,
 		MatToolbarModule,
 		MatIconModule,
+		MatProgressBarModule,
+		MatPasswordStrengthModule,
 	],
 	exports: [
 		MatFormFieldModule,
@@ -23,6 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
 		MatSidenavModule,
 		MatToolbarModule,
 		MatIconModule,
+		MatProgressBarModule,
+		MatPasswordStrengthModule,
 	],
 })
 export class MaterialModule {}

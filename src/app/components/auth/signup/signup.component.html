@@ -3,46 +3,54 @@
 		fxLayout="column"
 		fxLayoutAlign="center center"
 		fxLayoutGap="10px"
-		#form="ngForm"
-		(ngSubmit)="onSubmit(form)"
+		[formGroup]="signupForm"
+		(ngSubmit)="onFormSubmit()"
 	>
 		<mat-form-field>
 			<input
-				type="email"
+				formControlName="email"
+				type="text"
 				matInput
 				placeholder="Your email"
-				ngModel
-				name="email"
-				email
-				required
-				#emailInput="ngModel"
 			/>
-			<mat-error *ngIf="emailInput.hasError('required')"
-				>Field must not be empty.</mat-error
-			>
-			<mat-error *ngIf="!emailInput.hasError('required')"
-				>Email is invalid.</mat-error
+			<mat-error *ngIf="signupForm.controls.email.invalid"
+				>Invalid Email</mat-error
 			>
 		</mat-form-field>
-		<mat-form-field hintLabel="Should be at least 6 characters long">
+		<mat-form-field>
 			<input
 				type="password"
+				formControlName="password"
 				matInput
 				placeholder="Your password"
-				ngModel
-				name="password"
-				required
-				minlength="6"
-				#pwInput="ngModel"
+				(input)="change($event)"
 			/>
-			<mat-hint align="end">{{ pwInput.value?.length }} / 6</mat-hint>
-			<mat-error>Password has to be alteast 6 characters long.</mat-error>
+			<mat-error *ngIf="signupForm.controls.password.invalid"
+				>Invalid Password</mat-error
+			>
 		</mat-form-field>
+		<mat-progress-bar
+			style="width: 210px"
+			mode="determinate"
+			[color]="passwordComponentWithValidation.color"
+			[value]="passwordMeter"
+		></mat-progress-bar>
+		<mat-password-strength
+			(onStrengthChanged)="onStrengthChanged($event)"
+			#passwordComponentWithValidation
+			[password]="signupForm.controls.password.value"
+		>
+		</mat-password-strength>
+		<mat-password-strength-info
+			*ngIf="showDetails"
+			[passwordComponent]="passwordComponentWithValidation"
+		>
+		</mat-password-strength-info>
 		<button
 			type="submit"
 			mat-raised-button
 			color="primary"
-			[disabled]="form.invalid"
+			[disabled]="signupForm.invalid"
 		>
 			Submit
 		</button>
