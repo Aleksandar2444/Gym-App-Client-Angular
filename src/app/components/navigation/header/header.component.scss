@@ -1,14 +1,14 @@
-a {
+:host a {
 	text-decoration: none;
 	color: white;
 }
 
-a:hover,
+:host a:hover,
 a:active {
 	color: lightgrey;
 }
 
-.navigation__items {
+:host .navigation__items {
 	list-style: none;
 	padding: 0;
 	margin: 0;
