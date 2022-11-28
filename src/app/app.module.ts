@@ -5,15 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { SignupComponent } from './components/auth/signup/signup.component';
-import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './features/signup/components/signup/signup.component';
+import { LoginComponent } from './features/login/components/login/login.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MaterialModule } from './shared/material/material.module';
-import { AuthService } from './services/auth.service';
-import { HeaderComponent } from './components/navigation/header/header.component';
-import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { TrainingComponent } from './components/pages/training/training.component';
+import { LoginService } from './features/login/services/login.service';
+import { SignupService } from './features/signup/services/signup.service';
+import { HeaderComponent } from './shared/header/components/header/header.component';
+import { SidenavComponent } from './shared/sidenav/components/sidenav/sidenav.component';
+import { HomeComponent } from './features/home/components/home/home.component';
+import { TrainingComponent } from './features/training/components/training/training.component';
 
 @NgModule({
 	declarations: [
@@ -34,7 +35,7 @@ import { TrainingComponent } from './components/pages/training/training.componen
 		FormsModule,
 		ReactiveFormsModule,
 	],
-	providers: [AuthService],
+	providers: [LoginService, SignupService],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

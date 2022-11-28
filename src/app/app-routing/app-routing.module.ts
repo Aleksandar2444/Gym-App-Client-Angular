@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { SignupComponent } from '../components/auth/signup/signup.component';
-import { LoginComponent } from '../components/auth/login/login.component';
-import { HomeComponent } from '../components/pages/home/home.component';
-import { TrainingComponent } from '../components/pages/training/training.component';
+import { HomeComponent } from '../features/home/components/home/home.component';
+import { TrainingComponent } from '../features/training/components/training/training.component';
+import { LoginComponent } from '../features/login/components/login/login.component';
+import { SignupComponent } from '../features/signup/components/signup/signup.component';
 
 const routes: Routes = [
 	{ path: '', component: HomeComponent },

@@ -1,0 +1,14 @@
+@use "../../../scss/variables" as var;
+
+:host mat-nav-list {
+	background-color: var.$aqua-two;
+
+	mat-icon {
+		color: var.$light-yellow;
+	}
+
+	.nav__caption {
+		display: table-caption;
+		padding-left: 15px;
+	}
+}
