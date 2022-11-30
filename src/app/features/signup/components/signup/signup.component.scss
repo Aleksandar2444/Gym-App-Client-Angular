@@ -1,11 +1,14 @@
-@use "../../../../shared/scss/variables" as var;
-:host section {
-	display: flex;
-	justify-content: center;
+@import "variables";
+
+:host {
+	section {
+		display: flex;
+		justify-content: center;
+	}
 
 	.signup__form__container {
-		background-color: var.$very-light-yellow;
-		box-shadow: var.$box-shadow;
+		background-color: $very-light-yellow;
+		box-shadow: $box-shadow;
 		border-radius: 5px;
 		margin-top: 20px;
 		width: 350px;
@@ -13,19 +16,17 @@
 			text-align: center;
 			font-size: 25px;
 			padding-top: 10px;
-			color: var.$dark-aqua;
+			color: $dark-aqua;
 		}
 		button {
 			margin: 10px 0;
 		}
+		mat-form-field,
+		mat-password-strength {
+			width: 300px;
+		}
+		::ng-deep .mat-icon.mat-primary {
+			color: #0bca0b;
+		}
 	}
-}
-
-:host mat-form-field,
-mat-password-strength {
-	width: 300px;
-}
-
-:host ::ng-deep .mat-icon.mat-primary {
-	color: #0bca0b;
 }

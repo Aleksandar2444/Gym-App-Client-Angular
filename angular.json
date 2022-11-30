@@ -29,7 +29,10 @@
 							"@angular/material/prebuilt-themes/deeppurple-amber.css",
 							"src/styles.scss"
 						],
-						"scripts": []
+						"scripts": [],
+						"stylePreprocessorOptions": {
+							"includePaths": ["src/app/shared/scss"]
+						}
 					},
 					"configurations": {
 						"production": {

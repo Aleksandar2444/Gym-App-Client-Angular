@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	) {}
 
 	ngOnInit(): void {
+		this.router.navigate(['/login']);
 		this.authSubscription = this.loginService.authChange.subscribe(
 			(authStatus) => {
 				this.isAuth = authStatus;

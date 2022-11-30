@@ -5,37 +5,33 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { SignupComponent } from './features/signup/components/signup/signup.component';
-import { LoginComponent } from './features/login/components/login/login.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MaterialModule } from './shared/material/material.module';
-import { LoginService } from './features/login/services/login.service';
-import { SignupService } from './features/signup/services/signup.service';
-import { HeaderComponent } from './shared/header/components/header/header.component';
-import { SidenavComponent } from './shared/sidenav/components/sidenav/sidenav.component';
-import { HomeComponent } from './features/home/components/home/home.component';
-import { TrainingComponent } from './features/training/components/training/training.component';
+import { MaterialModule } from '@@shared/material/material.module';
+import { StopTrainingComponent } from '@@features/training/components/stop-training/stop-training.component';
+import { TrainingModule } from '@@features/training/training.module';
+import { SignupModule } from '@@features/signup/signup.module';
+import { LoginModule } from '@@features/login/login.module';
+import { SidenavModule } from '@@shared/sidenav/sidenav.module';
+import { HeaderModule } from '@@shared/header/header.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		SignupComponent,
-		LoginComponent,
-		HeaderComponent,
-		SidenavComponent,
-		HomeComponent,
-		TrainingComponent,
-	],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-		AppRoutingModule,
 		MaterialModule,
 		FlexLayoutModule,
 		FormsModule,
 		ReactiveFormsModule,
+		TrainingModule,
+		SignupModule,
+		LoginModule,
+		SidenavModule,
+		HeaderModule,
+		AppRoutingModule,
 	],
-	providers: [LoginService, SignupService],
+	providers: [],
 	bootstrap: [AppComponent],
+	entryComponents: [StopTrainingComponent],
 })
 export class AppModule {}

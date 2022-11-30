@@ -4,10 +4,10 @@
 			<mat-icon>menu</mat-icon>
 		</button>
 	</div>
-	<div><a routerLink="/">Logo</a></div>
+	<div><a routerLink="/home">Logo</a></div>
 	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
 		<ul fxLayout fxLayoutGap="10px">
-			<li *ngIf="isAuth"><a routerLink="/">Home</a></li>
+			<li *ngIf="isAuth"><a routerLink="/home">Home</a></li>
 			<li *ngIf="isAuth"><a routerLink="/training">Training</a></li>
 			<li *ngIf="!isAuth"><a routerLink="/signup">Signup</a></li>
 			<li *ngIf="!isAuth"><a routerLink="/login">Login</a></li>

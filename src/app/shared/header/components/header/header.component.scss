@@ -1,32 +1,33 @@
-@use "../../../scss/variables" as var;
+@import "variables";
 
-:host a {
-	text-decoration: none;
-	color: var.$yellow;
-}
+:host {
+	mat-toolbar {
+		background-color: $aqua-one;
 
-:host ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+		mat-icon {
+			color: $light-yellow;
+		}
+	}
+
 	a {
 		text-decoration: none;
-		color: var.$yellow;
+		color: $yellow;
 	}
-	a:hover,
-	a:active {
-		color: var.$light-yellow;
-	}
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		a {
+			text-decoration: none;
+			color: $yellow;
+		}
+		a:hover,
+		a:active {
+			color: $light-yellow;
+		}
 
-	li:last-child {
-		cursor: pointer;
-	}
-}
-
-:host mat-toolbar {
-	background-color: var.$aqua-one;
-
-	mat-icon {
-		color: var.$light-yellow;
+		li:last-child {
+			cursor: pointer;
+		}
 	}
 }

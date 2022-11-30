@@ -1,25 +1,29 @@
-@use "../../../../shared/scss/variables" as var;
-:host section {
-	display: flex;
-	justify-content: center;
-}
-:host .login__form__container {
-	background-color: var.$very-light-yellow;
-	box-shadow: var.$box-shadow;
-	border-radius: 5px;
-	margin-top: 20px;
-	width: 350px;
-	h3 {
-		text-align: center;
-		font-size: 25px;
-		padding-top: 10px;
-		color: var.$dark-aqua;
-	}
-	button {
-		margin: 10px 0;
-	}
-}
+@import "variables";
 
-:host mat-form-field {
-	width: 300px;
+:host {
+	section {
+		display: flex;
+		justify-content: center;
+
+		.login__form__container {
+			background-color: $very-light-yellow;
+			box-shadow: $box-shadow;
+			border-radius: 5px;
+			margin-top: 20px;
+			width: 350px;
+			h3 {
+				text-align: center;
+				font-size: 25px;
+				padding-top: 10px;
+				color: $dark-aqua;
+			}
+			button {
+				margin: 10px 0;
+			}
+
+			mat-form-field {
+				width: 300px;
+			}
+		}
+	}
 }

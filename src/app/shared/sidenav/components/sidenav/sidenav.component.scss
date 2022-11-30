@@ -1,10 +1,10 @@
-@use "../../../scss/variables" as var;
+@import "variables";
 
 :host mat-nav-list {
-	background-color: var.$aqua-two;
+	background-color: $aqua-two;
 
 	mat-icon {
-		color: var.$light-yellow;
+		color: $light-yellow;
 	}
 
 	.nav__caption {

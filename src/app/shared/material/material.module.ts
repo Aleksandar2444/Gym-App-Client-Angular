@@ -8,6 +8,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
 	declarations: [],
@@ -21,6 +27,12 @@ import { MatListModule } from '@angular/material/list';
 		MatProgressBarModule,
 		MatPasswordStrengthModule,
 		MatListModule,
+		MatTabsModule,
+		MatCardModule,
+		MatSelectModule,
+		MatProgressSpinnerModule,
+		MatDialogModule,
+		MatTableModule,
 	],
 	exports: [
 		MatFormFieldModule,
@@ -32,6 +44,12 @@ import { MatListModule } from '@angular/material/list';
 		MatProgressBarModule,
 		MatPasswordStrengthModule,
 		MatListModule,
+		MatTabsModule,
+		MatCardModule,
+		MatSelectModule,
+		MatProgressSpinnerModule,
+		MatDialogModule,
+		MatTableModule,
 	],
 })
 export class MaterialModule {}
