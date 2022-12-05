@@ -1,0 +1,55 @@
+<section>
+	<div class="signup__form__container">
+		<h3>Sign up</h3>
+		<form
+			fxLayout="column"
+			fxLayoutAlign="center center"
+			fxLayoutGap="10px"
+			[formGroup]="signupForm"
+			(ngSubmit)="onFormSubmit()"
+		>
+			<mat-form-field>
+				<input
+					formControlName="email"
+					type="text"
+					matInput
+					placeholder="Your email"
+				/>
+				<mat-error *ngIf="signupForm.controls.email.invalid"
+					>Invalid Email</mat-error
+				>
+			</mat-form-field>
+			<mat-form-field>
+				<input
+					type="password"
+					formControlName="password"
+					matInput
+					placeholder="Your password"
+					(input)="change($event)"
+				/>
+				<mat-error *ngIf="signupForm.controls.password.invalid"
+					>Invalid Password</mat-error
+				>
+			</mat-form-field>
+			<mat-password-strength
+				(onStrengthChanged)="onStrengthChanged($event)"
+				#passwordComponentWithValidation
+				[password]="signupForm.controls.password.value"
+			>
+			</mat-password-strength>
+			<mat-password-strength-info
+				*ngIf="showDetails"
+				[passwordComponent]="passwordComponentWithValidation"
+			>
+			</mat-password-strength-info>
+			<button
+				type="submit"
+				mat-raised-button
+				color="accent"
+				[disabled]="signupForm.invalid"
+			>
+				Submit
+			</button>
+		</form>
+	</div>
+</section>

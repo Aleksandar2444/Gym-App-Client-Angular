@@ -1,9 +1,17 @@
-mat-sidenav-container,
-mat-sidenav-content,
-mat-sidenav {
-	height: 100%;
-}
+@import "variables";
 
-mat-sidenav {
-	width: 250px;
+:host {
+	mat-sidenav-container {
+		background-color: $aqua-two;
+	}
+
+	mat-sidenav-container,
+	mat-sidenav-content,
+	mat-sidenav {
+		height: 100%;
+	}
+	mat-sidenav {
+		width: 200px;
+		background-color: $aqua-one;
+	}
 }

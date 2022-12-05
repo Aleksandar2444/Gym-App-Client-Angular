@@ -1,0 +1,14 @@
+@import "variables";
+
+:host mat-nav-list {
+	background-color: $aqua-two;
+
+	mat-icon {
+		color: $light-yellow;
+	}
+
+	.nav__caption {
+		display: table-caption;
+		padding-left: 15px;
+	}
+}

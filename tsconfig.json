@@ -3,6 +3,23 @@
 	"compileOnSave": false,
 	"compilerOptions": {
 		"baseUrl": "./",
+		"paths": {
+			"@@training-service/*": ["src/app/features/training/services/*"],
+			"@@training-service": ["src/app/features/training/services"],
+			"@@training/*": ["src/app/features/training/components/*"],
+			"@@training": ["src/app/features/training/components"],
+			"@@exercise/*": ["src/app/features/training/models/*"],
+			"@@exercise": ["src/app/features/training/models"],
+			"@@features/*": ["src/app/features/*"],
+			"@@features": ["src/app/features"],
+			"@@home/*": ["src/app/features/home/components/*"],
+			"@@home": ["src/app/features/home/components"],
+			"@@shared/*": ["src/app/shared/*"],
+			"@@shared": ["src/app/shared"],
+			"@@app": ["src/app"],
+			"@@core/*": ["src/app/core/*"],
+			"@@core": ["src/app/core"]
+		},
 		"outDir": "./dist/out-tsc",
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,

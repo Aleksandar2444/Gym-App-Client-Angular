@@ -5,36 +5,33 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { SignupComponent } from './components/auth/signup/signup.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MaterialModule } from './shared/material/material.module';
-import { AuthService } from './services/auth.service';
-import { HeaderComponent } from './components/navigation/header/header.component';
-import { SidenavComponent } from './components/navigation/sidenav/sidenav.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { TrainingComponent } from './components/pages/training/training.component';
+import { MaterialModule } from '@@shared/material/material.module';
+import { StopTrainingComponent } from '@@features/training/components/stop-training/stop-training.component';
+import { TrainingModule } from '@@features/training/training.module';
+import { SignupModule } from '@@features/signup/signup.module';
+import { LoginModule } from '@@features/login/login.module';
+import { SidenavModule } from '@@shared/sidenav/sidenav.module';
+import { HeaderModule } from '@@shared/header/header.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		SignupComponent,
-		LoginComponent,
-		HeaderComponent,
-		SidenavComponent,
-		HomeComponent,
-		TrainingComponent,
-	],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-		AppRoutingModule,
 		MaterialModule,
 		FlexLayoutModule,
 		FormsModule,
 		ReactiveFormsModule,
+		TrainingModule,
+		SignupModule,
+		LoginModule,
+		SidenavModule,
+		HeaderModule,
+		AppRoutingModule,
 	],
-	providers: [AuthService],
+	providers: [],
 	bootstrap: [AppComponent],
+	entryComponents: [StopTrainingComponent],
 })
 export class AppModule {}

@@ -1,0 +1,11 @@
+@import "variables";
+
+:host {
+	::ng-deep .mdc-tab__content > .mdc-tab__text-label {
+		color: $very-light-yellow;
+	}
+
+	::ng-deep .mdc-tab-indicator > .mdc-tab-indicator__content {
+		border-color: $very-light-yellow;
+	}
+}

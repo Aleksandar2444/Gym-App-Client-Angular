@@ -1,0 +1,23 @@
+@import "variables";
+
+:host mat-table {
+	background-color: $very-light-yellow;
+	display: flex;
+	flex-direction: row;
+	margin-top: 30px;
+
+	::ng-deep mat-header-row {
+		flex-direction: column;
+		width: 100%;
+
+		mat-header-cell,
+		mat-cell {
+			border-color: $yellow;
+		}
+
+		mat-header-cell:last-child,
+		mat-cell:last-child {
+			border-color: transparent;
+		}
+	}
+}
