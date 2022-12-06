@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from '@@features/login/components/login/login.component';
 
 const routes: Routes = [
 	{
@@ -11,19 +10,16 @@ const routes: Routes = [
 				(module) => module.HomeModule
 			),
 	},
-	// {
-	// 	path: 'login',
-	// 	loadChildren: () =>
-	// 		import('./features/login/login.module').then(
-	// 			(module) => module.LoginModule
-	// 		),
-	// },
 	{
-		path: 'login',
-		component: LoginComponent,
+		path: 'auth/login',
+		loadChildren: () =>
+			import('./features/login/login.module').then(
+				(module) => module.LoginModule
+			),
 	},
+
 	{
-		path: 'signup',
+		path: 'auth/signup',
 		loadChildren: () =>
 			import('./features/signup/signup.module').then(
 				(module) => module.SignupModule

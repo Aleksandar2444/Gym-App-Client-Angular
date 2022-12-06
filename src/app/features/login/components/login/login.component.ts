@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/features/login/services/login.service';
+
+import { Store } from '@ngrx/store';
+import { loginRequest } from '@@shared/store/auth/auth.actions';
 
 @Component({
 	selector: 'app-login',
@@ -14,13 +16,14 @@ export class LoginComponent implements OnInit {
 	isFormSubmitted = false;
 
 	constructor(
-		private readonly loginService: LoginService,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly store: Store
 	) {}
 
 	ngOnInit() {
 		this.initForm();
 	}
+
 	initForm() {
 		this.loginForm = new FormGroup({
 			email: new FormControl<string>('', [
@@ -30,11 +33,13 @@ export class LoginComponent implements OnInit {
 			password: new FormControl<string>('', Validators.required),
 		});
 	}
+
 	onFormSubmit() {
-		if (this.loginForm.invalid) return;
 		this.isFormSubmitted = true;
-		const { email, password } = this.loginForm.value;
-		this.loginService.loginUser(email, password);
-		this.router.navigate(['/home']);
+		if (this.loginForm.invalid) return;
+		const loginUserValues = { ...this.loginForm.value };
+		this.store.dispatch(loginRequest({ payload: loginUserValues }));
+		this.router.navigate(['home']);
+		this.loginForm.reset();
 	}
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { LoginService } from 'src/app/features/login/services/login.service';
+import { Store } from '@ngrx/store';
+import { logoutRequest } from '@@shared/store/auth/auth.actions';
+import { selectUser } from '@@shared/store/auth/auth.reducer';
 
 @Component({
 	selector: 'app-sidenav',
@@ -11,30 +12,21 @@ import { LoginService } from 'src/app/features/login/services/login.service';
 export class SidenavComponent implements OnInit {
 	@Output() closeSidenav = new EventEmitter<void>();
 
-	isAuth = false;
-	authSubscription: Subscription;
+	isAuth$ = this.store.select(selectUser);
 
 	constructor(
-		private readonly loginService: LoginService,
+		private readonly store: Store,
 		private readonly router: Router
 	) {}
 
-	ngOnInit(): void {
-		this.authSubscription = this.loginService.authChange.subscribe(
-			(authStatus) => {
-				this.isAuth = authStatus;
-			}
-		);
-	}
+	ngOnInit(): void {}
 
 	onClose() {
 		this.closeSidenav.emit();
 	}
+
 	onLogout() {
-		this.loginService.logoutUser();
-		this.router.navigate(['/login']);
-	}
-	ngOnDestroy(): void {
-		this.authSubscription.unsubscribe();
+		this.store.dispatch(logoutRequest({ payload: null }));
+		this.router.navigate(['auth', 'login']);
 	}
 }
