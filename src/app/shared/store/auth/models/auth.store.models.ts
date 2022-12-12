@@ -8,7 +8,6 @@ export enum AuthStatus {
 }
 
 export interface AuthState {
-	refreshToken?: string | null;
 	user: LoggedInUser | null;
 	error: string | null;
 	status: AuthStatus;
@@ -17,7 +16,6 @@ export interface AuthState {
 }
 
 export const initialState: AuthState = {
-	refreshToken: null,
 	user: null,
 	error: null,
 	status: AuthStatus.PENDING,

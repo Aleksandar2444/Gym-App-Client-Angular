@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { zxcvbn } from '@zxcvbn-ts/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '@@shared/store/auth/auth.actions';
 
@@ -23,10 +22,7 @@ export class SignupComponent implements OnInit {
 		'4': '100',
 	};
 
-	constructor(
-		private readonly router: Router,
-		private readonly store: Store
-	) {}
+	constructor(private readonly store: Store) {}
 
 	ngOnInit(): void {
 		this.initForm();
@@ -65,7 +61,6 @@ export class SignupComponent implements OnInit {
 		zxcvbn(this.signupForm.controls.password.value);
 		const registerUserValues = { ...this.signupForm.value };
 		this.store.dispatch(registerRequest({ payload: registerUserValues }));
-		this.router.navigate(['auth', 'login']);
 		this.signupForm.reset();
 	}
 }

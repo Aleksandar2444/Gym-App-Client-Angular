@@ -12,6 +12,8 @@ import {
 	registerRequestSuccess,
 	registerError,
 	logoutRequest,
+	getUserSuccess,
+	getUserRequest,
 } from './auth.actions';
 import {
 	initialState,
@@ -24,7 +26,6 @@ export const authReducer = createReducer(
 	on(loginRequest, (state) => ({ ...state, status: AuthStatus.LOADING })),
 	on(loginRequestSuccess, (state, { payload }) => ({
 		...state,
-		refreshToken: payload.refreshToken,
 		error: null,
 		user: payload,
 		status: AuthStatus.SUCCESS,
@@ -59,12 +60,23 @@ export const authReducer = createReducer(
 		error: payload,
 		status: AuthStatus.ERROR,
 		message: payload,
+	})),
+	on(getUserRequest, (state) => ({ ...state, status: AuthStatus.LOADING })),
+	on(getUserSuccess, (state, { payload }) => ({
+		...state,
+		error: null,
+		status: AuthStatus.SUCCESS,
+		message: payload.message,
 	}))
 );
 
 // ('auth') key defined in app.module
 export const selectAuthState = createFeatureSelector<AuthState>('auth');
 
-export const selectUser = createSelector(selectAuthState, (state) => {
+export const selectIsUserAuth = createSelector(selectAuthState, (state) => {
 	return state.user?.isAuth;
+});
+
+export const selectUser = createSelector(selectAuthState, (state) => {
+	return state.user;
 });

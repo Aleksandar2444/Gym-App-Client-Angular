@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '@@shared/services/auth.service';
 import {
 	loginRequest,
@@ -11,55 +11,27 @@ import {
 	registerError,
 	logoutRequest,
 	logoutError,
+	getUserSuccess,
+	getUserError,
+	getUserRequest,
 } from '@@shared/store/auth/auth.actions';
 import {
+	LoggedInUser,
 	RegisterUserData,
-	User,
 } from '@@shared/store/auth/models/auth.user.models';
 import { NotificationService } from '@@shared/services/notification.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
+	currentUser$ = new BehaviorSubject<LoggedInUser | null>(null);
+
 	constructor(
 		private readonly actions$: Actions,
 		private readonly authService: AuthService,
-		private readonly notificationService: NotificationService
+		private readonly notificationService: NotificationService,
+		private readonly router: Router
 	) {}
-
-	notificationSuccessMessage$ = createEffect(
-		() =>
-			this.actions$.pipe(
-				ofType(loginRequestSuccess, registerRequestSuccess),
-				tap({
-					next: (message) => {
-						this.notificationService.showSuccess(
-							message.payload.message
-						);
-					},
-				})
-			),
-		{ dispatch: false }
-	);
-
-	notificationErrorMessage$ = createEffect(
-		() =>
-			this.actions$.pipe(
-				ofType(loginError, registerError),
-				tap((action) => {
-					if (action.type === '[Auth] Login Error') {
-						this.notificationService.showError(
-							action.payload.error
-						);
-					}
-					if (action.type === '[Auth] Register Error') {
-						this.notificationService.showError(
-							action.payload.error.message
-						);
-					}
-				})
-			),
-		{ dispatch: false }
-	);
 
 	loginRequest$ = createEffect(() =>
 		this.actions$.pipe(
@@ -70,14 +42,31 @@ export class AuthEffects {
 					.pipe(
 						map((user) => {
 							const loggedInUserApi = {
-								...(user as User),
+								...(user as LoggedInUser),
 								isAuth: true,
 							};
+
+							this.currentUser$.next(loggedInUserApi);
 
 							return loginRequestSuccess({
 								payload: loggedInUserApi,
 							});
 						}),
+						tap((action) => {
+							localStorage.setItem(
+								'refresh-token',
+								JSON.stringify(action.payload.refreshToken)
+							);
+							localStorage.setItem(
+								'token',
+								JSON.stringify(action.payload.token)
+							);
+							localStorage.setItem(
+								'userId',
+								JSON.stringify(action.payload._id)
+							);
+						}),
+
 						catchError((error) => {
 							return of(loginError({ payload: error }));
 						})
@@ -115,10 +104,11 @@ export class AuthEffects {
 			this.actions$.pipe(
 				ofType(logoutRequest),
 				tap((action) => {
-					this.notificationService.showSuccess(
-						'Logged out successfully!'
-					);
-					return this.authService.logoutUser(action.payload);
+					localStorage.removeItem('refresh-token');
+					localStorage.removeItem('token');
+					localStorage.removeItem('userId');
+
+					return this.authService.logoutUser();
 				}),
 				catchError((error) => {
 					this.notificationService.showError('Something went wrong.');
@@ -126,5 +116,97 @@ export class AuthEffects {
 				})
 			),
 		{ dispatch: false }
+	);
+
+	loginSuccessMessage$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(loginRequestSuccess),
+				tap({
+					next: (message) => {
+						this.notificationService.showSuccess(
+							message.payload.message
+						);
+						this.router.navigate(['home']);
+					},
+				})
+			),
+		{ dispatch: false }
+	);
+
+	registerSuccessMessage$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(registerRequestSuccess),
+				tap({
+					next: (message) => {
+						this.notificationService.showSuccess(
+							message.payload.message
+						);
+						this.router.navigate(['auth', 'login']);
+					},
+				})
+			),
+		{ dispatch: false }
+	);
+
+	logoutSuccessMessage$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(logoutRequest),
+				tap({
+					next: () => {
+						this.notificationService.showSuccess(
+							'Logged out successfully!'
+						);
+
+						this.router.navigate(['auth', 'login']);
+					},
+				})
+			),
+		{ dispatch: false }
+	);
+
+	notificationErrorMessage$ = createEffect(
+		() =>
+			this.actions$.pipe(
+				ofType(loginError, registerError),
+				tap((action) => {
+					if (action.type === '[Auth] Login Error') {
+						this.notificationService.showError(
+							action.payload.error
+						);
+					}
+					if (action.type === '[Auth] Register Error') {
+						this.notificationService.showError(
+							action.payload.error.message
+						);
+					}
+				})
+			),
+		{ dispatch: false }
+	);
+
+	currentUserRequest$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(getUserRequest),
+			switchMap((action) => {
+				return this.authService.findUserById(action.payload).pipe(
+					map((user) => {
+						console.log(user);
+
+						const userByIdApi = {
+							...(user as LoggedInUser),
+						};
+						return getUserSuccess({
+							payload: userByIdApi,
+						});
+					}),
+					catchError((error) => {
+						return of(getUserError({ payload: error }));
+					})
+				);
+			})
+		)
 	);
 }

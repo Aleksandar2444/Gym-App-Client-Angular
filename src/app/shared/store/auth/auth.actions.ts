@@ -4,50 +4,68 @@ import {
 	RegisterUserData,
 } from '@@shared/store/auth/models/auth.user.models';
 
-// Action for login user
+// Login user action
 export const loginRequest = createAction(
 	'[Auth] Login Request',
 	props<{ payload: { email: string; password: string } }>()
 );
 
-// Action for login success
+// Login success action
 export const loginRequestSuccess = createAction(
 	'[Auth] Login User Success',
 	props<{ payload: LoggedInUser }>()
 );
 
-// Error login action
+// Login error action
 export const loginError = createAction(
 	'[Auth] Login Error',
 	props<{ payload: any }>()
 );
 
-// Action for logout user
+// Logout user action
 export const logoutRequest = createAction(
 	'[Auth] Logout User',
 	props<{ payload: any }>()
 );
 
-// Error login action
+// Login error action
 export const logoutError = createAction(
 	'[Auth] Logout Error',
 	props<{ payload: any }>()
 );
 
-// Action for register user
+// Register user action
 export const registerRequest = createAction(
 	'[Auth] Register Request',
 	props<{ payload: { email: string; password: string } }>()
 );
 
-// Action for register success
+// Register user success action
 export const registerRequestSuccess = createAction(
 	'[Auth] Register User Success',
 	props<{ payload: RegisterUserData }>()
 );
 
-// Error register action
+// Register error action
 export const registerError = createAction(
 	'[Auth] Register Error',
 	props<{ payload: any }>()
+);
+
+// Get user request action
+export const getUserRequest = createAction(
+	'[Auth] Get User',
+	props<{ payload: string }>()
+);
+
+// Get user request success action
+export const getUserSuccess = createAction(
+	'[Auth] Get User Success',
+	props<{ payload: LoggedInUser }>()
+);
+
+// Get user error action
+export const getUserError = createAction(
+	'[Auth] Get User Error',
+	props<{ payload: string }>()
 );

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from 'src/environments/environment.prod';
-import { LoggedInUser } from '@@shared/store/auth/models/auth.user.models';
 
 const { API_URL } = environment;
 
@@ -18,7 +17,11 @@ export class AuthService {
 		return this.http.post(`${API_URL}/auth/register`, { email, password });
 	}
 
-	logoutUser(user: LoggedInUser) {
-		return this.http.post(`${API_URL}/auth/logout`, { user });
+	logoutUser() {
+		return this.http.post(`${API_URL}/auth/logout`, {});
+	}
+
+	findUserById(userId: string) {
+		return this.http.get(`${API_URL}/auth/user/${userId}`);
 	}
 }

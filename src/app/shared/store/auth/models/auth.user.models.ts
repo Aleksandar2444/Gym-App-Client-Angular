@@ -3,14 +3,17 @@ export interface User {
 	email: string;
 	message: string;
 	isAuth: boolean;
+	token?: string;
 	refreshToken?: string;
 }
+
 export interface LoggedInUser {
 	_id: string;
 	email: string;
 	password?: string;
 	isAuth: boolean;
-	refreshToken?: string;
+	token?: string;
+	refreshToken: string;
 	message: string;
 }
 

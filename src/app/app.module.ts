@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SpinnerComponent } from '@@shared/spinner/spinner/spinner.component';
 import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
+import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
 
 @NgModule({
 	declarations: [AppComponent, SpinnerComponent],
@@ -50,6 +51,11 @@ import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
 			: [],
 	],
 	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: JwtInterceptor,
+			multi: true,
+		},
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: SpinnerInterceptor,
