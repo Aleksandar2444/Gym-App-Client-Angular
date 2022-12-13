@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignupService } from '../../services/signup.service';
 import { zxcvbn } from '@zxcvbn-ts/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { registerRequest } from '@@shared/store/auth/auth.actions';
 
 @Component({
 	selector: 'app-signup',
@@ -23,8 +24,8 @@ export class SignupComponent implements OnInit {
 	};
 
 	constructor(
-		private readonly signupService: SignupService,
-		private readonly router: Router
+		private readonly router: Router,
+		private readonly store: Store
 	) {}
 
 	ngOnInit(): void {
@@ -61,9 +62,10 @@ export class SignupComponent implements OnInit {
 	onFormSubmit() {
 		this.isFormSubmitted = true;
 		if (this.signupForm.invalid) return;
-		const { email, password } = this.signupForm.value;
 		zxcvbn(this.signupForm.controls.password.value);
-		this.signupService.registerUser({ email, password });
-		this.router.navigate(['/login']);
+		const registerUserValues = { ...this.signupForm.value };
+		this.store.dispatch(registerRequest({ payload: registerUserValues }));
+		this.router.navigate(['auth', 'login']);
+		this.signupForm.reset();
 	}
 }
