@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { BehaviorSubject, catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '@@shared/services/auth.service';
 import {
 	loginRequest,
@@ -11,21 +11,16 @@ import {
 	registerError,
 	logoutRequest,
 	logoutError,
-	getUserSuccess,
-	getUserError,
-	getUserRequest,
 } from '@@shared/store/auth/auth.actions';
 import {
-	LoggedInUser,
 	RegisterUserData,
+	User,
 } from '@@shared/store/auth/models/auth.user.models';
 import { NotificationService } from '@@shared/services/notification.service';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
-	currentUser$ = new BehaviorSubject<LoggedInUser | null>(null);
-
 	constructor(
 		private readonly actions$: Actions,
 		private readonly authService: AuthService,
@@ -42,28 +37,21 @@ export class AuthEffects {
 					.pipe(
 						map((user) => {
 							const loggedInUserApi = {
-								...(user as LoggedInUser),
+								...(user as User),
 								isAuth: true,
 							};
-
-							this.currentUser$.next(loggedInUserApi);
 
 							return loginRequestSuccess({
 								payload: loggedInUserApi,
 							});
 						}),
 						tap((action) => {
+							if (this.router.url.includes('login')) {
+								this.router.navigate(['home']);
+							}
 							localStorage.setItem(
-								'refresh-token',
-								JSON.stringify(action.payload.refreshToken)
-							);
-							localStorage.setItem(
-								'token',
-								JSON.stringify(action.payload.token)
-							);
-							localStorage.setItem(
-								'userId',
-								JSON.stringify(action.payload._id)
+								'user',
+								JSON.stringify(action.payload)
 							);
 						}),
 
@@ -80,7 +68,11 @@ export class AuthEffects {
 			ofType(registerRequest),
 			switchMap((action) => {
 				return this.authService
-					.registerUser(action.payload.email, action.payload.password)
+					.registerUser(
+						action.payload.userName,
+						action.payload.email,
+						action.payload.password
+					)
 					.pipe(
 						map((user) => {
 							const registerUserApi = {
@@ -104,9 +96,7 @@ export class AuthEffects {
 			this.actions$.pipe(
 				ofType(logoutRequest),
 				tap((action) => {
-					localStorage.removeItem('refresh-token');
-					localStorage.removeItem('token');
-					localStorage.removeItem('userId');
+					localStorage.removeItem('user');
 
 					return this.authService.logoutUser();
 				}),
@@ -127,7 +117,6 @@ export class AuthEffects {
 						this.notificationService.showSuccess(
 							message.payload.message
 						);
-						this.router.navigate(['home']);
 					},
 				})
 			),
@@ -185,28 +174,5 @@ export class AuthEffects {
 				})
 			),
 		{ dispatch: false }
-	);
-
-	currentUserRequest$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(getUserRequest),
-			switchMap((action) => {
-				return this.authService.findUserById(action.payload).pipe(
-					map((user) => {
-						console.log(user);
-
-						const userByIdApi = {
-							...(user as LoggedInUser),
-						};
-						return getUserSuccess({
-							payload: userByIdApi,
-						});
-					}),
-					catchError((error) => {
-						return of(getUserError({ payload: error }));
-					})
-				);
-			})
-		)
 	);
 }

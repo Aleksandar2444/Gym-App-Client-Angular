@@ -10,6 +10,17 @@
 		>
 			<mat-form-field>
 				<input
+					formControlName="userName"
+					type="text"
+					matInput
+					placeholder="Your username"
+				/>
+				<mat-error *ngIf="signupForm.controls.userName.invalid"
+					>Invalid Username</mat-error
+				>
+			</mat-form-field>
+			<mat-form-field>
+				<input
 					formControlName="email"
 					type="text"
 					matInput

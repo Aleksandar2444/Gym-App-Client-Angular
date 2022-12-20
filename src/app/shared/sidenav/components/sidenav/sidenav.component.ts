@@ -1,8 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { logoutRequest } from '@@shared/store/auth/auth.actions';
-import { selectUser } from '@@shared/store/auth/auth.reducer';
+import { selectUser } from '@@shared/store/auth/auth.selectors';
 
 @Component({
 	selector: 'app-sidenav',
@@ -14,10 +13,7 @@ export class SidenavComponent implements OnInit {
 
 	isAuth$ = this.store.select(selectUser);
 
-	constructor(
-		private readonly store: Store,
-		private readonly router: Router
-	) {}
+	constructor(private readonly store: Store) {}
 
 	ngOnInit(): void {}
 
@@ -27,6 +23,5 @@ export class SidenavComponent implements OnInit {
 
 	onLogout() {
 		this.store.dispatch(logoutRequest({ payload: null }));
-		this.router.navigate(['auth', 'login']);
 	}
 }

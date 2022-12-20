@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +23,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SpinnerComponent } from '@@shared/spinner/spinner/spinner.component';
 import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
 import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
+import { StorageService } from '@@shared/services/storage.service';
 
 @NgModule({
 	declarations: [AppComponent, SpinnerComponent],
@@ -43,6 +44,8 @@ import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
 		ToastrModule.forRoot({
 			positionClass: 'toast-top-center',
 			timeOut: 2000,
+			progressBar: true,
+			tapToDismiss: true,
 		}),
 		StoreModule.forRoot({ auth: authReducer }),
 		EffectsModule.forRoot([AuthEffects]),
@@ -51,6 +54,16 @@ import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
 			: [],
 	],
 	providers: [
+		{
+			provide: APP_INITIALIZER,
+			useFactory: (storage: StorageService) => {
+				return () => {
+					storage.getUserFromStorage();
+				};
+			},
+			multi: true,
+			deps: [StorageService],
+		},
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: JwtInterceptor,

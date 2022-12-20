@@ -1,19 +1,18 @@
 export interface User {
 	_id: string;
+	userName: string;
 	email: string;
-	message: string;
 	isAuth: boolean;
-	token?: string;
-	refreshToken?: string;
+	token: string;
+	message: string;
 }
 
 export interface LoggedInUser {
 	_id: string;
+	userName: string;
 	email: string;
-	password?: string;
 	isAuth: boolean;
-	token?: string;
-	refreshToken: string;
+	token: string;
 	message: string;
 }
 

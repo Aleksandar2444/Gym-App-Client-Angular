@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 const { API_URL } = environment;
 
@@ -13,8 +13,12 @@ export class AuthService {
 		return this.http.post(`${API_URL}/auth/login`, { email, password });
 	}
 
-	registerUser(email: string, password: string) {
-		return this.http.post(`${API_URL}/auth/register`, { email, password });
+	registerUser(userName: string, email: string, password: string) {
+		return this.http.post(`${API_URL}/auth/register`, {
+			userName,
+			email,
+			password,
+		});
 	}
 
 	logoutUser() {

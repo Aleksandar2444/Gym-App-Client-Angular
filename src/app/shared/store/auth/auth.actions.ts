@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import {
 	LoggedInUser,
 	RegisterUserData,
+	User,
 } from '@@shared/store/auth/models/auth.user.models';
 
 // Login user action
@@ -13,7 +14,7 @@ export const loginRequest = createAction(
 // Login success action
 export const loginRequestSuccess = createAction(
 	'[Auth] Login User Success',
-	props<{ payload: LoggedInUser }>()
+	props<{ payload: User }>()
 );
 
 // Login error action
@@ -37,7 +38,7 @@ export const logoutError = createAction(
 // Register user action
 export const registerRequest = createAction(
 	'[Auth] Register Request',
-	props<{ payload: { email: string; password: string } }>()
+	props<{ payload: { userName: string; email: string; password: string } }>()
 );
 
 // Register user success action
@@ -50,22 +51,4 @@ export const registerRequestSuccess = createAction(
 export const registerError = createAction(
 	'[Auth] Register Error',
 	props<{ payload: any }>()
-);
-
-// Get user request action
-export const getUserRequest = createAction(
-	'[Auth] Get User',
-	props<{ payload: string }>()
-);
-
-// Get user request success action
-export const getUserSuccess = createAction(
-	'[Auth] Get User Success',
-	props<{ payload: LoggedInUser }>()
-);
-
-// Get user error action
-export const getUserError = createAction(
-	'[Auth] Get User Error',
-	props<{ payload: string }>()
 );

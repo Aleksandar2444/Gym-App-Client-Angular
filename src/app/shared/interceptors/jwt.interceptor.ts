@@ -6,12 +6,15 @@ import {
 	HttpInterceptor,
 	HttpClient,
 } from '@angular/common/http';
-import { catchError, Observable, switchMap, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-	t = '';
-	constructor(private readonly http: HttpClient) {}
+	constructor(
+		private readonly http: HttpClient,
+		private readonly store: Store
+	) {}
 
 	intercept(
 		request: HttpRequest<unknown>,
@@ -21,7 +24,6 @@ export class JwtInterceptor implements HttpInterceptor {
 		if (request.url.includes('login') || request.url.includes('signup')) {
 			return next.handle(request);
 		}
-		// const refreshToken = localStorage.getItem('refresh-token');
 		const token = localStorage.getItem('token');
 
 		// 2. Checking if user is logged in
