@@ -26,9 +26,15 @@
 			}
 
 			.signup__button {
-				color: rgb(0, 149, 246);
+				color: #0095f6;
 				cursor: pointer;
 				font-weight: 500;
+			}
+
+			p {
+				color: $dark-aqua;
+				cursor: pointer;
+				font-size: 13.5px;
 			}
 		}
 	}

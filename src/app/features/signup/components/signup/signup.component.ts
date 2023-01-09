@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { zxcvbn } from '@zxcvbn-ts/core';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '@@shared/store/auth/auth.actions';
+import { passwordValidator } from '@@shared/zxcvbnmValidator/zxcvbnmValidator';
 
 @Component({
 	selector: 'app-signup',
@@ -48,6 +49,7 @@ export class SignupComponent implements OnInit {
 				Validators.pattern(
 					/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
 				),
+				passwordValidator,
 			]),
 		});
 	}
@@ -62,7 +64,6 @@ export class SignupComponent implements OnInit {
 	onFormSubmit() {
 		this.isFormSubmitted = true;
 		if (this.signupForm.invalid) return;
-		zxcvbn(this.signupForm.controls.password.value);
 		const registerUserValues = { ...this.signupForm.value };
 		this.store.dispatch(registerRequest({ payload: registerUserValues }));
 		this.signupForm.reset();

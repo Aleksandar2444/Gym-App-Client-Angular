@@ -11,8 +11,15 @@ import {
 	registerError,
 	logoutRequest,
 	logoutError,
+	forgotPasswordRequest,
+	forgotPasswordSuccess,
+	forgotPasswordError,
+	resetPasswordRequest,
+	resetPasswordSuccess,
+	resetPasswordError,
 } from '@@shared/store/auth/auth.actions';
 import {
+	Password,
 	RegisterUserData,
 	User,
 } from '@@shared/store/auth/models/auth.user.models';
@@ -49,9 +56,9 @@ export class AuthEffects {
 							if (this.router.url.includes('login')) {
 								this.router.navigate(['home']);
 							}
-							localStorage.setItem(
-								'user',
-								JSON.stringify(action.payload)
+
+							this.authService.saveUserToLocalStorage(
+								action.payload
 							);
 						}),
 
@@ -96,7 +103,7 @@ export class AuthEffects {
 			this.actions$.pipe(
 				ofType(logoutRequest),
 				tap((action) => {
-					localStorage.removeItem('user');
+					this.authService.removeUserFromLocalStorage();
 
 					return this.authService.logoutUser();
 				}),
@@ -106,6 +113,65 @@ export class AuthEffects {
 				})
 			),
 		{ dispatch: false }
+	);
+
+	forgotPassword$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(forgotPasswordRequest),
+			switchMap((action) => {
+				return this.authService
+					.forgotPassword(action.payload.email)
+					.pipe(
+						map((email) => {
+							const userEmail = {
+								...email,
+							};
+
+							return forgotPasswordSuccess({
+								payload: userEmail,
+							});
+						}),
+						catchError((error) => {
+							this.notificationService.showError(
+								'Email does not exist'
+							);
+							return of(
+								forgotPasswordError({ payload: error.message })
+							);
+						})
+					);
+			})
+		)
+	);
+
+	resetPassword$ = createEffect(() =>
+		this.actions$.pipe(
+			ofType(resetPasswordRequest),
+			switchMap((action) => {
+				return this.authService
+					.resetPassword(
+						action.payload.token,
+						action.payload.password
+					)
+					.pipe(
+						map((userPw) => {
+							const userPasswordApi: Password = {
+								...(userPw as Password),
+							};
+
+							return resetPasswordSuccess({
+								payload: userPasswordApi,
+							});
+						}),
+						catchError((error) => {
+							this.notificationService.showError(
+								'Something went wrong, try again.'
+							);
+							return of(resetPasswordError({ payload: error }));
+						})
+					);
+			})
+		)
 	);
 
 	loginSuccessMessage$ = createEffect(

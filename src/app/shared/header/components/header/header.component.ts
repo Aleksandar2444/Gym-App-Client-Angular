@@ -11,7 +11,7 @@ import { selectToken } from '@@shared/store/auth/auth.selectors';
 export class HeaderComponent implements OnInit {
 	@Output() sidenavToggle = new EventEmitter<void>();
 
-	isTokenValid$ = this.store.select(selectToken);
+	isLoggedIn$ = this.store.select(selectToken);
 
 	constructor(private readonly store: Store) {}
 

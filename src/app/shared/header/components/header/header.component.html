@@ -7,7 +7,7 @@
 	<div><a routerLink="/home">Logo</a></div>
 	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
 		<ul fxLayout fxLayoutGap="10px">
-			<ng-container *ngIf="isTokenValid$ | async">
+			<ng-container *ngIf="isLoggedIn$ | async">
 				<li><a routerLink="/home">Home</a></li>
 				<li>
 					<a routerLink="/training">Training</a>
@@ -16,7 +16,7 @@
 					<a (click)="onLogout()">Logout</a>
 				</li>
 			</ng-container>
-			<ng-container *ngIf="!(isTokenValid$ | async)">
+			<ng-container *ngIf="!(isLoggedIn$ | async)">
 				<li>
 					<a routerLink="/auth/signup">Signup</a>
 				</li>

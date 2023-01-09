@@ -17,7 +17,12 @@ export interface LoggedInUser {
 }
 
 export interface RegisterUserData {
+	userName: string;
 	email: string;
 	password: string;
 	message: string;
+}
+
+export interface Password {
+	password: string;
 }

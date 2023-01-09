@@ -19,6 +19,20 @@ const routes: Routes = [
 			),
 	},
 	{
+		path: 'auth/forgot-password',
+		loadChildren: () =>
+			import('./features/reset-password/reset-password.module').then(
+				(module) => module.ResetPasswordModule
+			),
+	},
+	{
+		path: 'auth/reset-password/:token',
+		loadChildren: () =>
+			import('./features/confirm-password/confirm-password.module').then(
+				(module) => module.ConfirmPasswordModule
+			),
+	},
+	{
 		path: 'home',
 		loadChildren: () =>
 			import('./features/home/home.module').then(
@@ -38,7 +52,12 @@ const routes: Routes = [
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, RouterModule.forRoot(routes)],
+	imports: [
+		CommonModule,
+		RouterModule.forRoot(routes, {
+			initialNavigation: 'enabledBlocking',
+		}),
+	],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}
