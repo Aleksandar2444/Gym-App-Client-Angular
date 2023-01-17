@@ -30,7 +30,7 @@ export class AuthService {
 	}
 
 	logoutUser() {
-		return this.http.post(this.logoutUserURL, {});
+		return this.http.post(`${this.logoutUserURL}`, {});
 	}
 
 	findUserById(userId: string) {
@@ -43,11 +43,14 @@ export class AuthService {
 		});
 	}
 
-	resetPassword(token: string, password: string) {
-		return this.http.post(`${this.resetPasswordURL}`, {
-			password,
-			token,
-		});
+	resetPassword(resetPasswordToken: string, password: string) {
+		return this.http.post(
+			`${this.resetPasswordURL}/${resetPasswordToken}`,
+			{
+				password,
+				resetPasswordToken,
+			}
+		);
 	}
 
 	saveUserToLocalStorage(user: User) {

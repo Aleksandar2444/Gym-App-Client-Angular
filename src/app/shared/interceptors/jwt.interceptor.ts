@@ -24,7 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
 		if (request.url.includes('login') || request.url.includes('signup')) {
 			return next.handle(request);
 		}
-		const token = localStorage.getItem('token');
+		const token = localStorage.getItem('userLoggedInToken');
 
 		// 2. Checking if user is logged in
 		if (!token) return next.handle(request);

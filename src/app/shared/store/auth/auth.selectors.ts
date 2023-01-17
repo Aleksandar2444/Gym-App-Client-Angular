@@ -13,5 +13,5 @@ export const selectUser = createSelector(selectAuthState, (state) => {
 });
 
 export const selectToken = createSelector(selectAuthState, (state) => {
-	return state.user?.token;
+	return state.user?.userLoggedInToken;
 });

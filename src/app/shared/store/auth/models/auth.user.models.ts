@@ -3,7 +3,7 @@ export interface User {
 	userName: string;
 	email: string;
 	isAuth: boolean;
-	token: string;
+	userLoggedInToken: string;
 	message: string;
 }
 
@@ -12,7 +12,7 @@ export interface LoggedInUser {
 	userName: string;
 	email: string;
 	isAuth: boolean;
-	token: string;
+	userLoggedInToken: string;
 	message: string;
 }
 

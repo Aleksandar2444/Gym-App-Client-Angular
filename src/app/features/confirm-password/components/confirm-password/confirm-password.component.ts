@@ -64,7 +64,7 @@ export class ConfirmPasswordComponent {
 		this.isFormSubmitted = true;
 		if (this.confirmPasswordForm.invalid) return;
 		//* taking the token from the url
-		const resetToken = this.route.snapshot.params.token;
+		const resetToken = this.route.snapshot.params.resetPasswordToken;
 
 		const resetPasswordValues = this.confirmPasswordForm.value;
 
@@ -72,7 +72,7 @@ export class ConfirmPasswordComponent {
 			resetPasswordRequest({
 				payload: {
 					password: resetPasswordValues,
-					token: resetToken,
+					resetPasswordToken: resetToken,
 				},
 			})
 		);

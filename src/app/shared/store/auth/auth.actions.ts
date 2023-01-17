@@ -74,7 +74,7 @@ export const forgotPasswordError = createAction(
 // Reset password action
 export const resetPasswordRequest = createAction(
 	'[Auth] Reset Password Request',
-	props<{ payload: { token: string; password: string } }>()
+	props<{ payload: { resetPasswordToken: string; password: string } }>()
 );
 
 // Reset password action

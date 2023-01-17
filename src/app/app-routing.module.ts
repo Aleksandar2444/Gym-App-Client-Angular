@@ -26,7 +26,7 @@ const routes: Routes = [
 			),
 	},
 	{
-		path: 'auth/reset-password/:token',
+		path: 'auth/reset-password/:resetPasswordToken',
 		loadChildren: () =>
 			import('./features/confirm-password/confirm-password.module').then(
 				(module) => module.ConfirmPasswordModule

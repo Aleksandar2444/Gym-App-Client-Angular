@@ -150,7 +150,7 @@ export class AuthEffects {
 			switchMap((action) => {
 				return this.authService
 					.resetPassword(
-						action.payload.token,
+						action.payload.resetPasswordToken,
 						action.payload.password
 					)
 					.pipe(

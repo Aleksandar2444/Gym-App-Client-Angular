@@ -1,5 +1,4 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +28,6 @@ import { BaseComponent } from './shared/base-component/base/base.component';
 @NgModule({
 	declarations: [AppComponent, SpinnerComponent, BaseComponent],
 	imports: [
-		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		BrowserAnimationsModule,
 		MaterialModule,
 		FlexLayoutModule,

@@ -34,7 +34,7 @@ export class StorageService {
 		const user = this.getUserFromStorage();
 
 		if (user) {
-			const decodedToken: any = jwt_decode(user.token);
+			const decodedToken: any = jwt_decode(user.userLoggedInToken);
 
 			const expirationDate = new Date(
 				JSON.parse(decodedToken.exp) * 1000
