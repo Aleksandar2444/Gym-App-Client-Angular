@@ -5,6 +5,7 @@ import { HeaderRoutingModule } from './header-routing.module';
 import { HeaderComponent } from '@@shared/header/components/header/header.component';
 import { MaterialModule } from '@@shared/material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { LogoutUserService } from '@@shared/services/logout-user.service';
 
 @NgModule({
 	declarations: [HeaderComponent],
@@ -14,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 		MaterialModule,
 		FlexLayoutModule,
 	],
+	providers: [LogoutUserService],
 	exports: [HeaderComponent],
 })
 export class HeaderModule {}

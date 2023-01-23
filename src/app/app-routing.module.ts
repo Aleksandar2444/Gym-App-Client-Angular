@@ -21,15 +21,15 @@ const routes: Routes = [
 	{
 		path: 'auth/forgot-password',
 		loadChildren: () =>
-			import('./features/reset-password/reset-password.module').then(
-				(module) => module.ResetPasswordModule
+			import('./features/forgot-password/forgot-password.module').then(
+				(module) => module.ForgotPasswordModule
 			),
 	},
 	{
 		path: 'auth/reset-password/:resetPasswordToken',
 		loadChildren: () =>
-			import('./features/confirm-password/confirm-password.module').then(
-				(module) => module.ConfirmPasswordModule
+			import('./features/reset-password/reset-password.module').then(
+				(module) => module.ResetPasswordModule
 			),
 	},
 	{

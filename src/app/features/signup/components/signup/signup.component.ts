@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { zxcvbn } from '@zxcvbn-ts/core';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '@@shared/store/auth/auth.actions';
-import { passwordValidator } from '@@shared/zxcvbnmValidator/zxcvbnmValidator';
+import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 
 @Component({
 	selector: 'app-signup',
@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
 				Validators.pattern(
 					/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
 				),
-				passwordValidator,
+				zxcvbnValidator(1),
 			]),
 		});
 	}
@@ -57,6 +57,8 @@ export class SignupComponent implements OnInit {
 	//* Checking on input typing value
 	change(event: any) {
 		let passwordScore = zxcvbn(event.target.value);
+		console.log(passwordScore);
+
 		let score = String(passwordScore.score);
 		this.passwordMeter = this.scores[score];
 	}

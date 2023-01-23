@@ -7,10 +7,6 @@ import {
 	registerRequestSuccess,
 	registerError,
 	logoutRequest,
-	forgotPasswordRequest,
-	forgotPasswordSuccess,
-	resetPasswordRequest,
-	resetPasswordSuccess,
 } from './auth.actions';
 import {
 	initialState,
@@ -55,24 +51,5 @@ export const authReducer = createReducer(
 		error: payload,
 		status: AuthStatus.ERROR,
 		message: payload,
-	})),
-	on(forgotPasswordRequest, (state) => ({
-		...state,
-		status: AuthStatus.LOADING,
-	})),
-	on(forgotPasswordSuccess, (state, { payload }) => ({
-		...state,
-		error: null,
-		status: AuthStatus.SUCCESS,
-		message: payload.message,
-	})),
-	on(resetPasswordRequest, (state) => ({
-		...state,
-		status: AuthStatus.LOADING,
-	})),
-	on(resetPasswordSuccess, (state, { payload }) => ({
-		...state,
-		error: null,
-		status: AuthStatus.SUCCESS,
 	}))
 );

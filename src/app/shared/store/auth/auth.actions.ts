@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
 import {
-	Password,
 	RegisterUserData,
 	User,
 } from '@@shared/store/auth/models/auth.user.models';
@@ -50,41 +49,5 @@ export const registerRequestSuccess = createAction(
 // Register error action
 export const registerError = createAction(
 	'[Auth] Register Error',
-	props<{ payload: any }>()
-);
-
-// Forgot password action
-export const forgotPasswordRequest = createAction(
-	'[Auth] Forgot Password Request',
-	props<{ payload: { email: string } }>()
-);
-
-// Forgot password action
-export const forgotPasswordSuccess = createAction(
-	'[Auth] Forgot Password Success',
-	props<{ payload: any }>()
-);
-
-// Forgot password error action
-export const forgotPasswordError = createAction(
-	'[Auth] Forgot Password Error',
-	props<{ payload: any }>()
-);
-
-// Reset password action
-export const resetPasswordRequest = createAction(
-	'[Auth] Reset Password Request',
-	props<{ payload: { resetPasswordToken: string; password: string } }>()
-);
-
-// Reset password action
-export const resetPasswordSuccess = createAction(
-	'[Auth] Reset Password Success',
-	props<{ payload: Password }>()
-);
-
-// Reset password error action
-export const resetPasswordError = createAction(
-	'[Auth] Reset Password Error',
 	props<{ payload: any }>()
 );

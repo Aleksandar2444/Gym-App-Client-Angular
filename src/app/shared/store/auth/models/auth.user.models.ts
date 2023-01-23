@@ -23,6 +23,7 @@ export interface RegisterUserData {
 	message: string;
 }
 
-export interface Password {
+export interface ResetPassword {
+	resetPasswordToken: string;
 	password: string;
 }

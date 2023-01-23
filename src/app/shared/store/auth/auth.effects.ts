@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '@@shared/services/auth.service';
+import { RegisterUserService } from '@@shared/services/register-user.service';
+import { LogoutUserService } from '@@shared/services/logout-user.service';
+import { NotificationService } from '@@shared/services/notification.service';
+import { Router } from '@angular/router';
 import {
 	loginRequest,
 	loginRequestSuccess,
@@ -11,26 +15,19 @@ import {
 	registerError,
 	logoutRequest,
 	logoutError,
-	forgotPasswordRequest,
-	forgotPasswordSuccess,
-	forgotPasswordError,
-	resetPasswordRequest,
-	resetPasswordSuccess,
-	resetPasswordError,
 } from '@@shared/store/auth/auth.actions';
 import {
-	Password,
 	RegisterUserData,
 	User,
 } from '@@shared/store/auth/models/auth.user.models';
-import { NotificationService } from '@@shared/services/notification.service';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
 	constructor(
 		private readonly actions$: Actions,
 		private readonly authService: AuthService,
+		private readonly registerUserService: RegisterUserService,
+		private readonly logoutUserService: LogoutUserService,
 		private readonly notificationService: NotificationService,
 		private readonly router: Router
 	) {}
@@ -74,7 +71,7 @@ export class AuthEffects {
 		this.actions$.pipe(
 			ofType(registerRequest),
 			switchMap((action) => {
-				return this.authService
+				return this.registerUserService
 					.registerUser(
 						action.payload.userName,
 						action.payload.email,
@@ -105,7 +102,7 @@ export class AuthEffects {
 				tap((action) => {
 					this.authService.removeUserFromLocalStorage();
 
-					return this.authService.logoutUser();
+					return this.logoutUserService.logoutUser();
 				}),
 				catchError((error) => {
 					this.notificationService.showError('Something went wrong.');
@@ -113,65 +110,6 @@ export class AuthEffects {
 				})
 			),
 		{ dispatch: false }
-	);
-
-	forgotPassword$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(forgotPasswordRequest),
-			switchMap((action) => {
-				return this.authService
-					.forgotPassword(action.payload.email)
-					.pipe(
-						map((email) => {
-							const userEmail = {
-								...email,
-							};
-
-							return forgotPasswordSuccess({
-								payload: userEmail,
-							});
-						}),
-						catchError((error) => {
-							this.notificationService.showError(
-								'Email does not exist'
-							);
-							return of(
-								forgotPasswordError({ payload: error.message })
-							);
-						})
-					);
-			})
-		)
-	);
-
-	resetPassword$ = createEffect(() =>
-		this.actions$.pipe(
-			ofType(resetPasswordRequest),
-			switchMap((action) => {
-				return this.authService
-					.resetPassword(
-						action.payload.resetPasswordToken,
-						action.payload.password
-					)
-					.pipe(
-						map((userPw) => {
-							const userPasswordApi: Password = {
-								...(userPw as Password),
-							};
-
-							return resetPasswordSuccess({
-								payload: userPasswordApi,
-							});
-						}),
-						catchError((error) => {
-							this.notificationService.showError(
-								'Something went wrong, try again.'
-							);
-							return of(resetPasswordError({ payload: error }));
-						})
-					);
-			})
-		)
 	);
 
 	loginSuccessMessage$ = createEffect(

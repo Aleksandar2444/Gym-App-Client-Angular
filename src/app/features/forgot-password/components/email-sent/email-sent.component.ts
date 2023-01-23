@@ -6,8 +6,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 	styleUrls: ['./email-sent.component.scss'],
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EmailSentComponent {
-	constructor() {}
-
-	ngOnInit() {}
-}
+export class EmailSentComponent {}
