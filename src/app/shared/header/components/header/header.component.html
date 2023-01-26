@@ -4,9 +4,30 @@
 			<mat-icon>menu</mat-icon>
 		</button>
 	</div>
-	<div><a routerLink="/home">Logo</a></div>
+	<!-- Mobile Version -->
+	<div
+		*ngIf="isLoggedIn$ | async"
+		fxFlex
+		fxLayout
+		fxLayoutAlign="space-evenly"
+		fxHide.gt-xs
+	>
+		<button mat-icon-button>
+			<a routerLink="/home"><mat-icon>home</mat-icon></a>
+		</button>
+		<button mat-icon-button>
+			<a routerLink="#"><mat-icon>search</mat-icon></a>
+		</button>
+		<button mat-icon-button>
+			<a routerLink="#"><mat-icon>notifications</mat-icon></a>
+		</button>
+		<button mat-icon-button>
+			<a routerLink="#"><mat-icon>message</mat-icon></a>
+		</button>
+	</div>
+	<!-- Desktop Version -->
 	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-		<ul fxLayout fxLayoutGap="10px" fxLayoutAlign="center center">
+		<ul fxLayout fxLayoutGap="8px" fxLayoutAlign="center center">
 			<ng-container
 				*ngIf="
 					isLoggedIn$ | async;
@@ -15,8 +36,66 @@
 				"
 			></ng-container>
 			<ng-template #accessAllowed>
-				<!-- Home -->
-				<li><a routerLink="/home">Home</a></li>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="/home"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>home</mat-icon
+						><span class="header__caption">Home</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>search</mat-icon
+						><span class="header__caption">Search</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>explore</mat-icon
+						><span class="header__caption">Explore</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="/training"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>fitness_center</mat-icon
+						><span class="header__caption">Training</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>notifications</mat-icon
+						><span class="header__caption">Notifications</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>messages</mat-icon
+						><span class="header__caption">Messages</span></a
+					>
+				</div>
 				<!-- Person Pin -->
 				<button
 					mat-icon-button
@@ -30,11 +109,6 @@
 					<button mat-menu-item>
 						<mat-icon>face</mat-icon><span>Profile</span>
 					</button>
-					<!-- Training -->
-					<button mat-menu-item>
-						<mat-icon>fitness_center</mat-icon
-						><span><a routerLink="/training">Training</a></span>
-					</button>
 					<!-- logout -->
 					<button mat-menu-item (click)="onLogout()">
 						<mat-icon>power_settings_new</mat-icon
@@ -44,12 +118,26 @@
 			</ng-template>
 
 			<ng-template #accessDenied>
-				<li>
-					<a routerLink="/auth/signup">Signup</a>
-				</li>
-				<li>
-					<a routerLink="/auth/login">Login</a>
-				</li>
+				<div class="link__caption__denied">
+					<a
+						routerLink="/auth/signup"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>face</mat-icon
+						><span class="header__caption">Signup</span></a
+					>
+				</div>
+				<div class="link__caption__denied">
+					<a
+						routerLink="/auth/login"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>input</mat-icon
+						><span class="header__caption">Login</span></a
+					>
+				</div>
 			</ng-template>
 		</ul>
 	</div>
