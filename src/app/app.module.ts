@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,11 +21,13 @@ import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { SpinnerComponent } from '@@shared/spinner/spinner/spinner.component';
 import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
+import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
+import { StorageService } from '@@shared/services/storage.service';
+import { BaseComponent } from './shared/base-component/base/base.component';
 
 @NgModule({
-	declarations: [AppComponent, SpinnerComponent],
+	declarations: [AppComponent, SpinnerComponent, BaseComponent],
 	imports: [
-		BrowserModule,
 		BrowserAnimationsModule,
 		MaterialModule,
 		FlexLayoutModule,
@@ -42,6 +43,8 @@ import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
 		ToastrModule.forRoot({
 			positionClass: 'toast-top-center',
 			timeOut: 2000,
+			progressBar: true,
+			tapToDismiss: true,
 		}),
 		StoreModule.forRoot({ auth: authReducer }),
 		EffectsModule.forRoot([AuthEffects]),
@@ -50,6 +53,21 @@ import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
 			: [],
 	],
 	providers: [
+		{
+			provide: APP_INITIALIZER,
+			useFactory: (storage: StorageService) => {
+				return () => {
+					storage.getUserFromStorage();
+				};
+			},
+			multi: true,
+			deps: [StorageService],
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: JwtInterceptor,
+			multi: true,
+		},
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: SpinnerInterceptor,

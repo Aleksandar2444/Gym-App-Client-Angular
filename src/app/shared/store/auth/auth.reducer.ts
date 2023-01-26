@@ -1,9 +1,4 @@
-import {
-	createFeatureSelector,
-	createReducer,
-	createSelector,
-	on,
-} from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import {
 	loginRequest,
 	loginRequestSuccess,
@@ -16,7 +11,6 @@ import {
 import {
 	initialState,
 	AuthStatus,
-	AuthState,
 } from '@@shared/store/auth/models/auth.store.models';
 
 export const authReducer = createReducer(
@@ -24,7 +18,6 @@ export const authReducer = createReducer(
 	on(loginRequest, (state) => ({ ...state, status: AuthStatus.LOADING })),
 	on(loginRequestSuccess, (state, { payload }) => ({
 		...state,
-		refreshToken: payload.refreshToken,
 		error: null,
 		user: payload,
 		status: AuthStatus.SUCCESS,
@@ -33,7 +26,6 @@ export const authReducer = createReducer(
 	})),
 	on(loginError, (state, { payload }) => ({
 		...state,
-		refreshToken: null,
 		user: null,
 		error: payload,
 		status: AuthStatus.ERROR,
@@ -61,10 +53,3 @@ export const authReducer = createReducer(
 		message: payload,
 	}))
 );
-
-// ('auth') key defined in app.module
-export const selectAuthState = createFeatureSelector<AuthState>('auth');
-
-export const selectUser = createSelector(selectAuthState, (state) => {
-	return state.user?.isAuth;
-});

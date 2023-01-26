@@ -1,15 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from '@@shared/guards/auth.guard';
 
 const routes: Routes = [
-	{
-		path: 'home',
-		loadChildren: () =>
-			import('./features/home/home.module').then(
-				(module) => module.HomeModule
-			),
-	},
 	{
 		path: 'auth/login',
 		loadChildren: () =>
@@ -17,7 +11,6 @@ const routes: Routes = [
 				(module) => module.LoginModule
 			),
 	},
-
 	{
 		path: 'auth/signup',
 		loadChildren: () =>
@@ -26,17 +19,45 @@ const routes: Routes = [
 			),
 	},
 	{
+		path: 'auth/forgot-password',
+		loadChildren: () =>
+			import('./features/forgot-password/forgot-password.module').then(
+				(module) => module.ForgotPasswordModule
+			),
+	},
+	{
+		path: 'auth/reset-password/:resetPasswordToken',
+		loadChildren: () =>
+			import('./features/reset-password/reset-password.module').then(
+				(module) => module.ResetPasswordModule
+			),
+	},
+	{
+		path: 'home',
+		loadChildren: () =>
+			import('./features/home/home.module').then(
+				(module) => module.HomeModule
+			),
+		canActivate: [AuthGuard],
+	},
+	{
 		path: 'training',
 		loadChildren: () =>
 			import('./features/training/training.module').then(
 				(module) => module.TrainingModule
 			),
+		canActivate: [AuthGuard],
 	},
 ];
 
 @NgModule({
 	declarations: [],
-	imports: [CommonModule, RouterModule.forRoot(routes)],
+	imports: [
+		CommonModule,
+		RouterModule.forRoot(routes, {
+			initialNavigation: 'enabledBlocking',
+		}),
+	],
 	exports: [RouterModule],
 })
 export class AppRoutingModule {}

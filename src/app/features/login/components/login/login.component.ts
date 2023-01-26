@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-
 import { Store } from '@ngrx/store';
 import { loginRequest } from '@@shared/store/auth/auth.actions';
 
@@ -15,10 +13,7 @@ export class LoginComponent implements OnInit {
 	loginForm: FormGroup;
 	isFormSubmitted = false;
 
-	constructor(
-		private readonly router: Router,
-		private readonly store: Store
-	) {}
+	constructor(private readonly store: Store) {}
 
 	ngOnInit() {
 		this.initForm();
@@ -39,7 +34,6 @@ export class LoginComponent implements OnInit {
 		if (this.loginForm.invalid) return;
 		const loginUserValues = { ...this.loginForm.value };
 		this.store.dispatch(loginRequest({ payload: loginUserValues }));
-		this.router.navigate(['home']);
 		this.loginForm.reset();
 	}
 }

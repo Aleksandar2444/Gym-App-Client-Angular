@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectUser } from '@@shared/store/auth/auth.reducer';
 import { logoutRequest } from '@@shared/store/auth/auth.actions';
+import { selectToken } from '@@shared/store/auth/auth.selectors';
 
 @Component({
 	selector: 'app-header',
@@ -12,16 +11,11 @@ import { logoutRequest } from '@@shared/store/auth/auth.actions';
 export class HeaderComponent implements OnInit {
 	@Output() sidenavToggle = new EventEmitter<void>();
 
-	isAuth$ = this.store.select(selectUser);
+	isLoggedIn$ = this.store.select(selectToken);
 
-	constructor(
-		private readonly router: Router,
-		private readonly store: Store
-	) {}
+	constructor(private readonly store: Store) {}
 
-	ngOnInit(): void {
-		this.router.navigate(['auth', 'login']);
-	}
+	ngOnInit(): void {}
 
 	onToggleSidenav() {
 		this.sidenavToggle.emit();
@@ -29,6 +23,5 @@ export class HeaderComponent implements OnInit {
 
 	onLogout() {
 		this.store.dispatch(logoutRequest({ payload: null }));
-		this.router.navigate(['auth', 'login']);
 	}
 }

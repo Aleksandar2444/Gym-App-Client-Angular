@@ -24,6 +24,18 @@
 			mat-form-field {
 				width: 300px;
 			}
+
+			.signup__button {
+				color: #0095f6;
+				cursor: pointer;
+				font-weight: 500;
+			}
+
+			p {
+				color: $dark-aqua;
+				cursor: pointer;
+				font-size: 14px;
+			}
 		}
 	}
 }

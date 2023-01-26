@@ -1,24 +1,26 @@
+import { User } from '@@shared/store/auth/models/auth.user.models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { environment } from 'src/environments/environment.prod';
-import { LoggedInUser } from '@@shared/store/auth/models/auth.user.models';
+import { environment } from 'src/environments/environment';
 
 const { API_URL } = environment;
 
 @Injectable()
 export class AuthService {
+	private readonly loginUserURL = `${API_URL}/auth/login`;
+
 	constructor(private readonly http: HttpClient) {}
 
 	loginUser(email: string, password: string) {
-		return this.http.post(`${API_URL}/auth/login`, { email, password });
+		return this.http.post(this.loginUserURL, { email, password });
 	}
 
-	registerUser(email: string, password: string) {
-		return this.http.post(`${API_URL}/auth/register`, { email, password });
+	saveUserToLocalStorage(user: User) {
+		localStorage.setItem('user', JSON.stringify(user));
 	}
 
-	logoutUser(user: LoggedInUser) {
-		return this.http.post(`${API_URL}/auth/logout`, { user });
+	removeUserFromLocalStorage() {
+		localStorage.removeItem('user');
 	}
 }

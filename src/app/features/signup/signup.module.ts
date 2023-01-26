@@ -6,8 +6,8 @@ import { SignupComponent } from '@@features/signup/components/signup/signup.comp
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@@shared/material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { AuthService } from '@@shared/services/auth.service';
 import { NotificationService } from '@@shared/services/notification.service';
+import { RegisterUserService } from '@@shared/services/register-user.service';
 
 @NgModule({
 	declarations: [SignupComponent],
@@ -18,7 +18,7 @@ import { NotificationService } from '@@shared/services/notification.service';
 		MaterialModule,
 		FlexLayoutModule,
 	],
-	providers: [AuthService, NotificationService],
+	providers: [RegisterUserService, NotificationService],
 	exports: [SignupComponent],
 })
 export class SignupModule {}

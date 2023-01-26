@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { zxcvbn } from '@zxcvbn-ts/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '@@shared/store/auth/auth.actions';
+import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 
 @Component({
 	selector: 'app-signup',
@@ -23,10 +23,7 @@ export class SignupComponent implements OnInit {
 		'4': '100',
 	};
 
-	constructor(
-		private readonly router: Router,
-		private readonly store: Store
-	) {}
+	constructor(private readonly store: Store) {}
 
 	ngOnInit(): void {
 		this.initForm();
@@ -38,6 +35,10 @@ export class SignupComponent implements OnInit {
 
 	initForm() {
 		this.signupForm = new FormGroup({
+			userName: new FormControl<string>('', [
+				Validators.required,
+				Validators.minLength(4),
+			]),
 			email: new FormControl<string>('', [
 				Validators.required,
 				Validators.email,
@@ -48,6 +49,7 @@ export class SignupComponent implements OnInit {
 				Validators.pattern(
 					/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
 				),
+				zxcvbnValidator(1),
 			]),
 		});
 	}
@@ -55,6 +57,8 @@ export class SignupComponent implements OnInit {
 	//* Checking on input typing value
 	change(event: any) {
 		let passwordScore = zxcvbn(event.target.value);
+		console.log(passwordScore);
+
 		let score = String(passwordScore.score);
 		this.passwordMeter = this.scores[score];
 	}
@@ -62,10 +66,8 @@ export class SignupComponent implements OnInit {
 	onFormSubmit() {
 		this.isFormSubmitted = true;
 		if (this.signupForm.invalid) return;
-		zxcvbn(this.signupForm.controls.password.value);
 		const registerUserValues = { ...this.signupForm.value };
 		this.store.dispatch(registerRequest({ payload: registerUserValues }));
-		this.router.navigate(['auth', 'login']);
 		this.signupForm.reset();
 	}
 }

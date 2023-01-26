@@ -10,6 +10,17 @@
 		>
 			<mat-form-field>
 				<input
+					formControlName="userName"
+					type="text"
+					matInput
+					placeholder="Your username"
+				/>
+				<mat-error *ngIf="signupForm.controls.userName.invalid"
+					>Invalid Username</mat-error
+				>
+			</mat-form-field>
+			<mat-form-field>
+				<input
 					formControlName="email"
 					type="text"
 					matInput
@@ -42,12 +53,7 @@
 				[passwordComponent]="passwordComponentWithValidation"
 			>
 			</mat-password-strength-info>
-			<button
-				type="submit"
-				mat-raised-button
-				color="accent"
-				[disabled]="signupForm.invalid"
-			>
+			<button type="submit" mat-raised-button color="accent">
 				Submit
 			</button>
 		</form>

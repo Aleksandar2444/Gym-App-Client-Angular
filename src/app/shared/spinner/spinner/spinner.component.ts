@@ -8,9 +8,7 @@ import { SpinnerService } from '@@shared/services/spinner.service';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpinnerComponent implements OnInit {
-	get spinner$() {
-		return this.spinnerService.spinner$;
-	}
+	spinner$ = this.spinnerService.spinner$;
 
 	constructor(private readonly spinnerService: SpinnerService) {}
 
