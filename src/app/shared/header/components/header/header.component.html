@@ -6,7 +6,7 @@
 	</div>
 	<div><a routerLink="/home">Logo</a></div>
 	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-		<ul fxLayout fxLayoutGap="10px">
+		<ul fxLayout fxLayoutGap="10px" fxLayoutAlign="center center">
 			<ng-container
 				*ngIf="
 					isLoggedIn$ | async;
@@ -15,13 +15,32 @@
 				"
 			></ng-container>
 			<ng-template #accessAllowed>
+				<!-- Home -->
 				<li><a routerLink="/home">Home</a></li>
-				<li>
-					<a routerLink="/training">Training</a>
-				</li>
-				<li>
-					<a (click)="onLogout()">Logout</a>
-				</li>
+				<!-- Person Pin -->
+				<button
+					mat-icon-button
+					[matMenuTriggerFor]="menu"
+					aria-label="Example icon-button with a menu"
+				>
+					<mat-icon>person_pin</mat-icon>
+				</button>
+				<mat-menu #menu="matMenu" class="custom-class">
+					<!-- Profile -->
+					<button mat-menu-item>
+						<mat-icon>face</mat-icon><span>Profile</span>
+					</button>
+					<!-- Training -->
+					<button mat-menu-item>
+						<mat-icon>fitness_center</mat-icon
+						><span><a routerLink="/training">Training</a></span>
+					</button>
+					<!-- logout -->
+					<button mat-menu-item (click)="onLogout()">
+						<mat-icon>power_settings_new</mat-icon
+						><span>Logout</span>
+					</button>
+				</mat-menu>
 			</ng-template>
 
 			<ng-template #accessDenied>

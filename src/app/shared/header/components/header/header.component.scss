@@ -13,21 +13,15 @@
 		text-decoration: none;
 		color: $yellow;
 	}
+
 	ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		a {
-			text-decoration: none;
-			color: $yellow;
-		}
-		a:hover,
-		a:active {
-			color: $light-yellow;
-		}
-
-		li:last-child {
-			cursor: pointer;
-		}
 	}
+}
+
+::ng-deep .custom-class button a {
+	text-decoration: none;
+	color: #000000de;
 }
