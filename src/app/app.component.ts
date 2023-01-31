@@ -4,7 +4,7 @@ import { selectUser } from '@@shared/store/auth/auth.selectors';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs';
+import { takeWhile } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
@@ -23,7 +23,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.user$.pipe(takeUntil(this.unsubscribe$)).subscribe((value) => {
+		this.user$.pipe(takeWhile(() => !this.destroy)).subscribe((value) => {
 			if (!value) {
 				this.router.navigate(['auth', 'login']);
 			}

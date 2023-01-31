@@ -53,7 +53,12 @@
 				[passwordComponent]="passwordComponentWithValidation"
 			>
 			</mat-password-strength-info>
-			<button type="submit" mat-raised-button color="accent">
+			<button
+				type="submit"
+				mat-raised-button
+				color="accent"
+				[disabled]="signupForm.invalid"
+			>
 				Submit
 			</button>
 		</form>

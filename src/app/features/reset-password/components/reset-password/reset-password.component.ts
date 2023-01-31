@@ -3,12 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 import { ResetPasswordService } from '@@features/reset-password/services/reset-password.service';
-import { BehaviorSubject, map, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { ResetPassword } from '@@shared/store/auth/models/auth.user.models';
 import { NotificationService } from '@@shared/services/notification.service';
-import { selectUserEmail } from '@@shared/store/auth/auth.selectors';
-import { Store } from '@ngrx/store';
+
 import { BaseComponent } from '@@shared/base-component/base/base.component';
+import { ResetPasswordForm } from '@@features/reset-password/models/model';
 
 @Component({
 	selector: 'app-reset-password',
@@ -17,10 +17,10 @@ import { BaseComponent } from '@@shared/base-component/base/base.component';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent extends BaseComponent implements OnInit {
-	userEmail$ = this.store.select(selectUserEmail);
 	currentResetPassword$ = new BehaviorSubject<ResetPassword | null>(null);
 
-	resetPasswordForm: FormGroup;
+	resetPasswordForm: FormGroup<ResetPasswordForm>;
+
 	showDetails: boolean;
 	isFormSubmitted = false;
 	passwordMeter = '1';
@@ -36,8 +36,7 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 		private readonly router: Router,
 		private readonly route: ActivatedRoute,
 		private readonly resetPasswordService: ResetPasswordService,
-		private readonly notificationService: NotificationService,
-		private readonly store: Store
+		private readonly notificationService: NotificationService
 	) {
 		super();
 	}
@@ -51,23 +50,29 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 	}
 
 	initForm() {
-		this.resetPasswordForm = new FormGroup(
+		this.resetPasswordForm = new FormGroup<ResetPasswordForm>(
 			{
-				password: new FormControl<string>('', [
-					Validators.required,
-					Validators.minLength(8),
-					Validators.pattern(
-						/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
-					),
-					zxcvbnValidator(1),
-				]),
-				confirmPassword: new FormControl<string>('', [
-					Validators.required,
-					Validators.minLength(8),
-					Validators.pattern(
-						/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
-					),
-				]),
+				password: new FormControl<string>('', {
+					validators: [
+						Validators.required,
+						Validators.minLength(8),
+						Validators.pattern(
+							/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
+						),
+						zxcvbnValidator(1),
+					],
+					nonNullable: true,
+				}),
+				confirmPassword: new FormControl<string>('', {
+					validators: [
+						Validators.required,
+						Validators.minLength(8),
+						Validators.pattern(
+							/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
+						),
+					],
+					nonNullable: true,
+				}),
 			},
 			this.confirmPasswordValidator
 		);
@@ -90,7 +95,9 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 		//* taking the token from the url
 		const resetToken = this.route.snapshot.params.resetPasswordToken;
 
-		const resetPasswordValues = this.resetPasswordForm.value;
+		const resetPasswordValues = this.resetPasswordForm.value.password;
+
+		if (!resetPasswordValues) return;
 
 		this.resetPasswordService
 			.resetPassword(resetToken, resetPasswordValues)
@@ -112,7 +119,5 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 				})
 			)
 			.subscribe();
-
-		this.userEmail$.pipe(takeUntil(this.unsubscribe$));
 	}
 }

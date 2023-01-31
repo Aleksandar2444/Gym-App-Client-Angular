@@ -12,8 +12,12 @@ export class ForgotPasswordService {
 	constructor(private readonly http: HttpClient) {}
 
 	forgotPassword(email: string) {
-		return this.http.post(`${this.forgotPasswordURL}`, {
-			email,
-		});
+		return this.http.post(
+			`${this.forgotPasswordURL}`,
+			{
+				email,
+			},
+			{ responseType: 'text' }
+		);
 	}
 }

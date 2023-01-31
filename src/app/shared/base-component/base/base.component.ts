@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-base',
@@ -8,12 +8,28 @@ import { BehaviorSubject } from 'rxjs';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BaseComponent implements OnDestroy {
-	unsubscribe$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+	destroyAsObservable$: Observable<boolean>; // for async operations
+	subscriptions: Subscription[] = [];
 
-	constructor() {}
+	destroy = false;
+
+	private destory$ = new BehaviorSubject<boolean>(false);
+
+	constructor() {
+		this.destroyAsObservable$ = this.destory$.asObservable(); // for async operations
+		this.subscriptions.push(
+			this.destroyAsObservable$
+				.pipe(tap((value) => (this.destroy = value)))
+				.subscribe()
+		);
+	}
 
 	ngOnDestroy(): void {
-		this.unsubscribe$.next(true);
-		this.unsubscribe$.unsubscribe();
+		this.destory$.next(true);
+		this.subscriptions.forEach((subscription) => {
+			if (subscription) {
+				subscription.unsubscribe();
+			}
+		});
 	}
 }

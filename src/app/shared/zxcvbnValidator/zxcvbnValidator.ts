@@ -28,7 +28,7 @@ export const zxcvbnValidator =
 		if (passwordString?.length > 0) {
 			const result = zxcvbn(passwordString);
 
-			if (result.score <= minStrength) {
+			if (result.score < minStrength) {
 				response = {
 					zxcvbn: result.feedback,
 				};
