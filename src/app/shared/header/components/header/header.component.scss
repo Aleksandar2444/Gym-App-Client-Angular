@@ -9,6 +9,11 @@
 			color: $light-yellow;
 		}
 
+		.nav__button {
+			background-color: transparent;
+			border: none;
+		}
+
 		.link__caption__allowed {
 			margin-right: 0;
 			width: 80px;
@@ -46,7 +51,6 @@
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		// gap: 30px;
 	}
 }
 

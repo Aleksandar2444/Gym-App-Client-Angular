@@ -9,21 +9,23 @@
 		*ngIf="isLoggedIn$ | async"
 		fxFlex
 		fxLayout
-		fxLayoutAlign="space-evenly"
+		fxLayoutAlign="space-evenly center"
 		fxHide.gt-xs
 	>
-		<button mat-icon-button>
+		<!-- <mat-nav-list> -->
+		<button class="nav__button">
 			<a routerLink="/home"><mat-icon>home</mat-icon></a>
 		</button>
-		<button mat-icon-button>
+		<button class="nav__button">
 			<a routerLink="#"><mat-icon>search</mat-icon></a>
 		</button>
-		<button mat-icon-button>
+		<button class="nav__button">
 			<a routerLink="#"><mat-icon>notifications</mat-icon></a>
 		</button>
-		<button mat-icon-button>
+		<button class="nav__button">
 			<a routerLink="#"><mat-icon>message</mat-icon></a>
 		</button>
+		<!-- </mat-nav-list> -->
 	</div>
 	<!-- Desktop Version -->
 	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
@@ -106,7 +108,7 @@
 				</button>
 				<mat-menu #menu="matMenu" class="custom-class">
 					<!-- Profile -->
-					<button mat-menu-item>
+					<button mat-menu-item routerLink="/profile">
 						<mat-icon>face</mat-icon><span>Profile</span>
 					</button>
 					<!-- logout -->

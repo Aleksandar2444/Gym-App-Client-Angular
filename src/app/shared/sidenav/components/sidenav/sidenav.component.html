@@ -3,7 +3,7 @@
 		*ngIf="isAuth$ | async; then accessAllowed; else accessDenied"
 	></ng-container>
 	<ng-template #accessAllowed>
-		<a mat-list-item routerLink="#" (click)="onClose()">
+		<a mat-list-item routerLink="/profile" (click)="onClose()">
 			<mat-icon>face</mat-icon><span class="nav__caption">Profile</span>
 		</a>
 		<a mat-list-item routerLink="#" (click)="onClose()"
