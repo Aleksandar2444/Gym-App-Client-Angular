@@ -1,6 +1,7 @@
 import { ForgotPasswordForm } from '@@features/forgot-password/models/model';
 import { ForgotPasswordService } from '@@features/forgot-password/services/forgot-password.service';
 import { BaseComponent } from '@@shared/base-component/base/base.component';
+import { AuthService } from '@@shared/services/auth.service';
 import { NotificationService } from '@@shared/services/notification.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -20,7 +21,8 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 	constructor(
 		private readonly forgotPasswordService: ForgotPasswordService,
 		private readonly router: Router,
-		private readonly notificationService: NotificationService
+		private readonly notificationService: NotificationService,
+		private readonly authService: AuthService
 	) {
 		super();
 	}
@@ -48,7 +50,7 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 		this.forgotPasswordService
 			.forgotPassword(email)
 			.pipe(
-				takeWhile(() => !this.destroy),
+				takeWhile(() => !!this.destroy$),
 				tap((value) => {
 					if (!value) {
 						this.router.navigate(['auth', 'forgot-password']);
@@ -56,6 +58,9 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 							'Something went wrong, try again'
 						);
 					}
+
+					this.authService.saveEmailToLocalStorage(email);
+
 					this.router.navigate([
 						'auth',
 						'forgot-password',

@@ -23,10 +23,9 @@ import { SpinnerComponent } from '@@shared/spinner/spinner/spinner.component';
 import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
 import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
 import { StorageService } from '@@shared/services/storage.service';
-import { BaseComponent } from './shared/base-component/base/base.component';
 
 @NgModule({
-	declarations: [AppComponent, SpinnerComponent, BaseComponent],
+	declarations: [AppComponent, SpinnerComponent],
 	imports: [
 		BrowserAnimationsModule,
 		MaterialModule,

@@ -1,3 +1,4 @@
+import { ResetPassword } from '@@shared/store/auth/models/auth.user.models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -12,7 +13,7 @@ export class ResetPasswordService {
 	constructor(private readonly http: HttpClient) {}
 
 	resetPassword(resetPasswordToken: string, password: string) {
-		return this.http.post(
+		return this.http.post<ResetPassword>(
 			`${this.resetPasswordURL}/${resetPasswordToken}`,
 			{
 				password,

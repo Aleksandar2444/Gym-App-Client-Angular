@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { TrainingService } from '@@training-service/training.service';
 
 @Component({
@@ -9,9 +8,6 @@ import { TrainingService } from '@@training-service/training.service';
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrainingComponent implements OnInit {
-	ongoingTraining = false;
-	exerciseSubscription: Subscription;
-
 	constructor(private readonly trainingService: TrainingService) {}
 
 	ngOnInit(): void {}

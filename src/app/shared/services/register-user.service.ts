@@ -1,3 +1,4 @@
+import { RegisterUserData } from '@@shared/store/auth/models/auth.user.models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -11,9 +12,15 @@ export class RegisterUserService {
 
 	constructor(private readonly http: HttpClient) {}
 
-	registerUser(userName: string, email: string, password: string) {
-		return this.http.post(this.registerUserURL, {
-			userName,
+	registerUser(
+		firstName: string,
+		lastName: string,
+		email: string,
+		password: string
+	) {
+		return this.http.post<RegisterUserData>(this.registerUserURL, {
+			firstName,
+			lastName,
 			email,
 			password,
 		});

@@ -37,8 +37,12 @@ export class SignupComponent implements OnInit {
 
 	initForm() {
 		this.signupForm = new FormGroup<SignupForm>({
-			userName: new FormControl<string>('', {
-				validators: [Validators.required, Validators.minLength(4)],
+			firstName: new FormControl<string>('', {
+				validators: [Validators.required, Validators.minLength(2)],
+				nonNullable: true,
+			}),
+			lastName: new FormControl<string>('', {
+				validators: [Validators.required, Validators.minLength(2)],
 				nonNullable: true,
 			}),
 			email: new FormControl<string>('', {
@@ -70,13 +74,16 @@ export class SignupComponent implements OnInit {
 		this.isFormSubmitted = true;
 		if (this.signupForm.invalid) return;
 
-		const { userName, email, password } = { ...this.signupForm.value };
-		if (!userName && !email && !password) return;
+		const { firstName, lastName, email, password } = {
+			...this.signupForm.value,
+		};
+		if (!firstName && !lastName && !email && !password) return;
 
 		this.store.dispatch(
 			registerRequest({
 				payload: {
-					userName: userName!,
+					firstName: firstName!,
+					lastName: lastName!,
 					email: email!,
 					password: password!,
 				},

@@ -3,12 +3,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 import { ResetPasswordService } from '@@features/reset-password/services/reset-password.service';
-import { BehaviorSubject, map, tap } from 'rxjs';
+import { BehaviorSubject, map, takeWhile, tap } from 'rxjs';
 import { ResetPassword } from '@@shared/store/auth/models/auth.user.models';
 import { NotificationService } from '@@shared/services/notification.service';
 
 import { BaseComponent } from '@@shared/base-component/base/base.component';
 import { ResetPasswordForm } from '@@features/reset-password/models/model';
+
+const validatorsArray = [
+	Validators.required,
+	Validators.minLength(8),
+	Validators.pattern(/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/),
+	zxcvbnValidator(1),
+];
 
 @Component({
 	selector: 'app-reset-password',
@@ -53,24 +60,11 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 		this.resetPasswordForm = new FormGroup<ResetPasswordForm>(
 			{
 				password: new FormControl<string>('', {
-					validators: [
-						Validators.required,
-						Validators.minLength(8),
-						Validators.pattern(
-							/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
-						),
-						zxcvbnValidator(1),
-					],
+					validators: validatorsArray,
 					nonNullable: true,
 				}),
 				confirmPassword: new FormControl<string>('', {
-					validators: [
-						Validators.required,
-						Validators.minLength(8),
-						Validators.pattern(
-							/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
-						),
-					],
+					validators: validatorsArray,
 					nonNullable: true,
 				}),
 			},
@@ -102,6 +96,7 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 		this.resetPasswordService
 			.resetPassword(resetToken, resetPasswordValues)
 			.pipe(
+				takeWhile(() => !this.destroy$),
 				map((value) => value as ResetPassword),
 				tap((value) => {
 					const { password, resetPasswordToken: resetToken } = value;

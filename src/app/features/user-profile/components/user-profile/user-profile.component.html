@@ -8,11 +8,12 @@
 				/>
 			</div>
 			<div
+				*ngIf="user"
 				class="name__wrapper"
 				fxFlex
 				fxLayoutAlign="flex-start flex-end"
 			>
-				<p>John Doe</p>
+				<p>{{ user.firstName }} {{ user.lastName }}</p>
 			</div>
 		</div>
 		<div class="profile__info2">
@@ -48,5 +49,40 @@
 			</div>
 		</div>
 	</div>
-	<div class="stepper__container">stepper</div>
+	<div class="stepper__container">
+		<mat-tab-group dynamicHeight>
+			<mat-tab label="Photos">
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym2.jpg"
+						alt="gym-jpg"
+					/>
+				</div>
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym3.jpg"
+						alt="gym-jpg"
+					/>
+				</div>
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym4.webp"
+						alt="gym-jpg"
+					/>
+				</div>
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym5.avif"
+						alt="gym-jpg"
+					/>
+				</div>
+			</mat-tab>
+			<mat-tab label="Videos">
+				<div class="example-large-box mat-elevation-z4">Video 1</div>
+				<div class="example-large-box mat-elevation-z4">Video 2</div>
+				<div class="example-large-box mat-elevation-z4">Video 3</div>
+				<div class="example-large-box mat-elevation-z4">Video 4</div>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
 </section>
