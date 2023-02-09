@@ -1,6 +1,7 @@
 import { User } from '@@shared/store/auth/models/auth.user.models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
@@ -12,7 +13,7 @@ export class AuthService {
 
 	constructor(private readonly http: HttpClient) {}
 
-	loginUser(email: string, password: string) {
+	loginUser(email: string, password: string): Observable<User> {
 		return this.http.post<User>(this.loginUserURL, { email, password });
 	}
 

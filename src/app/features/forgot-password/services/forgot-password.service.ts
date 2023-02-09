@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { ForgotPasswordRequestBody } from '../models/model';
 
 const { API_URL } = environment;
 
@@ -11,13 +13,12 @@ export class ForgotPasswordService {
 
 	constructor(private readonly http: HttpClient) {}
 
-	forgotPassword(email: string) {
-		return this.http.post(
+	forgotPassword(email: string): Observable<ForgotPasswordRequestBody> {
+		return this.http.post<ForgotPasswordRequestBody>(
 			`${this.forgotPasswordURL}`,
 			{
 				email,
-			},
-			{ responseType: 'text' }
+			}
 		);
 	}
 }

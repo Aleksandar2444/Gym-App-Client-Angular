@@ -3,9 +3,9 @@ import { AuthService } from '@@shared/services/auth.service';
 import { StorageService } from '@@shared/services/storage.service';
 import { selectUser } from '@@shared/store/auth/auth.selectors';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { takeWhile, tap } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
@@ -27,7 +27,7 @@ export class AppComponent extends BaseComponent implements OnInit {
 	ngOnInit(): void {
 		this.user$
 			.pipe(
-				takeWhile(() => !!this.destroy$),
+				takeUntil(this.destroy$),
 				tap((value) => {
 					if (!value) {
 						this.router.navigate(['auth', 'login']);
@@ -36,13 +36,13 @@ export class AppComponent extends BaseComponent implements OnInit {
 					const email = this.authService.getEmailFromLocalStorage();
 
 					if (email) {
+						this.authService.removeEmailFromLocalStorage();
+
 						this.router.navigate([
 							'auth',
 							'reset-password',
 							'resetPasswordToken',
 						]);
-
-						this.authService.removeEmailFromLocalStorage();
 					}
 				})
 			)

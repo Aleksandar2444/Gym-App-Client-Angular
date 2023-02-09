@@ -1,4 +1,7 @@
-import { ForgotPasswordForm } from '@@features/forgot-password/models/model';
+import {
+	ForgotPasswordForm,
+	ForgotPasswordRequestBody,
+} from '@@features/forgot-password/models/model';
 import { ForgotPasswordService } from '@@features/forgot-password/services/forgot-password.service';
 import { BaseComponent } from '@@shared/base-component/base/base.component';
 import { AuthService } from '@@shared/services/auth.service';
@@ -6,7 +9,7 @@ import { NotificationService } from '@@shared/services/notification.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { takeWhile, tap } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-forgot-password',
@@ -50,22 +53,25 @@ export class ForgotPasswordComponent extends BaseComponent implements OnInit {
 		this.forgotPasswordService
 			.forgotPassword(email)
 			.pipe(
-				takeWhile(() => !!this.destroy$),
-				tap((value) => {
+				takeUntil(this.destroy$),
+				tap((value: ForgotPasswordRequestBody) => {
 					if (!value) {
-						this.router.navigate(['auth', 'forgot-password']);
 						this.notificationService.showError(
 							'Something went wrong, try again'
 						);
+
+						this.router.navigate(['auth', 'forgot-password']);
 					}
 
-					this.authService.saveEmailToLocalStorage(email);
+					if (email) {
+						this.authService.saveEmailToLocalStorage(email);
 
-					this.router.navigate([
-						'auth',
-						'forgot-password',
-						'email-sent',
-					]);
+						this.router.navigate([
+							'auth',
+							'forgot-password',
+							'email-sent',
+						]);
+					}
 				})
 			)
 			.subscribe();

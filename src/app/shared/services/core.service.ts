@@ -1,6 +1,7 @@
-import { UserInfo } from '@@shared/store/auth/models/auth.user.models';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserInfoResponse } from '@@features/user-profile/models/model';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
@@ -16,17 +17,11 @@ export class CoreService {
 		private readonly authService: AuthService
 	) {}
 
-	findUserById() {
-		const { userLoggedInToken, user } =
-			this.authService.getUserFromLocalStorage();
+	findUserById(): Observable<UserInfoResponse> {
+		const { user } = this.authService.getUserFromLocalStorage();
 
-		const headers = new HttpHeaders().set(
-			'Authorization',
-			`Bearer ${userLoggedInToken}`
+		return this.http.get<UserInfoResponse>(
+			`${this.findUserByIdURL}/${user._id}`
 		);
-
-		return this.http.get<UserInfo>(`${this.findUserByIdURL}/${user._id}`, {
-			headers,
-		});
 	}
 }

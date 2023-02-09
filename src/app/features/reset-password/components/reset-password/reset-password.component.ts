@@ -1,21 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 import { ResetPasswordService } from '@@features/reset-password/services/reset-password.service';
-import { BehaviorSubject, map, takeWhile, tap } from 'rxjs';
-import { ResetPassword } from '@@shared/store/auth/models/auth.user.models';
+import { BehaviorSubject, map, takeUntil, tap } from 'rxjs';
 import { NotificationService } from '@@shared/services/notification.service';
 
 import { BaseComponent } from '@@shared/base-component/base/base.component';
-import { ResetPasswordForm } from '@@features/reset-password/models/model';
-
-const validatorsArray = [
-	Validators.required,
-	Validators.minLength(8),
-	Validators.pattern(/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/),
-	zxcvbnValidator(1),
-];
+import {
+	ResetPasswordForm,
+	ResetPasswordResponse,
+} from '@@features/reset-password/models/model';
+import { validatorsArray } from '@@shared/store/auth/models/validator.model';
 
 @Component({
 	selector: 'app-reset-password',
@@ -24,7 +19,9 @@ const validatorsArray = [
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent extends BaseComponent implements OnInit {
-	currentResetPassword$ = new BehaviorSubject<ResetPassword | null>(null);
+	currentResetPassword$ = new BehaviorSubject<ResetPasswordResponse | null>(
+		null
+	);
 
 	resetPasswordForm: FormGroup<ResetPasswordForm>;
 
@@ -96,12 +93,12 @@ export class ResetPasswordComponent extends BaseComponent implements OnInit {
 		this.resetPasswordService
 			.resetPassword(resetToken, resetPasswordValues)
 			.pipe(
-				takeWhile(() => !this.destroy$),
-				map((value) => value as ResetPassword),
+				takeUntil(this.destroy$),
+				map((value) => value as ResetPasswordResponse),
 				tap((value) => {
 					const { password, resetPasswordToken: resetToken } = value;
 
-					const updateUser: ResetPassword = {
+					const updateUser: ResetPasswordResponse = {
 						password: password,
 						resetPasswordToken: resetToken,
 					};

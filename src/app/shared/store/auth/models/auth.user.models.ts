@@ -26,12 +26,9 @@ export interface RegisterUserData {
 	message: string;
 }
 
-export interface ResetPassword {
-	resetPasswordToken: string;
-	password: string;
-}
-
-export interface UserInfo {
+export interface RegisterUserRequestBody {
 	firstName: string;
 	lastName: string;
+	email: string;
+	password: string;
 }

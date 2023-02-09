@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { zxcvbn } from '@zxcvbn-ts/core';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '@@shared/store/auth/auth.actions';
-import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 import { SignupForm } from '@@features/signup/models/model';
+import { validatorsArray } from '@@shared/store/auth/models/validator.model';
 
 @Component({
 	selector: 'app-signup',
@@ -50,14 +50,7 @@ export class SignupComponent implements OnInit {
 				nonNullable: true,
 			}),
 			password: new FormControl<string>('', {
-				validators: [
-					Validators.required,
-					Validators.minLength(8),
-					Validators.pattern(
-						/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
-					),
-					zxcvbnValidator(1),
-				],
+				validators: validatorsArray,
 				nonNullable: true,
 			}),
 		});

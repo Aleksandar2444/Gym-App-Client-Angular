@@ -1,3 +1,4 @@
+import { AuthService } from '@@shared/services/auth.service';
 import { Injectable } from '@angular/core';
 import {
 	ActivatedRouteSnapshot,
@@ -12,7 +13,10 @@ import { Observable } from 'rxjs';
 	providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-	constructor(private readonly router: Router) {}
+	constructor(
+		private readonly router: Router,
+		private readonly authService: AuthService
+	) {}
 
 	canActivate(
 		route: ActivatedRouteSnapshot,
@@ -22,7 +26,7 @@ export class AuthGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		const user = localStorage.getItem('user');
+		const user = this.authService.getUserFromLocalStorage();
 
 		if (!user) {
 			this.router.navigate(['auth', 'login']);

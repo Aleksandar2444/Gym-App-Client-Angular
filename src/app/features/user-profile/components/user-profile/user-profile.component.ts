@@ -1,8 +1,8 @@
+import { UserInfoResponse } from '@@features/user-profile/models/model';
 import { BaseComponent } from '@@shared/base-component/base/base.component';
 import { CoreService } from '@@shared/services/core.service';
-import { UserInfo } from '@@shared/store/auth/models/auth.user.models';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { map, takeWhile } from 'rxjs';
+import { map, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-user-profile',
@@ -11,7 +11,7 @@ import { map, takeWhile } from 'rxjs';
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent extends BaseComponent implements OnInit {
-	user: UserInfo | null = null;
+	user: UserInfoResponse | null = null;
 
 	constructor(private readonly coreService: CoreService) {
 		super();
@@ -25,9 +25,9 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
 		this.coreService
 			.findUserById()
 			.pipe(
-				takeWhile(() => !!this.destroy$),
+				takeUntil(this.destroy$),
 				map((value) => {
-					this.user = value as UserInfo;
+					this.user = value as UserInfoResponse;
 				})
 			)
 			.subscribe();

@@ -1,6 +1,7 @@
-import { RegisterUserData } from '@@shared/store/auth/models/auth.user.models';
+import { RegisterUserRequestBody } from '@@shared/store/auth/models/auth.user.models';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 
@@ -17,8 +18,8 @@ export class RegisterUserService {
 		lastName: string,
 		email: string,
 		password: string
-	) {
-		return this.http.post<RegisterUserData>(this.registerUserURL, {
+	): Observable<RegisterUserRequestBody> {
+		return this.http.post<RegisterUserRequestBody>(this.registerUserURL, {
 			firstName,
 			lastName,
 			email,
