@@ -11,7 +11,7 @@ import { map, takeUntil } from 'rxjs';
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserProfileComponent extends BaseComponent implements OnInit {
-	user: UserInfoResponse | null = null;
+	user: UserInfoResponse;
 
 	constructor(private readonly coreService: CoreService) {
 		super();
@@ -26,8 +26,8 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
 			.findUserById()
 			.pipe(
 				takeUntil(this.destroy$),
-				map((value) => {
-					this.user = value as UserInfoResponse;
+				map((value: UserInfoResponse) => {
+					this.user = value;
 				})
 			)
 			.subscribe();

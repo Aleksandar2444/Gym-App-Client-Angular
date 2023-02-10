@@ -18,7 +18,9 @@ export class ResetPasswordService {
 		password: string
 	): Observable<ResetPasswordResponse> {
 		return this.http.post<ResetPasswordResponse>(
-			`${this.resetPasswordURL}/${resetPasswordToken}`,
+			`${this.resetPasswordURL}/${encodeURIComponent(
+				resetPasswordToken
+			)}`,
 			{
 				password,
 				resetPasswordToken,

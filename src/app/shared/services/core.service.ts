@@ -21,7 +21,7 @@ export class CoreService {
 		const { user } = this.authService.getUserFromLocalStorage();
 
 		return this.http.get<UserInfoResponse>(
-			`${this.findUserByIdURL}/${user._id}`
+			`${this.findUserByIdURL}/${encodeURIComponent(user._id)}`
 		);
 	}
 }
