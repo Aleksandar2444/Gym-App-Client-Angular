@@ -4,17 +4,13 @@ import {
 	HttpHandler,
 	HttpEvent,
 	HttpInterceptor,
-	HttpClient,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { AuthService } from '@@shared/services/auth.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-	constructor(
-		private readonly http: HttpClient,
-		private readonly store: Store
-	) {}
+	constructor(private readonly authService: AuthService) {}
 
 	intercept(
 		request: HttpRequest<unknown>,
@@ -24,15 +20,16 @@ export class JwtInterceptor implements HttpInterceptor {
 		if (request.url.includes('login') || request.url.includes('signup')) {
 			return next.handle(request);
 		}
-		const token = localStorage.getItem('userLoggedInToken');
+
+		const user = this.authService.getUserFromLocalStorage();
 
 		// 2. Checking if user is logged in
-		if (!token) return next.handle(request);
+		if (!user) return next.handle(request);
 
 		// 3. Cloning request with new header
 		const clonedRequest = request.clone({
 			setHeaders: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${user.userLoggedInToken}`,
 			},
 		});
 

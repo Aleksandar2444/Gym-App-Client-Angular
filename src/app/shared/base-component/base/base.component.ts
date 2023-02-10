@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
 	selector: 'app-base',
@@ -8,12 +8,12 @@ import { BehaviorSubject } from 'rxjs';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BaseComponent implements OnDestroy {
-	unsubscribe$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+	readonly destroy$ = new Subject();
 
 	constructor() {}
 
 	ngOnDestroy(): void {
-		this.unsubscribe$.next(true);
-		this.unsubscribe$.unsubscribe();
+		this.destroy$.next(true);
+		this.destroy$.complete();
 	}
 }

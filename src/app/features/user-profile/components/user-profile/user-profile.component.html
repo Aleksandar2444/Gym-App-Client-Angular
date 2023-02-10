@@ -1,0 +1,85 @@
+<section fxFlex fxLayout="column" fxLayoutGap="10px">
+	<div class="profile__container" fxFlex fxLayout="column" fxLayoutGap="10px">
+		<div class="profile__info" fxFlex fxLayoutGap="10px">
+			<div class="img__wrapper">
+				<img src="/assets/images/profileimg.jpg" alt="profile-img" />
+			</div>
+			<div
+				*ngIf="user"
+				class="name__wrapper"
+				fxFlex
+				fxLayoutAlign="flex-start flex-end"
+			>
+				<p>{{ user.firstName }} {{ user.lastName }}</p>
+			</div>
+		</div>
+		<div class="profile__info2">
+			<div class="button1__wrapper">
+				<button>Edit profile</button>
+			</div>
+			<div class="info2__container">
+				<div class="info2__stats">
+					<p>43</p>
+					<p>photos</p>
+				</div>
+				<div class="info2__stats">
+					<p>750</p>
+					<p>followers</p>
+				</div>
+				<div class="info2__stats">
+					<p>430</p>
+					<p>following</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="about__container">
+		<div class="about__container__info">
+			<p>Country: Russia / City: Moscow</p>
+			<div class="about__container__info__text">
+				<p>
+					Aspire to be better each day, learn new things, solve
+					problems in an efficient way, share knowledge about things
+					you love, listen to some good music along and be a great
+					team player.
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="stepper__container">
+		<mat-tab-group dynamicHeight>
+			<mat-tab label="Photos">
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym2.jpg"
+						alt="gym-jpg"
+					/>
+				</div>
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym3.jpg"
+						alt="gym-jpg"
+					/>
+				</div>
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym4.webp"
+						alt="gym-jpg"
+					/>
+				</div>
+				<div class="example-large-box mat-elevation-z4">
+					<img
+						src="../../../../../assets/images/gym5.avif"
+						alt="gym-jpg"
+					/>
+				</div>
+			</mat-tab>
+			<mat-tab label="Videos">
+				<div class="example-large-box mat-elevation-z4">Video 1</div>
+				<div class="example-large-box mat-elevation-z4">Video 2</div>
+				<div class="example-large-box mat-elevation-z4">Video 3</div>
+				<div class="example-large-box mat-elevation-z4">Video 4</div>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</section>

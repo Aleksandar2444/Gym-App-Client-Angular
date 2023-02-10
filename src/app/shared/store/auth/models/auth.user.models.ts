@@ -1,6 +1,7 @@
 export interface User {
 	_id: string;
-	userName: string;
+	firstName: string;
+	lastName: string;
 	email: string;
 	isAuth: boolean;
 	userLoggedInToken: string;
@@ -9,7 +10,8 @@ export interface User {
 
 export interface LoggedInUser {
 	_id: string;
-	userName: string;
+	firstName: string;
+	lastName: string;
 	email: string;
 	isAuth: boolean;
 	userLoggedInToken: string;
@@ -17,13 +19,16 @@ export interface LoggedInUser {
 }
 
 export interface RegisterUserData {
-	userName: string;
+	firstName: string;
+	lastName: string;
 	email: string;
 	password: string;
 	message: string;
 }
 
-export interface ResetPassword {
-	resetPasswordToken: string;
+export interface RegisterUserRequestBody {
+	firstName: string;
+	lastName: string;
+	email: string;
 	password: string;
 }

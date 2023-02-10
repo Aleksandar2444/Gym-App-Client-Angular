@@ -37,7 +37,14 @@ export const logoutError = createAction(
 // Register user action
 export const registerRequest = createAction(
 	'[Auth] Register Request',
-	props<{ payload: { userName: string; email: string; password: string } }>()
+	props<{
+		payload: {
+			firstName: string;
+			lastName: string;
+			email: string;
+			password: string;
+		};
+	}>()
 );
 
 // Register user success action

@@ -3,7 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { zxcvbn } from '@zxcvbn-ts/core';
 import { Store } from '@ngrx/store';
 import { registerRequest } from '@@shared/store/auth/auth.actions';
-import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
+import { SignupForm } from '@@features/signup/models/model';
+import { validatorsArray } from '@@shared/store/auth/models/validator.model';
 
 @Component({
 	selector: 'app-signup',
@@ -11,7 +12,8 @@ import { zxcvbnValidator } from '@@shared/zxcvbnValidator/zxcvbnValidator';
 	styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-	signupForm: FormGroup;
+	signupForm: FormGroup<SignupForm>;
+
 	showDetails: boolean;
 	isFormSubmitted = false;
 	passwordMeter = '0';
@@ -34,31 +36,29 @@ export class SignupComponent implements OnInit {
 	}
 
 	initForm() {
-		this.signupForm = new FormGroup({
-			userName: new FormControl<string>('', [
-				Validators.required,
-				Validators.minLength(4),
-			]),
-			email: new FormControl<string>('', [
-				Validators.required,
-				Validators.email,
-			]),
-			password: new FormControl<string>('', [
-				Validators.required,
-				Validators.minLength(8),
-				Validators.pattern(
-					/^(?=.*[\d])(?=.*[!@#$%^&`*])[\w!@#$%^&`*]{8,}$/
-				),
-				zxcvbnValidator(1),
-			]),
+		this.signupForm = new FormGroup<SignupForm>({
+			firstName: new FormControl<string>('', {
+				validators: [Validators.required, Validators.minLength(2)],
+				nonNullable: true,
+			}),
+			lastName: new FormControl<string>('', {
+				validators: [Validators.required, Validators.minLength(2)],
+				nonNullable: true,
+			}),
+			email: new FormControl<string>('', {
+				validators: [Validators.required, Validators.email],
+				nonNullable: true,
+			}),
+			password: new FormControl<string>('', {
+				validators: validatorsArray,
+				nonNullable: true,
+			}),
 		});
 	}
 
 	//* Checking on input typing value
 	change(event: any) {
 		let passwordScore = zxcvbn(event.target.value);
-		console.log(passwordScore);
-
 		let score = String(passwordScore.score);
 		this.passwordMeter = this.scores[score];
 	}
@@ -66,8 +66,22 @@ export class SignupComponent implements OnInit {
 	onFormSubmit() {
 		this.isFormSubmitted = true;
 		if (this.signupForm.invalid) return;
-		const registerUserValues = { ...this.signupForm.value };
-		this.store.dispatch(registerRequest({ payload: registerUserValues }));
+
+		const { firstName, lastName, email, password } = {
+			...this.signupForm.value,
+		};
+		if (!firstName && !lastName && !email && !password) return;
+
+		this.store.dispatch(
+			registerRequest({
+				payload: {
+					firstName: firstName!,
+					lastName: lastName!,
+					email: email!,
+					password: password!,
+				},
+			})
+		);
 		this.signupForm.reset();
 	}
 }

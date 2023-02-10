@@ -1,11 +1,15 @@
+import {
+	ForgotPasswordForm,
+	ForgotPasswordRequestBody,
+} from '@@features/forgot-password/models/model';
 import { ForgotPasswordService } from '@@features/forgot-password/services/forgot-password.service';
 import { BaseComponent } from '@@shared/base-component/base/base.component';
-import { selectUserEmail } from '@@shared/store/auth/auth.selectors';
+import { AuthService } from '@@shared/services/auth.service';
+import { NotificationService } from '@@shared/services/notification.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs';
+import { takeUntil, tap } from 'rxjs';
 
 @Component({
 	selector: 'app-forgot-password',
@@ -14,41 +18,62 @@ import { takeUntil } from 'rxjs';
 	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ForgotPasswordComponent extends BaseComponent implements OnInit {
-	userEmail$ = this.store.select(selectUserEmail);
-
-	forgotPasswordForm: FormGroup;
+	forgotPasswordForm: FormGroup<ForgotPasswordForm>;
 	isFormSubmitted = false;
 
 	constructor(
 		private readonly forgotPasswordService: ForgotPasswordService,
 		private readonly router: Router,
-		private readonly store: Store
+		private readonly notificationService: NotificationService,
+		private readonly authService: AuthService
 	) {
 		super();
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.initForm();
 	}
 
-	initForm() {
-		this.forgotPasswordForm = new FormGroup({
-			email: new FormControl<string>('', [
-				Validators.required,
-				Validators.email,
-			]),
+	initForm(): void {
+		this.forgotPasswordForm = new FormGroup<ForgotPasswordForm>({
+			email: new FormControl('', {
+				validators: [Validators.required, Validators.email],
+				nonNullable: true,
+			}),
 		});
 	}
 
 	onFormSubmit() {
 		this.isFormSubmitted = true;
 		if (this.forgotPasswordForm.invalid) return;
-		const email = { ...this.forgotPasswordForm.value };
 
-		this.forgotPasswordService.forgotPassword(email).subscribe();
+		const { email } = { ...this.forgotPasswordForm.value };
+		if (!email) return;
 
-		this.router.navigate(['auth', 'forgot-password', 'email-sent']);
+		this.forgotPasswordService
+			.forgotPassword(email)
+			.pipe(
+				takeUntil(this.destroy$),
+				tap((value: ForgotPasswordRequestBody) => {
+					if (!value) {
+						this.notificationService.showError(
+							'Something went wrong, try again'
+						);
 
-		this.userEmail$.pipe(takeUntil(this.unsubscribe$));
+						this.router.navigate(['auth', 'forgot-password']);
+					}
+
+					if (email) {
+						this.authService.saveEmailToLocalStorage(email);
+
+						this.router.navigate([
+							'auth',
+							'forgot-password',
+							'email-sent',
+						]);
+					}
+				})
+			)
+			.subscribe();
 	}
 }

@@ -4,9 +4,32 @@
 			<mat-icon>menu</mat-icon>
 		</button>
 	</div>
-	<div><a routerLink="/home">Logo</a></div>
+	<!-- Mobile Version -->
+	<div
+		*ngIf="isLoggedIn$ | async"
+		fxFlex
+		fxLayout
+		fxLayoutAlign="space-evenly center"
+		fxHide.gt-xs
+	>
+		<!-- <mat-nav-list> -->
+		<button class="nav__button">
+			<a routerLink="/home"><mat-icon>home</mat-icon></a>
+		</button>
+		<button class="nav__button">
+			<a routerLink="#"><mat-icon>search</mat-icon></a>
+		</button>
+		<button class="nav__button">
+			<a routerLink="#"><mat-icon>notifications</mat-icon></a>
+		</button>
+		<button class="nav__button">
+			<a routerLink="#"><mat-icon>message</mat-icon></a>
+		</button>
+		<!-- </mat-nav-list> -->
+	</div>
+	<!-- Desktop Version -->
 	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-		<ul fxLayout fxLayoutGap="10px">
+		<ul fxLayout fxLayoutGap="8px" fxLayoutAlign="center center">
 			<ng-container
 				*ngIf="
 					isLoggedIn$ | async;
@@ -15,22 +38,108 @@
 				"
 			></ng-container>
 			<ng-template #accessAllowed>
-				<li><a routerLink="/home">Home</a></li>
-				<li>
-					<a routerLink="/training">Training</a>
-				</li>
-				<li>
-					<a (click)="onLogout()">Logout</a>
-				</li>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="/home"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>home</mat-icon
+						><span class="header__caption">Home</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>search</mat-icon
+						><span class="header__caption">Search</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>explore</mat-icon
+						><span class="header__caption">Explore</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="/training"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>fitness_center</mat-icon
+						><span class="header__caption">Training</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>notifications</mat-icon
+						><span class="header__caption">Notifications</span></a
+					>
+				</div>
+				<div class="link__caption__allowed">
+					<a
+						routerLink="#"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>messages</mat-icon
+						><span class="header__caption">Messages</span></a
+					>
+				</div>
+				<!-- Person Pin -->
+				<button
+					mat-icon-button
+					[matMenuTriggerFor]="menu"
+					aria-label="Example icon-button with a menu"
+				>
+					<mat-icon>person_pin</mat-icon>
+				</button>
+				<mat-menu #menu="matMenu" class="custom-class">
+					<!-- Profile -->
+					<button mat-menu-item routerLink="/profile">
+						<mat-icon>face</mat-icon><span>Profile</span>
+					</button>
+					<!-- logout -->
+					<button mat-menu-item (click)="onLogout()">
+						<mat-icon>power_settings_new</mat-icon
+						><span>Logout</span>
+					</button>
+				</mat-menu>
 			</ng-template>
 
 			<ng-template #accessDenied>
-				<li>
-					<a routerLink="/auth/signup">Signup</a>
-				</li>
-				<li>
-					<a routerLink="/auth/login">Login</a>
-				</li>
+				<div class="link__caption__denied">
+					<a
+						routerLink="/auth/signup"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>face</mat-icon
+						><span class="header__caption">Signup</span></a
+					>
+				</div>
+				<div class="link__caption__denied">
+					<a
+						routerLink="/auth/login"
+						fxFlex
+						fxLayout="column"
+						fxLayoutAlign="center center"
+						><mat-icon>input</mat-icon
+						><span class="header__caption">Login</span></a
+					>
+				</div>
 			</ng-template>
 		</ul>
 	</div>

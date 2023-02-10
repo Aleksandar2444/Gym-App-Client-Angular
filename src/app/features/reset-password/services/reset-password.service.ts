@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { ResetPasswordResponse } from '../models/model';
 
 const { API_URL } = environment;
 
@@ -11,9 +13,14 @@ export class ResetPasswordService {
 
 	constructor(private readonly http: HttpClient) {}
 
-	resetPassword(resetPasswordToken: string, password: string) {
-		return this.http.post(
-			`${this.resetPasswordURL}/${resetPasswordToken}`,
+	resetPassword(
+		resetPasswordToken: string,
+		password: string
+	): Observable<ResetPasswordResponse> {
+		return this.http.post<ResetPasswordResponse>(
+			`${this.resetPasswordURL}/${encodeURIComponent(
+				resetPasswordToken
+			)}`,
 			{
 				password,
 				resetPasswordToken,

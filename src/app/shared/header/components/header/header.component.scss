@@ -3,9 +3,42 @@
 :host {
 	mat-toolbar {
 		background-color: $aqua-one;
+		padding: 0 30px;
 
 		mat-icon {
 			color: $light-yellow;
+		}
+
+		.nav__button {
+			background-color: transparent;
+			border: none;
+		}
+
+		.link__caption__allowed {
+			margin-right: 0;
+			width: 80px;
+
+			a {
+				padding-top: 8px;
+			}
+		}
+
+		.link__caption__allowed:hover,
+		.link__caption__denied:hover {
+			background-color: $aqua-two;
+		}
+
+		.link__caption__denied {
+			margin-right: 0;
+			width: 70px;
+
+			a {
+				padding-top: 8px;
+			}
+		}
+
+		.header__caption {
+			font-size: 12px;
 		}
 	}
 
@@ -13,21 +46,15 @@
 		text-decoration: none;
 		color: $yellow;
 	}
+
 	ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		a {
-			text-decoration: none;
-			color: $yellow;
-		}
-		a:hover,
-		a:active {
-			color: $light-yellow;
-		}
-
-		li:last-child {
-			cursor: pointer;
-		}
 	}
+}
+
+::ng-deep .custom-class button a {
+	text-decoration: none;
+	color: #000000de;
 }

@@ -10,13 +10,24 @@
 		>
 			<mat-form-field>
 				<input
-					formControlName="userName"
+					formControlName="firstName"
 					type="text"
 					matInput
-					placeholder="Your username"
+					placeholder="First Name"
 				/>
-				<mat-error *ngIf="signupForm.controls.userName.invalid"
-					>Invalid Username</mat-error
+				<mat-error *ngIf="signupForm.controls.firstName.invalid"
+					>Invalid First Name</mat-error
+				>
+			</mat-form-field>
+			<mat-form-field>
+				<input
+					formControlName="lastName"
+					type="text"
+					matInput
+					placeholder="Last Name"
+				/>
+				<mat-error *ngIf="signupForm.controls.lastName.invalid"
+					>Invalid Last Name</mat-error
 				>
 			</mat-form-field>
 			<mat-form-field>
@@ -53,7 +64,12 @@
 				[passwordComponent]="passwordComponentWithValidation"
 			>
 			</mat-password-strength-info>
-			<button type="submit" mat-raised-button color="accent">
+			<button
+				type="submit"
+				mat-raised-button
+				color="accent"
+				[disabled]="signupForm.invalid"
+			>
 				Submit
 			</button>
 		</form>

@@ -48,6 +48,14 @@ const routes: Routes = [
 			),
 		canActivate: [AuthGuard],
 	},
+	{
+		path: 'profile',
+		loadChildren: () =>
+			import('./features/user-profile/user-profile.module').then(
+				(module) => module.UserProfileModule
+			),
+		canActivate: [AuthGuard],
+	},
 ];
 
 @NgModule({

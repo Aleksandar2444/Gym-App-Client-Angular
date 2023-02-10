@@ -73,7 +73,8 @@ export class AuthEffects {
 			switchMap((action) => {
 				return this.registerUserService
 					.registerUser(
-						action.payload.userName,
+						action.payload.firstName,
+						action.payload.lastName,
 						action.payload.email,
 						action.payload.password
 					)

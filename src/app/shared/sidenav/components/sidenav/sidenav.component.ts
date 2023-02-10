@@ -11,7 +11,7 @@ import { selectUser } from '@@shared/store/auth/auth.selectors';
 export class SidenavComponent implements OnInit {
 	@Output() closeSidenav = new EventEmitter<void>();
 
-	isAuth$ = this.store.select(selectUser);
+	readonly isAuth$ = this.store.select(selectUser);
 
 	constructor(private readonly store: Store) {}
 

@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
 	declarations: [],
@@ -33,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 		MatProgressSpinnerModule,
 		MatDialogModule,
 		MatTableModule,
+		MatMenuModule,
 	],
 	exports: [
 		MatFormFieldModule,
@@ -50,6 +52,7 @@ import { MatTableModule } from '@angular/material/table';
 		MatProgressSpinnerModule,
 		MatDialogModule,
 		MatTableModule,
+		MatMenuModule,
 	],
 })
 export class MaterialModule {}
