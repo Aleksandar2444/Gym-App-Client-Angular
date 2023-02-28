@@ -56,6 +56,14 @@ const routes: Routes = [
 			),
 		canActivate: [AuthGuard],
 	},
+	{
+		path: 'posts',
+		loadChildren: () =>
+			import('./features/posts/posts.module').then(
+				(module) => module.PostsModule
+			),
+		canActivate: [AuthGuard],
+	},
 ];
 
 @NgModule({

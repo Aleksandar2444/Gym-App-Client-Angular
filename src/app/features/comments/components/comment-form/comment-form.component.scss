@@ -1,0 +1,44 @@
+@import "variables";
+
+:host {
+	.form-container {
+		width: inherit;
+
+		display: flex;
+		color: $white;
+		padding: 30px 40px;
+		background-color: $background-color;
+		margin: 15px;
+		border-radius: 10px;
+
+		label {
+			font-size: 1.2rem;
+		}
+		.form-group {
+			width: 100%;
+
+			display: flex;
+			flex-direction: column;
+			border-radius: 8px;
+			margin: 25px 0px;
+			padding: 15px;
+			background-color: $background-color;
+			border-bottom: 3px solid #1c1b1b;
+
+			textarea {
+				margin-top: 20px;
+				font-family: inherit;
+				resize: none;
+				height: 25px;
+			}
+		}
+
+		button {
+			margin-top: 20px;
+			margin-bottom: 0;
+			font-size: 1rem;
+			align-self: flex-end;
+			width: 100px;
+		}
+	}
+}

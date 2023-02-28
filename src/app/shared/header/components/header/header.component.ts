@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { logoutRequest } from '@@shared/store/auth/auth.actions';
 import { selectToken } from '@@shared/store/auth/auth.selectors';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-header',
@@ -13,7 +14,10 @@ export class HeaderComponent implements OnInit {
 
 	readonly isLoggedIn$ = this.store.select(selectToken);
 
-	constructor(private readonly store: Store) {}
+	constructor(
+		private readonly store: Store,
+		private readonly router: Router
+	) {}
 
 	ngOnInit(): void {}
 

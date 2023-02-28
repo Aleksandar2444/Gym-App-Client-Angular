@@ -1,0 +1,40 @@
+<div class="comment-container">
+	<ng-container *ngIf="comments.length <= 0">
+		<h3>No Comments Yet</h3>
+	</ng-container>
+	<ng-container *ngIf="comments.length > 0">
+		<h3>Comments</h3>
+		<div class="comment" *ngFor="let comment of comments">
+			<p class="comment-body">{{ comment.body }}</p>
+			<div class="comment-body-container">
+				<div>
+					<p class="comment-author">
+						<span
+							class="post-link"
+							*ngIf="showPostLink"
+							[routerLink]="'/posts/' + comment.post"
+						>
+							<i>🔗</i> Link to post
+						</span>
+						<span>
+							<i>👤</i>
+							{{ comment.author.firstName }}
+							{{ comment.author.lastName }}
+						</span>
+
+						<span>
+							{{ comment.createdAt | date : "shortDate" }}
+						</span>
+					</p>
+				</div>
+				<div>
+					<p class="comment-author-time">
+						<span>
+							{{ comment.createdAt | date : "shortTime" }}
+						</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</ng-container>
+</div>

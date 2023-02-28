@@ -23,7 +23,11 @@ import { SpinnerComponent } from '@@shared/spinner/spinner/spinner.component';
 import { SpinnerInterceptor } from '@@shared/interceptors/spinner.interceptor';
 import { JwtInterceptor } from '@@shared/interceptors/jwt.interceptor';
 import { StorageService } from '@@shared/services/storage.service';
-import { CoreService } from '@@shared/services/core.service';
+import {
+	postByIdReducer,
+	postReducer,
+} from '@@shared/store/posts/post.reducer';
+import { PostEffects } from '@@shared/store/posts/post.effects';
 
 @NgModule({
 	declarations: [AppComponent, SpinnerComponent],
@@ -46,8 +50,12 @@ import { CoreService } from '@@shared/services/core.service';
 			progressBar: true,
 			tapToDismiss: true,
 		}),
-		StoreModule.forRoot({ auth: authReducer }),
-		EffectsModule.forRoot([AuthEffects]),
+		StoreModule.forRoot({
+			auth: authReducer,
+			post: postReducer,
+			postId: postByIdReducer,
+		}),
+		EffectsModule.forRoot([AuthEffects, PostEffects]),
 		!environment.production
 			? [StoreDevtoolsModule.instrument({ maxAge: 25 })]
 			: [],

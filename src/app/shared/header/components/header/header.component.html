@@ -116,6 +116,28 @@
 						<mat-icon>power_settings_new</mat-icon
 						><span>Logout</span>
 					</button>
+					<!-- Posts -->
+					<button
+						mat-menu-item
+						routerLink="/posts"
+						routerLinkActive="active"
+						[routerLinkActiveOptions]="{
+							exact: true
+						}"
+						class="nav-link"
+					>
+						Posts
+					</button>
+					<!-- Create Post -->
+					<button
+						mat-menu-item
+						routerLink="/posts/create"
+						routerLinkActive="active"
+						class="nav-link"
+						title="Create Post"
+					>
+						Create Post
+					</button>
 				</mat-menu>
 			</ng-template>
 

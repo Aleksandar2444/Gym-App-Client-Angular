@@ -15,6 +15,7 @@ import {
 
 export const authReducer = createReducer(
 	initialState,
+	// Login
 	on(loginRequest, (state) => ({ ...state, status: AuthStatus.LOADING })),
 	on(loginRequestSuccess, (state, { payload }) => ({
 		...state,
@@ -32,6 +33,7 @@ export const authReducer = createReducer(
 		message: payload,
 		isAuth: false,
 	})),
+	// Logout
 	on(logoutRequest, (state, { payload }) => ({
 		user: payload,
 		error: payload,
@@ -39,6 +41,7 @@ export const authReducer = createReducer(
 		message: 'Logged out successfully!',
 		isAuth: false,
 	})),
+	// Register
 	on(registerRequest, (state) => ({ ...state, status: AuthStatus.LOADING })),
 	on(registerRequestSuccess, (state, { payload }) => ({
 		...state,
