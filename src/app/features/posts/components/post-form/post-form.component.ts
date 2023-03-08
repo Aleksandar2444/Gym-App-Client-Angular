@@ -60,7 +60,7 @@ export class PostFormComponent extends BaseComponent implements OnInit {
 	initForm() {
 		this.postForm = new FormGroup<PostForm>({
 			title: new FormControl<string>('', {
-				validators: [Validators.required, Validators.minLength(5)],
+				validators: [Validators.required, Validators.minLength(1)],
 				nonNullable: true,
 			}),
 			body: new FormControl<string>('', {

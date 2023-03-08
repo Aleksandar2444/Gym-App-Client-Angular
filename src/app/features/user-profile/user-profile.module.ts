@@ -9,7 +9,6 @@ import { UserProfileService } from './service/user-profile.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CoreService } from '@@shared/services/core.service';
 import { PostsModule } from '@@features/posts/posts.module';
-// import { PostsService } from '@@features/posts/services/posts.service';
 
 @NgModule({
 	declarations: [UserProfileComponent],

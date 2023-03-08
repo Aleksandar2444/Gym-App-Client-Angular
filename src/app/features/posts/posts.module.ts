@@ -8,7 +8,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommentsModule } from '../comments/comments.module';
-import { PostsService } from '@@shared/services/post.service';
+import { MaterialModule } from '@@shared/material/material.module';
 
 @NgModule({
 	declarations: [
@@ -17,7 +17,6 @@ import { PostsService } from '@@shared/services/post.service';
 		PostFormComponent,
 		PostListComponent,
 	],
-	providers: [PostsService],
 	exports: [
 		PostComponent,
 		PostDetailsComponent,
@@ -29,6 +28,7 @@ import { PostsService } from '@@shared/services/post.service';
 		PostsRoutingModule,
 		ReactiveFormsModule,
 		CommentsModule,
+		MaterialModule,
 	],
 })
 export class PostsModule {}

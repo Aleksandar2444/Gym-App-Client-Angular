@@ -7,6 +7,7 @@ import { CommentFormComponent } from './components/comment-form/comment-form.com
 import { CommentsListComponent } from './components/comments-list/comments-list.component';
 import { UserCommentsComponent } from './components/user-comments/user-comments.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '@@shared/material/material.module';
 
 @NgModule({
 	declarations: [
@@ -14,7 +15,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 		CommentsListComponent,
 		UserCommentsComponent,
 	],
-	imports: [CommonModule, CommentsRoutingModule, ReactiveFormsModule],
+	imports: [
+		CommonModule,
+		CommentsRoutingModule,
+		ReactiveFormsModule,
+		MaterialModule,
+	],
 	providers: [CommentsService],
 	exports: [
 		CommentFormComponent,

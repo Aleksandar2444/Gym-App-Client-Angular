@@ -3,9 +3,6 @@
 		<h2>{{ currentUser.firstName }} {{ currentUser.lastName }} comments</h2>
 	</div>
 	<div *ngIf="userComments$ | async as comments" class="posts-container">
-		<app-comments-list
-			[showPostLink]="true"
-			[comments]="comments"
-		></app-comments-list>
+		<app-comments-list [comments]="comments"></app-comments-list>
 	</div>
 </section>
