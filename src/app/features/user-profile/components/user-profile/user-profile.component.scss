@@ -2,7 +2,7 @@
 
 :host {
 	section {
-		margin: 10px 60px;
+		margin: 10px 260px;
 		box-shadow: $box-shadow1;
 		transition: 0.3s;
 		border-radius: 5px;
@@ -21,8 +21,14 @@
 			.name__wrapper {
 				padding-bottom: 20px;
 
-				p {
+				p:nth-child(1) {
 					font-size: 24px;
+					margin-bottom: 8px;
+				}
+
+				p:nth-child(2) {
+					font-size: small;
+					margin: 0;
 				}
 			}
 
@@ -41,6 +47,10 @@
 						transition: 0.3s;
 						border-radius: 5px;
 						cursor: pointer;
+					}
+
+					button:active {
+						transform: translateY(-6px);
 					}
 				}
 
@@ -64,10 +74,63 @@
 
 		.about__container {
 			margin: 0px 20px;
+
+			.country__container {
+				display: flex;
+
+				p:nth-child(2) {
+					margin-left: 5px;
+				}
+			}
 		}
 
-		.stepper__container {
+		.stepper__container ::ng-deep {
 			margin: 0px 20px;
+
+			.mat-mdc-tab-group-dynamic-height .mat-mdc-tab-body-content {
+				// flex-direction: column;
+				align-items: center;
+			}
+
+			.create__post {
+				display: flex;
+				align-items: center;
+				padding: 0px 5px;
+				margin: 10px 17px 0px 17px;
+				transition: 0.3s;
+				border-radius: 5px;
+				width: -webkit-fill-available;
+
+				.img__wrapper img {
+					width: 50px;
+					height: 50px;
+					object-fit: cover;
+					border-radius: 50%;
+				}
+
+				.post__bar {
+					background-color: $white;
+					border: 1px solid #212020;
+					border-radius: 25px;
+					width: inherit;
+					margin: 0px 10px;
+					padding: 10px 10px;
+					cursor: pointer;
+
+					p {
+						margin: 0;
+					}
+				}
+
+				.post__bar:hover {
+					background-color: #e4e4e4;
+				}
+			}
+
+			.container {
+				margin: 0;
+				width: -webkit-fill-available;
+			}
 
 			.example-small-box,
 			.example-large-box {
@@ -79,8 +142,8 @@
 			}
 
 			.example-large-box {
-				height: 200px;
-				width: 200px;
+				height: 190px;
+				width: 190px;
 
 				img {
 					object-fit: cover;
@@ -89,22 +152,18 @@
 				}
 			}
 
-			::ng-deep
-				.mat-mdc-tab-group-dynamic-height
-				.mat-mdc-tab-body-content {
+			.mat-mdc-tab-group-dynamic-height .mat-mdc-tab-body-content {
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: center;
 			}
 
-			::ng-deep
-				.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active
+			.mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active
 				.mdc-tab__text-label {
 				color: black;
 			}
 
-			::ng-deep
-				.mat-mdc-tab:not(.mat-mdc-tab-disabled)
+			.mat-mdc-tab:not(.mat-mdc-tab-disabled)
 				.mdc-tab-indicator__content--underline {
 				border-color: transparent;
 			}
@@ -212,7 +271,186 @@
 		}
 	}
 
+	//ngx-smart-modal start
+	ngx-smart-modal ::ng-deep {
+		.nsm-content {
+			width: inherit;
+			background-color: transparent;
+		}
+
+		.nsm-dialog {
+			max-width: 70%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.mat-mdc-form-field-error {
+			font-size: 12px;
+			padding-left: 15px;
+			padding-top: 5px;
+		}
+
+		mat-form-field ::ng-deep {
+			.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+				background-color: transparent;
+			}
+
+			.mdc-text-field--filled:not(.mdc-text-field--disabled)
+				.mdc-line-ripple::before {
+				border-bottom-color: transparent;
+			}
+
+			.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(
+					.mdc-text-field--textarea
+				)
+				.mat-mdc-form-field-infix {
+				padding: 0;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+
+			.mdc-text-field--invalid:not(.mdc-text-field--disabled)
+				.mdc-line-ripple::after {
+				border-bottom-color: transparent;
+			}
+
+			.mdc-text-field--filled .mdc-line-ripple::after {
+				border-bottom-color: transparent;
+			}
+
+			.mat-mdc-select-value-text {
+				color: $white;
+			}
+			.mat-mdc-select-arrow svg {
+				color: $light-purple;
+			}
+			.mat-mdc-select-placeholder {
+				color: $light-purple;
+			}
+			.mat-mdc-form-field-focus-overlay {
+				background-color: transparent;
+			}
+			.mat-mdc-form-field-subscript-wrapper {
+				display: none;
+			}
+
+			.mdc-text-field:not(.mdc-text-field--disabled)
+				.mdc-text-field__input {
+				color: $white;
+			}
+		}
+
+		.container {
+			.form-container {
+				width: inherit;
+				display: flex;
+				justify-content: center;
+				flex-direction: column;
+				color: $white;
+				padding: 30px 40px;
+				background-color: $background-color;
+				margin: 15px;
+				border-radius: 10px;
+
+				.name__wrapper_ngx {
+					font-size: 1.4rem;
+				}
+
+				label {
+					font-size: 0.9rem;
+					color: $light-purple;
+				}
+
+				.fg2 {
+					height: 25px;
+				}
+
+				.form-group {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					border-radius: 8px;
+					margin: 10px 0px;
+					padding: 10px 0px;
+					background-color: $background-color;
+					border-bottom: 3px solid #1c1b1b;
+
+					textarea {
+						margin-top: 20px;
+						font-family: inherit;
+						resize: none;
+						border-radius: 5px;
+					}
+
+					input {
+						background-color: $background-color;
+						border-radius: 5px;
+					}
+					input::placeholder {
+						color: gray;
+						font-size: 13px;
+					}
+				}
+
+				.modal-footer {
+					display: flex;
+					justify-content: flex-end;
+					gap: 5px;
+
+					button {
+						width: 80px;
+						margin-top: 20px;
+						margin-bottom: 0;
+						font-size: 0.8rem;
+						height: 30px;
+						border-radius: 5px;
+						cursor: pointer;
+					}
+
+					button:nth-child(1) {
+						background-color: $light-yellow;
+					}
+
+					button:nth-child(2) {
+						color: $white;
+						background-color: $light-purple;
+					}
+				}
+			}
+			// ngx-smart-modal-end
+		}
+	}
+
+	@media only screen and (max-width: 1150px) {
+		section {
+			margin: 10px 200px;
+			width: -webkit-fill-available;
+		}
+	}
+
+	@media only screen and (max-width: 900px) {
+		section {
+			margin: 10px 100px;
+			width: -webkit-fill-available;
+		}
+	}
+
 	@media only screen and (max-width: 600px) {
+		ngx-smart-modal {
+			::ng-deep .nsm-dialog {
+				max-width: 90%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			::ng-deep .nsm-content {
+				margin: 50px 0;
+				padding: 0;
+			}
+		}
+
 		section {
 			margin: 10px 10px;
 			width: -webkit-fill-available;

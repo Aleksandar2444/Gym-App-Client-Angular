@@ -9,6 +9,14 @@
 			(ngSubmit)="onFormSubmit()"
 		>
 			<mat-form-field>
+				<label for="email"
+					>Email
+					<span
+						matTooltip="This field is required"
+						matTooltipPosition="right"
+						>*</span
+					></label
+				>
 				<input
 					formControlName="email"
 					type="text"
@@ -17,10 +25,18 @@
 				/>
 				<mat-error
 					*ngIf="loginForm.controls.email.invalid || isFormSubmitted"
-					>Invalid Email</mat-error
-				>
+					>Invalid Email
+				</mat-error>
 			</mat-form-field>
 			<mat-form-field>
+				<label for="password"
+					>Password
+					<span
+						matTooltip="This field is required"
+						matTooltipPosition="right"
+						>*</span
+					></label
+				>
 				<input
 					type="password"
 					formControlName="password"

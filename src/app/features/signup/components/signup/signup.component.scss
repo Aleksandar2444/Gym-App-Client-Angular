@@ -21,6 +21,30 @@
 		button {
 			margin: 10px 0;
 		}
+
+		mat-form-field {
+			::ng-deep
+				.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(
+					.mdc-text-field--textarea
+				)
+				.mat-mdc-form-field-infix {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				padding: 5px 0;
+			}
+
+			label {
+				font-size: 13px;
+				width: fit-content;
+				display: flex;
+
+				span {
+					margin-left: 5px;
+				}
+			}
+		}
+
 		mat-form-field,
 		mat-password-strength {
 			width: 300px;
