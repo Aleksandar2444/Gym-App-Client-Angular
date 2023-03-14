@@ -2,11 +2,12 @@
 
 :host {
 	mat-toolbar {
-		background-color: $aqua-one;
-		padding: 0 30px;
+		background-color: $gray-one;
+		padding: 0 4rem;
+		height: 75px;
 
 		mat-icon {
-			color: $light-yellow;
+			color: $light-gray;
 		}
 
 		.nav__button {
@@ -17,6 +18,7 @@
 		.link__caption__allowed {
 			margin-right: 0;
 			width: 80px;
+			height: 65px;
 
 			a {
 				padding-top: 8px;
@@ -25,12 +27,24 @@
 
 		.link__caption__allowed:hover,
 		.link__caption__denied:hover {
-			background-color: $aqua-two;
+			background-color: $hover-color;
+			border-radius: 5px;
+		}
+
+		.link__caption__allowed:hover a .mat-icon,
+		.link__caption__allowed:hover a span {
+			color: white;
+		}
+
+		.link__caption__denied:hover a .mat-icon,
+		.link__caption__denied:hover a span {
+			color: white;
 		}
 
 		.link__caption__denied {
 			margin-right: 0;
 			width: 70px;
+			height: 65px;
 
 			a {
 				padding-top: 8px;
@@ -40,17 +54,35 @@
 		.header__caption {
 			font-size: 12px;
 		}
+
+		.denied__container {
+			display: flex;
+		}
 	}
 
 	a {
 		text-decoration: none;
-		color: $yellow;
+		color: $gray;
 	}
 
 	ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
+		width: 100%;
+	}
+
+	.logo {
+		padding-top: 8px;
+	}
+	img {
+		height: 50px;
+	}
+
+	@media only screen and (max-width: 900px) {
+		mat-toolbar {
+			padding: 0 20px;
+		}
 	}
 }
 

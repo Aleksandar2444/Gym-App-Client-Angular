@@ -1,6 +1,17 @@
 <section>
 	<div class="login__form__container">
-		<h3>Login</h3>
+		<div class="logo__container">
+			<div class="logo">
+				<img src="/assets/images/gym1.jpg" alt="logo.jpg" />
+			</div>
+			<h1>Welcome Back</h1>
+			<span class="span__account"
+				>Don't have an account?
+				<span class="signup__button" routerLink="/auth/signup"
+					>Create today!</span
+				></span
+			>
+		</div>
 		<form
 			fxLayout="column"
 			fxLayoutAlign="center center"
@@ -50,20 +61,15 @@
 					>Invalid Password</mat-error
 				>
 			</mat-form-field>
-			<span
-				>Don't have an account?
-				<span class="signup__button" routerLink="/auth/signup"
-					>Sign up</span
-				></span
-			>
-			<p routerLink="/auth/forgot-password">Forgot password?</p>
+			<div class="forgot__password">
+				<p routerLink="/auth/forgot-password">Forgot password?</p>
+			</div>
 			<button
 				type="submit"
-				color="accent"
 				mat-raised-button
 				[disabled]="loginForm.invalid"
 			>
-				Submit
+				Sign In
 			</button>
 		</form>
 	</div>

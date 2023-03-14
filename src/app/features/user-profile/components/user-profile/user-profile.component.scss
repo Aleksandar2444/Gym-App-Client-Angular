@@ -2,15 +2,13 @@
 
 :host {
 	section {
-		margin: 10px 260px;
+		margin: 20px 260px;
+		padding: 2rem 4rem;
 		box-shadow: $box-shadow1;
 		transition: 0.3s;
 		border-radius: 5px;
 
 		.profile__container {
-			margin: 0px 20px;
-			padding: 20px 0px;
-
 			.img__wrapper img {
 				width: 150px;
 				height: 150px;
@@ -73,8 +71,6 @@
 		}
 
 		.about__container {
-			margin: 0px 20px;
-
 			.country__container {
 				display: flex;
 
@@ -85,10 +81,7 @@
 		}
 
 		.stepper__container ::ng-deep {
-			margin: 0px 20px;
-
 			.mat-mdc-tab-group-dynamic-height .mat-mdc-tab-body-content {
-				// flex-direction: column;
 				align-items: center;
 			}
 
@@ -129,7 +122,8 @@
 
 			.container {
 				margin: 0;
-				width: -webkit-fill-available;
+				width: 100%;
+				padding: 2rem 0rem;
 			}
 
 			.example-small-box,
@@ -171,48 +165,61 @@
 			.posts-container {
 				.post {
 					padding: 30px 40px;
-					background-color: $background-color;
 					margin: 15px;
 					border-radius: 10px;
-					color: black;
-					color: $white;
-					cursor: pointer;
+					color: $gray-one;
+					background-color: $white;
+					box-shadow: $box-shadow2;
+					border-radius: 5px;
+					width: auto;
 
 					transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
 					&-heading {
 						display: flex;
 						justify-content: space-between;
-						color: $light-purple;
-						font-size: 1.3rem;
+						color: $gray-one;
+
+						h3 {
+							font-size: 1.3rem;
+							font-weight: 500;
+						}
 
 						.likes-display {
 							color: $white;
 							span {
 								margin: 0 5px;
-								padding: 4px 8px;
 								font-size: 1.1rem;
 								border-radius: 6px;
-								background-color: $blue;
+								background-color: #ececec;
+								color: $black;
+								cursor: pointer;
 								font-weight: 600;
-								cursor: default;
-								border: 2px solid $blue;
+								transition: 0.1s ease-in;
+								border: 2px solid $hover-color;
+								//
+								display: flex;
+								gap: 5px;
+								padding: 6px;
+								align-items: flex-end;
+								justify-content: center;
 
-								.fa-thumbs-up {
+								.mat-icon {
 									color: #48ad7e;
 								}
+							}
 
-								.fa-thumbs-down {
-									color: greenyellow;
-								}
+							span:hover {
+								background-color: #dddada;
 							}
 						}
 					}
 					&-body {
 						padding: 20px 0;
 						margin: 20px 0;
-						border-top: 2px solid $blue;
-						border-bottom: 2px solid $blue;
+						border-top: 2px solid #757575;
+						border-bottom: 2px solid #757575;
+						font-size: 15px;
 					}
 
 					&-footer {
@@ -221,7 +228,7 @@
 						display: flex;
 						justify-content: space-between;
 						border-bottom: none;
-						color: $light-purple;
+						color: $gray-one;
 
 						.comments {
 							display: flex;
@@ -410,7 +417,7 @@
 					}
 
 					button:nth-child(1) {
-						background-color: $light-yellow;
+						background-color: $light-gray;
 					}
 
 					button:nth-child(2) {
@@ -423,7 +430,7 @@
 		}
 	}
 
-	@media only screen and (max-width: 1150px) {
+	@media only screen and (max-width: 1250px) {
 		section {
 			margin: 10px 200px;
 			width: -webkit-fill-available;
@@ -432,8 +439,69 @@
 
 	@media only screen and (max-width: 900px) {
 		section {
-			margin: 10px 100px;
+			padding: 1rem 1rem;
+			margin: 15px 20px;
 			width: -webkit-fill-available;
+
+			.profile__container {
+				.img__wrapper img {
+					width: 90px;
+					height: 90px;
+				}
+			}
+
+			.img__wrapper img {
+				width: 40px;
+				height: 40px;
+			}
+
+			.post__bar {
+				padding: 4px 10px !important;
+			}
+
+			.container {
+				padding: 1rem 0;
+
+				.post {
+					padding: 15px 15px;
+					margin: 0 0 15px 0;
+
+					.like {
+						display: flex;
+						font-size: 16px;
+						align-items: center;
+						gap: 2px !important;
+
+						.mat-icon {
+							font-size: 20px;
+							display: flex;
+							align-items: center;
+						}
+					}
+
+					&-heading h3 {
+						font-size: 17px;
+					}
+
+					&-footer {
+						font-size: 12px;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+						gap: 10px;
+
+						.footer-info {
+							width: 70%;
+						}
+					}
+
+					.comments {
+						justify-content: center;
+						width: auto;
+					}
+				}
+			}
 		}
 	}
 
@@ -452,14 +520,6 @@
 		}
 
 		section {
-			margin: 10px 10px;
-			width: -webkit-fill-available;
-
-			.img__wrapper img {
-				width: 80px !important;
-				height: 80px !important;
-			}
-
 			.name__wrapper {
 				padding-bottom: 8px !important;
 

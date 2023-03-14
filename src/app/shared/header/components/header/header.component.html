@@ -28,16 +28,13 @@
 		<!-- </mat-nav-list> -->
 	</div>
 	<!-- Desktop Version -->
-	<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-		<ul fxLayout fxLayoutGap="8px" fxLayoutAlign="center center">
-			<ng-container
-				*ngIf="
-					isLoggedIn$ | async;
-					then accessAllowed;
-					else accessDenied
-				"
-			></ng-container>
-			<ng-template #accessAllowed>
+	<ng-container
+		*ngIf="isLoggedIn$ | async; then accessAllowed; else accessDenied"
+	></ng-container>
+	<ng-template #accessAllowed>
+		<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+			<ul fxLayout fxLayoutGap="8px" fxLayoutAlign="flex-end">
+				<!-- Home -->
 				<div class="link__caption__allowed">
 					<a
 						routerLink="/home"
@@ -48,6 +45,7 @@
 						><span class="header__caption">Home</span></a
 					>
 				</div>
+				<!-- Search -->
 				<div class="link__caption__allowed">
 					<a
 						routerLink="#"
@@ -58,6 +56,7 @@
 						><span class="header__caption">Search</span></a
 					>
 				</div>
+				<!-- Explore -->
 				<div class="link__caption__allowed">
 					<a
 						routerLink="#"
@@ -68,6 +67,7 @@
 						><span class="header__caption">Explore</span></a
 					>
 				</div>
+				<!-- Training -->
 				<div class="link__caption__allowed">
 					<a
 						routerLink="/training"
@@ -78,6 +78,7 @@
 						><span class="header__caption">Training</span></a
 					>
 				</div>
+				<!-- Notification -->
 				<div class="link__caption__allowed">
 					<a
 						routerLink="#"
@@ -88,6 +89,7 @@
 						><span class="header__caption">Notifications</span></a
 					>
 				</div>
+				<!-- Messages -->
 				<div class="link__caption__allowed">
 					<a
 						routerLink="#"
@@ -116,43 +118,42 @@
 						<mat-icon>power_settings_new</mat-icon
 						><span>Logout</span>
 					</button>
-					<!-- Posts -->
-					<button
-						mat-menu-item
-						routerLink="/posts"
-						routerLinkActive="active"
-						[routerLinkActiveOptions]="{
-							exact: true
-						}"
-						class="nav-link"
-					>
-						Posts
-					</button>
 				</mat-menu>
-			</ng-template>
-
-			<ng-template #accessDenied>
-				<div class="link__caption__denied">
-					<a
-						routerLink="/auth/signup"
-						fxFlex
-						fxLayout="column"
-						fxLayoutAlign="center center"
-						><mat-icon>face</mat-icon
-						><span class="header__caption">Signup</span></a
-					>
+			</ul>
+		</div>
+	</ng-template>
+	<!-- Access Denied -->
+	<ng-template #accessDenied>
+		<div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+			<ul fxLayout fxLayoutGap="8px" fxLayoutAlign="space-between">
+				<div>
+					<div class="logo">
+						<img src="/assets/images/gg2.jpg" alt="logo.jpg" />
+					</div>
 				</div>
-				<div class="link__caption__denied">
-					<a
-						routerLink="/auth/login"
-						fxFlex
-						fxLayout="column"
-						fxLayoutAlign="center center"
-						><mat-icon>input</mat-icon
-						><span class="header__caption">Login</span></a
-					>
+				<div class="denied__container">
+					<div class="link__caption__denied">
+						<a
+							routerLink="/auth/signup"
+							fxFlex
+							fxLayout="column"
+							fxLayoutAlign="center center"
+							><mat-icon>face</mat-icon
+							><span class="header__caption">Signup</span></a
+						>
+					</div>
+					<div class="link__caption__denied">
+						<a
+							routerLink="/auth/login"
+							fxFlex
+							fxLayout="column"
+							fxLayoutAlign="center center"
+							><mat-icon>input</mat-icon
+							><span class="header__caption">Login</span></a
+						>
+					</div>
 				</div>
-			</ng-template>
-		</ul>
-	</div>
+			</ul>
+		</div>
+	</ng-template>
 </mat-toolbar>

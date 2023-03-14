@@ -3,52 +3,60 @@
 :host {
 	.post {
 		padding: 30px 40px;
-		background-color: $background-color;
 		margin: 15px;
 		border-radius: 10px;
-		color: black;
-		color: $white;
+		color: $gray-one;
+		background-color: $white;
+		box-shadow: $box-shadow2;
+		border-radius: 5px;
+		width: auto;
 
 		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
 		&-heading {
 			display: flex;
 			justify-content: space-between;
-			color: $light-purple;
-			font-size: 1.3rem;
+
+			h3 {
+				font-size: 1.3rem;
+				font-weight: 500;
+			}
 
 			.likes-display {
 				color: $white;
 				span {
 					margin: 0 5px;
-					padding: 4px 8px;
 					font-size: 1.1rem;
 					border-radius: 6px;
-					background-color: $blue;
+					background-color: #ececec;
+					color: $black;
 					cursor: pointer;
 					font-weight: 600;
 					transition: 0.1s ease-in;
+					border: 2px solid $hover-color;
+					//
+					display: flex;
+					gap: 5px;
+					padding: 6px;
+					align-items: flex-end;
+					justify-content: center;
 
-					border: 2px solid $blue;
-					.fa-thumbs-up {
+					.mat-icon {
 						color: #48ad7e;
 					}
+				}
 
-					.fa-thumbs-down {
-						color: greenyellow;
-					}
-
-					&:hover {
-						border: 2px solid $white;
-					}
+				span:hover {
+					background-color: #dddada;
 				}
 			}
 		}
 		&-body {
 			padding: 20px 0;
 			margin: 20px 0;
-			border-top: 2px solid $blue;
-			border-bottom: 2px solid $blue;
+			border-top: 2px solid #757575;
+			border-bottom: 2px solid #757575;
+			font-size: 15px;
 		}
 
 		&-footer {
@@ -57,7 +65,6 @@
 			display: flex;
 			justify-content: space-between;
 			border-bottom: none;
-			color: $light-purple;
 
 			.comments {
 				display: flex;
@@ -85,12 +92,6 @@
 						color: red;
 					}
 				}
-
-				i {
-					margin-left: 5px;
-
-					font-size: 1.1rem;
-				}
 			}
 		}
 	}
@@ -103,7 +104,39 @@
 		}
 	}
 
-	.like:hover {
-		background: greenyellow;
+	@media only screen and (max-width: 900px) {
+		.post {
+			padding: 10px 20px;
+
+			.like {
+				display: flex;
+				font-size: 16px;
+				align-items: center;
+				gap: 2px !important;
+
+				.mat-icon {
+					font-size: 20px;
+					display: flex;
+					align-items: center;
+				}
+			}
+
+			&-heading h3 {
+				font-size: 17px;
+			}
+
+			&-footer {
+				font-size: 12px;
+
+				.footer-info {
+					width: 70%;
+				}
+			}
+
+			.comments {
+				width: 30%;
+				justify-content: flex-end;
+			}
+		}
 	}
 }

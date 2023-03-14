@@ -2,10 +2,10 @@
 
 :host {
 	::ng-deep .mdc-tab__content > .mdc-tab__text-label {
-		color: $very-light-yellow;
+		color: $white;
 	}
 
 	::ng-deep .mdc-tab-indicator > .mdc-tab-indicator__content {
-		border-color: $very-light-yellow;
+		border-color: $white;
 	}
 }

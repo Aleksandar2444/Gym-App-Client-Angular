@@ -2,9 +2,10 @@
 
 :host {
 	.comment-container {
-		color: $white;
 		padding: 30px 40px;
-		background-color: $background-color;
+		box-shadow: $box-shadow2;
+		color: $gray-one;
+		background-color: $white;
 		margin: 15px;
 		border-radius: 10px;
 		h3 {
@@ -29,23 +30,35 @@
 		border-radius: 8px;
 		margin: 25px 0px;
 		padding: 15px;
-		background-color: $background-color;
-		border-bottom: 3px solid #1c1b1b;
+		box-shadow: $box-shadow2;
+		color: $gray-one;
+		background-color: $white;
 
 		&-body {
 			margin-bottom: 10px;
 			padding-bottom: 10px;
+			border-bottom: 1px solid;
 		}
 
 		&-body-container {
 			display: flex;
 			flex-direction: row-reverse;
 			justify-content: space-between;
+
+			div {
+				display: flex;
+				align-items: flex-end;
+
+				p {
+					margin: 0;
+				}
+			}
 		}
 
 		&-author {
 			align-self: flex-end;
-			color: $light-purple;
+			color: $gray-one;
+
 			.user-icon {
 				padding-right: 10px;
 				margin-right: 10px;
@@ -55,7 +68,7 @@
 		}
 
 		&-author-time {
-			color: $light-purple;
+			color: $gray-one;
 		}
 
 		.post-link {
@@ -69,6 +82,18 @@
 
 			&:hover {
 				color: #979696;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 900px) {
+		.comment-container {
+			padding: 0;
+
+			h3 {
+				padding-top: 15px;
+				font-size: 17px;
+				margin: 0;
 			}
 		}
 	}

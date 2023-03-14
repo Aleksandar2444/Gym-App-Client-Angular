@@ -2,7 +2,7 @@
 
 :host {
 	mat-sidenav-container {
-		background-color: $aqua-two;
+		background-color: $white-one;
 	}
 
 	mat-sidenav-container,
@@ -12,6 +12,6 @@
 	}
 	mat-sidenav {
 		width: 200px;
-		background-color: $aqua-one;
+		background-color: $gray-one;
 	}
 }

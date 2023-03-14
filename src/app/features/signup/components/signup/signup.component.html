@@ -1,6 +1,12 @@
 <section>
 	<div class="signup__form__container">
-		<h3>Sign up</h3>
+		<div class="logo__container">
+			<div class="logo">
+				<img src="/assets/images/gym1.jpg" alt="logo.jpg" />
+			</div>
+			<h1>Create Your Account</h1>
+			<span>Sign up to see photos and videos from your friends.</span>
+		</div>
 		<form
 			fxLayout="column"
 			fxLayoutAlign="center center"
@@ -99,10 +105,9 @@
 			<button
 				type="submit"
 				mat-raised-button
-				color="accent"
 				[disabled]="signupForm.invalid"
 			>
-				Submit
+				Create account
 			</button>
 		</form>
 	</div>

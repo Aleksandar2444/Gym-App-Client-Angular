@@ -6,7 +6,7 @@
 		justify-content: center;
 
 		.email__sent__container {
-			background-color: $very-light-yellow;
+			background-color: $white;
 			box-shadow: $box-shadow;
 			border-radius: 5px;
 			margin-top: 20px;
@@ -15,7 +15,7 @@
 				text-align: center;
 				font-size: 25px;
 				padding-top: 10px;
-				color: $dark-aqua;
+				color: $gray-one;
 			}
 
 			mat-form-field {
@@ -46,12 +46,12 @@
 			}
 			h4 {
 				text-align: center;
-				color: $dark-aqua;
+				color: $blue;
 				cursor: pointer;
 			}
 			.send__again {
 				cursor: pointer;
-				color: $dark-aqua;
+				color: $blue;
 			}
 		}
 	}
