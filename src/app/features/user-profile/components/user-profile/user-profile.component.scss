@@ -74,6 +74,10 @@
 			.country__container {
 				display: flex;
 
+				span {
+					margin-right: 7px;
+				}
+
 				p:nth-child(2) {
 					margin-left: 5px;
 				}

@@ -1,18 +1,5 @@
 import { FormControl } from '@angular/forms';
 
-export interface UserInfoResponse {
-	_id: string;
-	firstName: string;
-	lastName: string;
-}
-
-export interface UserData {
-	gymNickname: string;
-	country: string;
-	city: string;
-	about: string;
-}
-
 export interface UserProfileForm {
 	gymNickname: FormControl<string>;
 	country: FormControl<string>;
@@ -21,6 +8,23 @@ export interface UserProfileForm {
 }
 
 export interface Country {
+	_id: string;
 	value: string;
 	viewValue: string;
+}
+
+export interface UserDataResponse {
+	_id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	posts: string[];
+	comments: string[];
+	createdAt: string;
+	updatedAt: string;
+	__v: number;
+	about: string;
+	city: string;
+	country: string;
+	gymNickname: string;
 }

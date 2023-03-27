@@ -1,8 +1,7 @@
 import { Post, SelectedPost } from '@@features/posts/models/model';
 import {
 	Country,
-	UserData,
-	UserInfoResponse,
+	UserDataResponse,
 	UserProfileForm,
 } from '@@features/user-profile/models/model';
 import { BaseComponent } from '@@shared/base-component/base/base.component';
@@ -20,6 +19,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, map, takeUntil } from 'rxjs';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { UserProfileService } from '@@features/user-profile/service/user-profile.service';
 
 @Component({
 	selector: 'app-user-profile',
@@ -31,29 +31,24 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
 	@Input() post: Post | SelectedPost;
 
 	readonly posts$ = new BehaviorSubject<Post[]>([]);
+	readonly countries$ = new BehaviorSubject<Country[]>([]);
 
 	userProfileForm: FormGroup<UserProfileForm>;
 	isFormSubmitted = false;
 	editMode = false;
-	userDataObj: UserData;
 
-	user: UserInfoResponse;
+	user: UserDataResponse;
+	userData: UserDataResponse;
 	postArray: Post[];
-
-	dummyDataCountries: Country[] = [
-		{ value: 'mk', viewValue: 'Macedonia' },
-		{ value: 'ru', viewValue: 'Russia' },
-		{ value: 'ca', viewValue: 'Canada' },
-		{ value: 'au', viewValue: 'Australia' },
-		{ value: 'no', viewValue: 'Norway' },
-	];
+	countriesArray: any[];
 
 	constructor(
 		private readonly coreService: CoreService,
 		private readonly postsService: PostsService,
 		private readonly router: Router,
 		private readonly store: Store,
-		private readonly ngxSmartModalService: NgxSmartModalService
+		private readonly ngxSmartModalService: NgxSmartModalService,
+		private readonly userProfileService: UserProfileService
 	) {
 		super();
 	}
@@ -63,33 +58,33 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
 		this.onInitFindUser();
 	}
 
-	getValuesFromPost() {
-		this.posts$
-			.pipe(
-				takeUntil(this.destroy$),
-				map((value) => {
-					this.postArray = [...value];
-				})
-			)
-			.subscribe();
-	}
-
 	onInitFindUser() {
 		this.coreService
 			.findUserById()
 			.pipe(
 				takeUntil(this.destroy$),
-				map((value: UserInfoResponse) => {
+				map((value: UserDataResponse) => {
 					this.user = value;
 
 					if (this.user) {
-						// When on posts by user page
 						this.postsService
 							.getPostsByUser()
 							.pipe(
 								takeUntil(this.destroy$),
 								map((value) => {
 									this.posts$.next(value as Post[]);
+									this.postArray = this.posts$.value;
+								})
+							)
+							.subscribe();
+
+						this.userProfileService
+							.getAllCountries()
+							.pipe(
+								takeUntil(this.destroy$),
+								map((value) => {
+									this.countries$.next(value as any);
+									this.countriesArray = this.countries$.value;
 								})
 							)
 							.subscribe();
@@ -97,8 +92,6 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
 				})
 			)
 			.subscribe();
-
-		this.getValuesFromPost();
 	}
 
 	onPostSelect(post: string) {
@@ -149,25 +142,43 @@ export class UserProfileComponent extends BaseComponent implements OnInit {
 		this.ngxSmartModalService.open('myModal');
 
 		this.userProfileForm.setValue({
-			gymNickname: this.userProfileForm.value.gymNickname!,
-			country: this.userProfileForm.value.country!,
-			city: this.userProfileForm.value.city!,
-			about: this.userProfileForm.value.about!,
+			gymNickname: this.user.gymNickname!,
+			country: this.user.country!,
+			city: this.user.city!,
+			about: this.user.about!,
 		});
 	}
 
-	addData() {
-		let userData = this.userProfileForm.controls;
+	updateUser() {
+		const { gymNickname, country, city, about } =
+			this.userProfileForm.value;
 
-		const newData = {
-			gymNickname: userData.gymNickname.value,
-			country: userData.country.value,
-			city: userData.city.value,
-			about: userData.about.value,
-		};
+		this.coreService
+			.findUserById()
+			.pipe(
+				takeUntil(this.destroy$),
+				map((value: UserDataResponse) => {
+					if (value) {
+						this.userProfileService
+							.updateUserProfile(
+								value._id,
+								gymNickname!,
+								country!,
+								city!,
+								about!
+							)
+							.pipe(
+								takeUntil(this.destroy$),
+								map((value: UserDataResponse) => {
+									this.userData = value;
+								})
+							)
+							.subscribe();
+					}
+				})
+			)
+			.subscribe();
 
-		this.userDataObj = newData;
-		this.userProfileForm.reset();
 		this.ngxSmartModalService.close('myModal');
 	}
 
