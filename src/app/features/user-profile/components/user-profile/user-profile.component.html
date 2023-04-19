@@ -48,32 +48,91 @@
 	</div>
 	<div class="stepper__container">
 		<mat-tab-group dynamicHeight>
+			<!-- My Posts -->
+			<mat-tab label="Posts">
+				<section class="container">
+					<div class="container-heading" *ngIf="post">
+						<h2 *ngIf="user">
+							{{
+								user.firstName + " " + user.lastName + " posts"
+							}}
+						</h2>
+					</div>
+					<div class="posts-container">
+						<div
+							class="post"
+							*ngFor="let post of postArray"
+							(click)="onPostSelect(post._id)"
+						>
+							<div class="post-heading">
+								<h3>{{ post.title }}</h3>
+								<span class="likes-display">
+									<span class="like">
+										<mat-icon>thumb_up</mat-icon>
+										{{ post.likes }}
+									</span>
+								</span>
+							</div>
+							<div class="post-body">
+								{{ post.body }}
+							</div>
+							<div class="post-footer">
+								<span>
+									<i class="fa fa-user-circle"></i>
+									{{ post.author.firstName }}
+									{{ post.author.lastName }} on
+									<span>{{ post.createdAt | date }}</span>
+									|
+									<span>{{
+										post.createdAt | date : "shortTime"
+									}}</span>
+								</span>
+								<div class="comments">
+									<ng-container>
+										<span
+											(click)="onPostEdit($event, post)"
+											class="edit-link"
+											>Edit
+											<i
+												class="fa-solid fa-pen-to-square"
+											></i
+										></span>
+										<span
+											class="delete-link"
+											(click)="onPostDelete($event, post)"
+										>
+											Delete
+											<i
+												class="fa-solid fa-trash-can"
+											></i>
+										</span>
+									</ng-container>
+									<span
+										>Comments:
+										{{ post.comments.length }}</span
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</mat-tab>
+			<!-- Photos -->
 			<mat-tab label="Photos">
 				<div class="example-large-box mat-elevation-z4">
-					<img
-						src="../../../../../assets/images/gym2.jpg"
-						alt="gym-jpg"
-					/>
+					<img src="/assets/images/gym2.jpg" alt="gym-jpg" />
 				</div>
 				<div class="example-large-box mat-elevation-z4">
-					<img
-						src="../../../../../assets/images/gym3.jpg"
-						alt="gym-jpg"
-					/>
+					<img src="/assets/images/gym3.jpg" alt="gym-jpg" />
 				</div>
 				<div class="example-large-box mat-elevation-z4">
-					<img
-						src="../../../../../assets/images/gym4.webp"
-						alt="gym-jpg"
-					/>
+					<img src="/assets/images/gym4.webp" alt="gym-jpg" />
 				</div>
 				<div class="example-large-box mat-elevation-z4">
-					<img
-						src="../../../../../assets/images/gym5.avif"
-						alt="gym-jpg"
-					/>
+					<img src="/assets/images/gym5.avif" alt="gym-jpg" />
 				</div>
 			</mat-tab>
+			<!-- Videos -->
 			<mat-tab label="Videos">
 				<div class="example-large-box mat-elevation-z4">Video 1</div>
 				<div class="example-large-box mat-elevation-z4">Video 2</div>

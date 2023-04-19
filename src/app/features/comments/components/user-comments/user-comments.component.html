@@ -1,0 +1,8 @@
+<section class="container">
+	<div class="container-heading">
+		<h2>{{ currentUser.firstName }} {{ currentUser.lastName }} comments</h2>
+	</div>
+	<div *ngIf="userComments$ | async as comments" class="posts-container">
+		<app-comments-list [comments]="comments"></app-comments-list>
+	</div>
+</section>

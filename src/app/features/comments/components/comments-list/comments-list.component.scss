@@ -1,0 +1,75 @@
+@import "variables";
+
+:host {
+	.comment-container {
+		color: $white;
+		padding: 30px 40px;
+		background-color: $background-color;
+		margin: 15px;
+		border-radius: 10px;
+		h3 {
+			text-align: center;
+			font-size: 1.6rem;
+			margin-bottom: 30px;
+		}
+	}
+
+	.user-comments {
+		width: 60%;
+		h3 {
+			font-size: 2.3rem;
+		}
+		margin: 30px auto;
+	}
+
+	.comment {
+		display: flex;
+		flex-direction: column;
+
+		border-radius: 8px;
+		margin: 25px 0px;
+		padding: 15px;
+		background-color: $background-color;
+		border-bottom: 3px solid #1c1b1b;
+
+		&-body {
+			margin-bottom: 10px;
+			padding-bottom: 10px;
+		}
+
+		&-body-container {
+			display: flex;
+			flex-direction: row-reverse;
+			justify-content: space-between;
+		}
+
+		&-author {
+			align-self: flex-end;
+			color: $light-purple;
+			.user-icon {
+				padding-right: 10px;
+				margin-right: 10px;
+
+				border-right: 2px solid $light-purple;
+			}
+		}
+
+		&-author-time {
+			color: $light-purple;
+		}
+
+		.post-link {
+			font-weight: 600;
+			border-right: 2px solid $light-purple;
+			padding-right: 10px;
+			margin-right: 10px;
+
+			color: greenyellow;
+			cursor: pointer;
+
+			&:hover {
+				color: #979696;
+			}
+		}
+	}
+}

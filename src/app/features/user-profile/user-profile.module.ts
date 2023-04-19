@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserProfileService } from './service/user-profile.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CoreService } from '@@shared/services/core.service';
+import { PostsModule } from '@@features/posts/posts.module';
 
 @NgModule({
 	declarations: [UserProfileComponent],
@@ -17,6 +18,7 @@ import { CoreService } from '@@shared/services/core.service';
 		ReactiveFormsModule,
 		MaterialModule,
 		FlexLayoutModule,
+		PostsModule,
 	],
 	providers: [UserProfileService, CoreService],
 	exports: [UserProfileComponent],
