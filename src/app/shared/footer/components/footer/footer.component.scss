@@ -1,0 +1,96 @@
+@import "variables";
+
+:host {
+	section {
+		background-color: $gray-one;
+		color: #a1a1a1;
+
+		.footer__container {
+			padding: 0 4rem;
+
+			.footer__copyright {
+				margin-bottom: 15px;
+			}
+
+			.logo__container {
+				align-items: center;
+				width: auto;
+
+				.logo {
+					padding-top: 8px;
+				}
+
+				img {
+					height: 50px;
+				}
+
+				.app__name {
+					letter-spacing: 1px;
+					font-size: 16px;
+					font-weight: 500;
+				}
+			}
+
+			.icons__container {
+				display: flex;
+				align-items: center;
+
+				ul {
+					padding: 0;
+					li {
+						list-style: none;
+						font-size: 20px;
+						cursor: pointer;
+					}
+				}
+
+				li:hover {
+					color: $white;
+				}
+			}
+
+			.links {
+				ul {
+					padding: 0;
+
+					li {
+						font-size: 13px;
+						color: #828282;
+						list-style: none;
+						cursor: pointer;
+					}
+
+					li:hover {
+						color: #a2a1a1;
+					}
+				}
+			}
+		}
+	}
+
+	@media only screen and (max-width: 900px) {
+		.footer__container {
+			padding: 0 20px !important;
+		}
+	}
+
+	@media only screen and (max-width: 500px) {
+		.footer__copyright {
+			text-align: center;
+		}
+
+		.links {
+			ul {
+				flex-wrap: wrap;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 350px) {
+		.footer__icons {
+			flex-direction: column !important;
+			justify-content: center;
+			align-items: center !important;
+		}
+	}
+}

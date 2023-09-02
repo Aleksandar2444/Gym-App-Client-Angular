@@ -10,11 +10,11 @@ export interface Post {
 		_id: string;
 		firstName: string;
 		lastName: string;
+		gymNickname: string;
 	};
 	comments: string[];
 	createdAt: string;
 	updatedAt: string;
-	__v: number;
 }
 
 export interface SelectedPost {
@@ -27,11 +27,11 @@ export interface SelectedPost {
 		_id: string;
 		firstName: string;
 		lastName: string;
+		gymNickname: string;
 	};
 	comments: PostComment[];
 	createdAt: string;
 	updatedAt: string;
-	__v: number;
 }
 
 export interface CreatePostRequestBody {

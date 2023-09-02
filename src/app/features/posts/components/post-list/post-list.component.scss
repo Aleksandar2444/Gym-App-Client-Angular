@@ -1,8 +1,30 @@
 @import "variables";
 
 :host {
+	.container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 4rem 4rem;
+
+		.posts-container {
+			padding: 15px 15px;
+			width: 50%;
+		}
+	}
 	ul {
 		font-size: 25px;
 		color: $white;
+	}
+
+	@media only screen and (max-width: 900px) {
+		.container {
+			padding: 0;
+
+			.posts-container {
+				width: 100%;
+			}
+		}
 	}
 }

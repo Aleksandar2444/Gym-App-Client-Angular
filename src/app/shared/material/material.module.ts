@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
 	declarations: [],
@@ -35,6 +36,7 @@ import { MatMenuModule } from '@angular/material/menu';
 		MatDialogModule,
 		MatTableModule,
 		MatMenuModule,
+		MatTooltipModule,
 	],
 	exports: [
 		MatFormFieldModule,
@@ -53,6 +55,7 @@ import { MatMenuModule } from '@angular/material/menu';
 		MatDialogModule,
 		MatTableModule,
 		MatMenuModule,
+		MatTooltipModule,
 	],
 })
 export class MaterialModule {}

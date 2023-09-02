@@ -78,13 +78,19 @@ export const postReducer = createReducer(
 		...state,
 		status: PostStatus.LOADING,
 	})),
-	on(postDeleteRequestSuccess, (state, { payload }) => ({
-		...state,
-		error: payload,
-		post: payload,
-		status: PostStatus.SUCCESS,
-		message: 'Post deleted successfully!',
-	})),
+	on(postDeleteRequestSuccess, (state, { payload }) => {
+		const filteredPosts = state.post.filter((post) => post._id !== payload);
+
+		const finalState = {
+			...state,
+			error: null,
+			post: filteredPosts,
+			status: PostStatus.SUCCESS,
+			message: 'Post deleted successfully!',
+		};
+
+		return finalState;
+	}),
 	on(postError, (state, { payload }) => ({
 		...state,
 		post: payload,

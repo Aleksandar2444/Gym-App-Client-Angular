@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ngx-smart-modal/ngx-smart-modal.css";
+@import "variables";
+
 html,
 body {
 	height: 100%;
@@ -6,4 +9,53 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-menu-item.mdc-list-item {
+	justify-content: center;
+}
+
+.edit-link {
+	display: flex;
+	flex-direction: row;
+	color: #48ad7e;
+	cursor: pointer;
+	gap: 10px;
+	font-size: 17px;
+	align-items: center;
+	justify-content: center;
+
+	&:hover {
+		color: #227b52;
+	}
+}
+
+.delete-link {
+	display: flex;
+	flex-direction: row;
+	color: #ff632f;
+	cursor: pointer;
+	gap: 10px;
+	font-size: 17px;
+	align-items: center;
+	justify-content: center;
+
+	&:hover {
+		color: red;
+	}
+}
+
+.send-link {
+	display: flex;
+	flex-direction: row;
+	color: $light-purple;
+	cursor: pointer;
+	gap: 10px;
+	font-size: 17px;
+	align-items: center;
+	justify-content: center;
+
+	&:hover {
+		color: $blue;
+	}
 }

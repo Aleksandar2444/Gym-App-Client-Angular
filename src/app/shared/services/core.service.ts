@@ -1,4 +1,4 @@
-import { UserInfoResponse } from '@@features/user-profile/models/model';
+import { UserDataResponse } from '@@features/user-profile/models/model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -17,10 +17,10 @@ export class CoreService {
 		private readonly authService: AuthService
 	) {}
 
-	findUserById(): Observable<UserInfoResponse> {
+	findUserById(): Observable<UserDataResponse> {
 		const { user } = this.authService.getUserFromLocalStorage();
 
-		return this.http.get<UserInfoResponse>(
+		return this.http.get<UserDataResponse>(
 			`${this.findUserByIdURL}/${encodeURIComponent(user._id)}`
 		);
 	}

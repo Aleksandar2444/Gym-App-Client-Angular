@@ -9,13 +9,13 @@ export enum PostStatus {
 
 // Posts
 export interface PostState {
-	post: Post[] | null;
+	post: Post[];
 	error: string | null;
 	status: PostStatus;
 }
 
 export const initialState: PostState = {
-	post: null,
+	post: [],
 	error: null,
 	status: PostStatus.PENDING,
 };

@@ -102,6 +102,7 @@ export class AuthEffects {
 				ofType(logoutRequest),
 				tap((action) => {
 					this.authService.removeUserFromLocalStorage();
+					this.authService.clearLocalStorage();
 
 					return this.logoutUserService.logoutUser();
 				}),

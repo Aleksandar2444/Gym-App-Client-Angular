@@ -48,4 +48,8 @@ export class AuthService {
 	removeEmailFromLocalStorage() {
 		localStorage.clear();
 	}
+
+	clearLocalStorage() {
+		localStorage.clear();
+	}
 }

@@ -10,12 +10,17 @@
 				fxFlex
 				fxLayoutAlign="flex-start flex-end"
 			>
-				<p>{{ user.firstName }} {{ user.lastName }}</p>
+				<div>
+					<p>{{ user.firstName }} {{ user.lastName }}</p>
+					<p>
+						{{ user.gymNickname }}
+					</p>
+				</div>
 			</div>
 		</div>
 		<div class="profile__info2">
 			<div class="button1__wrapper">
-				<button>Edit profile</button>
+				<button (click)="onEdit()">Edit profile</button>
 			</div>
 			<div class="info2__container">
 				<div class="info2__stats">
@@ -34,14 +39,15 @@
 		</div>
 	</div>
 	<div class="about__container">
-		<div class="about__container__info">
-			<p>Country: Russia / City: Moscow</p>
+		<div class="about__container__info" *ngIf="user">
+			<div class="country__container">
+				<p>{{ user.country }}</p>
+				<span *ngIf="user.country">,</span>
+				<p>{{ user.city }}</p>
+			</div>
 			<div class="about__container__info__text">
 				<p>
-					Aspire to be better each day, learn new things, solve
-					problems in an efficient way, share knowledge about things
-					you love, listen to some good music along and be a great
-					team player.
+					{{ user.about }}
 				</p>
 			</div>
 		</div>
@@ -50,66 +56,134 @@
 		<mat-tab-group dynamicHeight>
 			<!-- My Posts -->
 			<mat-tab label="Posts">
-				<section class="container">
-					<div class="container-heading" *ngIf="post">
-						<h2 *ngIf="user">
-							{{
-								user.firstName + " " + user.lastName + " posts"
-							}}
-						</h2>
+				<!-- Create post -->
+				<div class="create__post">
+					<div class="img__wrapper">
+						<img
+							src="/assets/images/profileimg.jpg"
+							alt="profile-img"
+						/>
 					</div>
+					<div class="post__bar" routerLink="/posts/create">
+						<p>Create a post</p>
+					</div>
+				</div>
+				<!-- User posts -->
+				<section class="container">
 					<div class="posts-container">
-						<div
-							class="post"
-							*ngFor="let post of postArray"
-							(click)="onPostSelect(post._id)"
-						>
-							<div class="post-heading">
-								<h3>{{ post.title }}</h3>
-								<span class="likes-display">
-									<span class="like">
-										<mat-icon>thumb_up</mat-icon>
-										{{ post.likes }}
-									</span>
-								</span>
-							</div>
-							<div class="post-body">
-								{{ post.body }}
-							</div>
-							<div class="post-footer">
-								<span>
-									<i class="fa fa-user-circle"></i>
-									{{ post.author.firstName }}
-									{{ post.author.lastName }} on
-									<span>{{ post.createdAt | date }}</span>
-									|
+						<div class="post" *ngFor="let post of postArray">
+							<div class="post-header">
+								<div class="post-h-profile">
+									<div>
+										<div class="img-wrapper">
+											<img
+												src="/assets/images/profileimg.jpg"
+												alt="profile.jpg"
+											/>
+										</div>
+										<div>
+											<span class="fullname" *ngIf="user">
+												<p>
+													{{ user.firstName }}
+													{{ user.lastName }}
+												</p>
+											</span>
+											<span class="gymNickname">
+												<p>{{ user.gymNickname }}</p>
+											</span>
+										</div>
+									</div>
+									<div>
+										<button
+											mat-icon-button
+											[matMenuTriggerFor]="menu"
+											aria-label="Example icon-button with a menu"
+										>
+											<mat-icon>more_vert</mat-icon>
+										</button>
+										<mat-menu
+											#menu="matMenu"
+											class="custom-class"
+										>
+											<!-- Edit -->
+											<button mat-menu-item>
+												<div>
+													<span
+														(click)="
+															onPostEdit(
+																$event,
+																post
+															)
+														"
+														class="edit-link"
+														>Edit
+														<i
+															class="fa-solid fa-pen-to-square"
+														></i
+													></span>
+												</div>
+											</button>
+											<!-- Delete -->
+											<button mat-menu-item>
+												<div>
+													<span
+														class="delete-link"
+														(click)="
+															onPostDelete(
+																$event,
+																post
+															)
+														"
+													>
+														Delete
+														<i
+															class="fa-solid fa-trash-can"
+														></i>
+													</span>
+												</div>
+											</button>
+											<!-- Send -->
+											<button mat-menu-item>
+												<div>
+													<span class="send-link"
+														>Send
+														<i
+															class="fa-sharp fa-solid fa-paper-plane"
+														></i>
+													</span>
+												</div>
+											</button>
+										</mat-menu>
+									</div>
+								</div>
+								<div class="post-h-createdAt">
+									<span>{{ post.createdAt | date }}</span> |
 									<span>{{
 										post.createdAt | date : "shortTime"
 									}}</span>
-								</span>
+								</div>
+							</div>
+							<div class="post-body">
+								<h3>{{ post.title }}</h3>
+								<div>
+									{{ post.body }}
+								</div>
+							</div>
+							<div class="post-body-like-comment">
+								<div class="likes">
+									<div>
+										<i class="fa-solid fa-thumbs-up"></i>
+									</div>
+									<div>
+										{{ post.likes }}
+									</div>
+								</div>
 								<div class="comments">
-									<ng-container>
-										<span
-											(click)="onPostEdit($event, post)"
-											class="edit-link"
-											>Edit
-											<i
-												class="fa-solid fa-pen-to-square"
-											></i
-										></span>
-										<span
-											class="delete-link"
-											(click)="onPostDelete($event, post)"
-										>
-											Delete
-											<i
-												class="fa-solid fa-trash-can"
-											></i>
-										</span>
-									</ng-container>
 									<span
-										>Comments:
-										{{ post.comments.length }}</span
+										>{{
+											post.comments.length
+										}}
+										comments</span
 									>
 								</div>
 							</div>
@@ -142,3 +216,101 @@
 		</mat-tab-group>
 	</div>
 </section>
+
+<!-- ngx-smart-modal -->
+<ngx-smart-modal
+	#myModal
+	identifier="myModal"
+	[closable]="false"
+	[dismissable]="false"
+	[escapable]="true"
+>
+	<div class="container">
+		<div *ngIf="myModal.hasData()">
+			<pre>{{ myModal.getData().prop1 }}</pre>
+		</div>
+
+		<form
+			class="form-container"
+			[formGroup]="userProfileForm"
+			(ngSubmit)="onFormSubmit()"
+		>
+			<div *ngIf="user" class="name__wrapper_ngx">
+				<p>{{ user.firstName }} {{ user.lastName }}</p>
+			</div>
+
+			<div class="form-group">
+				<mat-form-field>
+					<label for="gymNickname">Gym nick-name</label>
+					<input
+						type="text"
+						class="form-control"
+						matInput
+						id="gymNickname"
+						placeholder="enter gym nick-name"
+						formControlName="gymNickname"
+					/>
+				</mat-form-field>
+				<mat-error *ngIf="userProfileForm.controls.gymNickname.invalid"
+					>Invalid gym nick-name
+				</mat-error>
+			</div>
+			<div class="form-group fg2">
+				<mat-form-field>
+					<mat-select placeholder="Country" formControlName="country">
+						<mat-option
+							*ngFor="let country of countriesArray"
+							[value]="country.viewValue"
+						>
+							{{ country.viewValue }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field>
+					<label for="city">City</label>
+					<input
+						type="text"
+						class="form-control"
+						matInput
+						id="city"
+						placeholder="enter city"
+						formControlName="city"
+					/>
+				</mat-form-field>
+				<mat-error *ngIf="userProfileForm.controls.city.invalid"
+					>Invalid city name
+				</mat-error>
+			</div>
+			<div class="form-group">
+				<label for="about">About</label>
+				<textarea
+					placeholder="enter post about"
+					id="about"
+					rows="5"
+					class="form-control"
+					formControlName="about"
+				></textarea>
+			</div>
+			<div class="modal-footer">
+				<button
+					type="button"
+					(click)="closeModal('myModal')"
+					class="btn btn-secondary"
+					data-dismiss="modal"
+				>
+					Close
+				</button>
+				<button
+					type="submit"
+					(click)="updateUser()"
+					class="btn btn-primary"
+				>
+					Update
+				</button>
+			</div>
+		</form>
+	</div>
+</ngx-smart-modal>
+<!-- end of ngx-smart-modal -->

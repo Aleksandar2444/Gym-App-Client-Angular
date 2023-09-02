@@ -3,7 +3,13 @@ import { CommentsService } from '@@features/comments/services/comments.service';
 import { BaseComponent } from '@@shared/base-component/base/base.component';
 import { AuthService } from '@@shared/services/auth.service';
 import { LoggedInUser } from '@@shared/store/auth/models/auth.user.models';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Post, SelectedPost } from '@@shared/store/posts/models/post.models';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	OnInit,
+} from '@angular/core';
 import { BehaviorSubject, map, takeUntil, tap } from 'rxjs';
 
 @Component({
@@ -14,6 +20,7 @@ import { BehaviorSubject, map, takeUntil, tap } from 'rxjs';
 })
 export class UserCommentsComponent extends BaseComponent implements OnInit {
 	readonly userComments$ = new BehaviorSubject<PostComment[]>([]);
+	@Input() post: Post | SelectedPost;
 
 	currentUser: LoggedInUser;
 
@@ -27,10 +34,20 @@ export class UserCommentsComponent extends BaseComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		// this.commentsService
+		// 	.getCommentsByUser()
+		// 	.pipe(
+		// 		takeUntil(this.destroy$),
+		// 		map((value) => value as PostComment[]),
+		// 		tap((comments) => {
+		// 			this.userComments$.next(comments);
+		// 		})
+		// 	)
+		// 	.subscribe();
+
 		this.commentsService
-			.getCommentsByUser()
+			.getCommentsByPost(this.post._id)
 			.pipe(
-				takeUntil(this.destroy$),
 				map((value) => value as PostComment[]),
 				tap((comments) => {
 					this.userComments$.next(comments);

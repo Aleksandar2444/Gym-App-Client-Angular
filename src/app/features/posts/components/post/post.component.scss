@@ -2,53 +2,106 @@
 
 :host {
 	.post {
-		padding: 30px 40px;
-		background-color: $background-color;
+		padding: 10px 20px;
 		margin: 15px;
 		border-radius: 10px;
-		color: black;
-		color: $white;
+		color: $gray-one;
+		background-color: $white;
+		box-shadow: $box-shadow2;
+		border-radius: 5px;
+		width: auto;
 
 		transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-		&-heading {
-			display: flex;
-			justify-content: space-between;
-			color: $light-purple;
-			font-size: 1.3rem;
+		.post-header {
+			cursor: pointer;
 
-			.likes-display {
-				color: $white;
-				span {
-					margin: 0 5px;
-					padding: 4px 8px;
-					font-size: 1.1rem;
-					border-radius: 6px;
-					background-color: $blue;
-					cursor: pointer;
-					font-weight: 600;
-					transition: 0.1s ease-in;
+			.post-h-profile {
+				display: flex;
+				gap: 10px;
+				flex-direction: row;
 
-					border: 2px solid $blue;
-					.fa-thumbs-up {
-						color: #48ad7e;
-					}
+				p {
+					margin: 0;
+				}
 
-					.fa-thumbs-down {
-						color: greenyellow;
-					}
+				.img-wrapper img {
+					width: 40px;
+					height: 40px;
+					object-fit: cover;
+					border-radius: 50%;
+				}
 
-					&:hover {
-						border: 2px solid $white;
-					}
+				.fullname {
+					font-size: 14px;
+					font-weight: 500;
+				}
+
+				.gymNickname {
+					font-size: 11px;
+					color: #505050;
 				}
 			}
+
+			.post-h-createdAt {
+				font-size: 11px;
+				color: #505050;
+			}
 		}
+
 		&-body {
-			padding: 20px 0;
-			margin: 20px 0;
-			border-top: 2px solid $blue;
-			border-bottom: 2px solid $blue;
+			padding: 2px 0px 8px 0px;
+			font-size: 14px;
+
+			h3 {
+				font-size: 14px;
+				margin-bottom: 5px;
+				font-weight: 500;
+			}
+		}
+
+		.post-body-like-comment {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			border-bottom: 1px solid #cccbcb;
+
+			.likes {
+				display: flex;
+				flex-direction: row;
+				gap: 5px;
+				margin-bottom: 5px;
+
+				div:nth-child(1) {
+					background-color: cornflowerblue;
+					border-radius: 50%;
+					height: 20px;
+					width: 20px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					i {
+						color: $white;
+						font-size: 12px;
+					}
+				}
+
+				div:nth-child(2) {
+					font-size: 13px;
+					color: #505050;
+				}
+			}
+
+			.comments {
+				font-size: 13px;
+				margin-bottom: 5px;
+				color: #505050;
+
+				span {
+					cursor: pointer;
+				}
+			}
 		}
 
 		&-footer {
@@ -56,8 +109,35 @@
 			font-weight: 600;
 			display: flex;
 			justify-content: space-between;
+			flex-direction: row;
+			align-items: center;
 			border-bottom: none;
-			color: $light-purple;
+			padding-top: 10px;
+
+			div {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				height: 34px;
+				gap: 5px;
+
+				span {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					i {
+						font-size: 18px;
+					}
+				}
+			}
+
+			div:hover {
+				background-color: #e4e4e4;
+				border-radius: 5px;
+			}
 
 			.comments {
 				display: flex;
@@ -85,25 +165,69 @@
 						color: red;
 					}
 				}
+			}
+		}
 
-				i {
-					margin-left: 5px;
+		.comments_wrapper {
+			display: flex;
+			flex-direction: column;
+			gap: 5px;
+			padding-top: 15px;
 
-					font-size: 1.1rem;
+			div:nth-child(1) {
+				display: flex;
+				flex-direction: row;
+				gap: 5px;
+
+				img {
+					width: 34px;
+					height: 34px;
+					object-fit: cover;
+					border-radius: 50%;
 				}
+			}
+
+			div:nth-child(2) {
+				width: 100%;
+				display: flex;
+				flex-direction: column;
 			}
 		}
 	}
 
-	.post-hover:hover {
-		cursor: pointer;
-		&:hover {
-			box-shadow: $box-shadow, $box-shadow1;
-			scale: 1.01;
-		}
-	}
+	@media only screen and (max-width: 900px) {
+		.post {
+			padding: 10px 20px;
 
-	.like:hover {
-		background: greenyellow;
+			&-body {
+				h3 {
+					font-size: 12px;
+				}
+
+				div {
+					font-size: 13px;
+				}
+			}
+
+			&-footer {
+				font-size: 12px;
+				gap: 10px;
+
+				div {
+					display: flex;
+					flex-direction: row;
+					justify-content: center;
+					align-items: center;
+					gap: 4px;
+				}
+			}
+
+			.comments {
+				width: auto;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+			}
+		}
 	}
 }

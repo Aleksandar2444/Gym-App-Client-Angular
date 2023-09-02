@@ -9,6 +9,7 @@ import { UserProfileService } from './service/user-profile.service';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CoreService } from '@@shared/services/core.service';
 import { PostsModule } from '@@features/posts/posts.module';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
 
 @NgModule({
 	declarations: [UserProfileComponent],
@@ -19,8 +20,9 @@ import { PostsModule } from '@@features/posts/posts.module';
 		MaterialModule,
 		FlexLayoutModule,
 		PostsModule,
+		NgxSmartModalModule.forChild(),
 	],
-	providers: [UserProfileService, CoreService],
+	providers: [UserProfileService, CoreService, NgxSmartModalService],
 	exports: [UserProfileComponent],
 })
 export class UserProfileModule {}
