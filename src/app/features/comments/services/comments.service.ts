@@ -10,6 +10,8 @@ const { API_URL } = environment;
 @Injectable()
 export class CommentsService {
 	private readonly createCommentURL = `${API_URL}/comments`;
+	private readonly commentsByUser = `${API_URL}/user/comments`;
+	private readonly commentsByPost = `${API_URL}/user/comments-by-post`;
 
 	constructor(private readonly http: HttpClient) {}
 
@@ -18,12 +20,18 @@ export class CommentsService {
 		postId: string
 	): Observable<CommentRequestBody> {
 		return this.http.post<CommentRequestBody>(this.createCommentURL, {
-			post: postId,
 			body,
+			post: postId,
 		});
 	}
 
 	getCommentsByUser() {
-		return this.http.get(`${API_URL}/user/comments`);
+		return this.http.get(this.commentsByUser);
+	}
+
+	getCommentsByPost(postId: string) {
+		return this.http.get(
+			`${this.commentsByPost}/${encodeURIComponent(postId)}`
+		);
 	}
 }

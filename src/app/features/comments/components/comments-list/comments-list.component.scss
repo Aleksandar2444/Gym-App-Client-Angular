@@ -2,11 +2,13 @@
 
 :host {
 	.comment-container {
-		padding: 30px 40px;
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		margin-top: 10px;
 		box-shadow: $box-shadow2;
 		color: $gray-one;
 		background-color: $white;
-		margin: 15px;
 		border-radius: 10px;
 		h3 {
 			text-align: center;
@@ -22,69 +24,135 @@
 		}
 		margin: 30px auto;
 	}
-
+	//
 	.comment {
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
+		gap: 5px;
+		margin: 0px 10px 0px 10px;
+		padding-top: 8px;
+		border-bottom: 1px solid #cccbcb;
 
-		border-radius: 8px;
-		margin: 25px 0px;
-		padding: 15px;
-		box-shadow: $box-shadow2;
-		color: $gray-one;
-		background-color: $white;
+		div:nth-child(1) {
+			display: flex;
+			flex-direction: row;
+			gap: 5px;
 
-		&-body {
-			margin-bottom: 10px;
-			padding-bottom: 10px;
-			border-bottom: 1px solid;
+			img {
+				width: 30px;
+				height: 30px;
+				object-fit: cover;
+				border-radius: 50%;
+			}
 		}
 
-		&-body-container {
-			display: flex;
-			flex-direction: row-reverse;
-			justify-content: space-between;
+		div:nth-child(2) {
+			width: 100%;
+			background-color: #efecec;
+			padding: 8px 12px 0px 12px;
+			margin-bottom: 10px;
+			border-radius: 0px 7px 7px 7px;
 
-			div {
+			.comment-wrapper {
 				display: flex;
-				align-items: flex-end;
+				flex-direction: column;
 
-				p {
-					margin: 0;
+				&-one {
+					justify-content: space-between;
+
+					p {
+						margin: 0;
+					}
+
+					.comment-author {
+						span:nth-child(1) {
+							font-size: 14px;
+							font-weight: 500;
+						}
+
+						span:nth-child(2) {
+							font-size: 11px;
+							color: #505050;
+						}
+					}
+
+					.comment-date {
+						font-size: 11px;
+						color: #505050;
+					}
+				}
+
+				&-two {
+					padding: 0;
+
+					p {
+						margin-bottom: 7px;
+					}
 				}
 			}
 		}
-
-		&-author {
-			align-self: flex-end;
-			color: $gray-one;
-
-			.user-icon {
-				padding-right: 10px;
-				margin-right: 10px;
-
-				border-right: 2px solid $light-purple;
-			}
-		}
-
-		&-author-time {
-			color: $gray-one;
-		}
-
-		.post-link {
-			font-weight: 600;
-			border-right: 2px solid $light-purple;
-			padding-right: 10px;
-			margin-right: 10px;
-
-			color: greenyellow;
-			cursor: pointer;
-
-			&:hover {
-				color: #979696;
-			}
-		}
 	}
+
+	// .comment {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	padding: 10px 10px;
+	// 	border-radius: 8px;
+	// 	box-shadow: $box-shadow2;
+	// 	color: $gray-one;
+	// 	background-color: $white;
+
+	// 	&-body {
+	// 		margin-bottom: 10px;
+	// 		padding-bottom: 10px;
+	// 		border-bottom: 1px solid #cccbcb;
+	// 	}
+
+	// 	&-body-container {
+	// 		display: flex;
+	// 		flex-direction: row-reverse;
+	// 		justify-content: space-between;
+
+	// 		div {
+	// 			display: flex;
+	// 			align-items: flex-end;
+
+	// 			p {
+	// 				margin: 0;
+	// 			}
+	// 		}
+	// 	}
+
+	// 	&-author {
+	// 		align-self: flex-end;
+	// 		color: $gray-one;
+
+	// 		.user-icon {
+	// 			padding-right: 10px;
+	// 			margin-right: 10px;
+
+	// 			border-right: 2px solid $light-purple;
+	// 		}
+	// 	}
+
+	// 	&-author-time {
+	// 		color: $gray-one;
+	// 	}
+
+	// 	.post-link {
+	// 		font-weight: 600;
+	// 		border-right: 2px solid $light-purple;
+	// 		padding-right: 10px;
+	// 		margin-right: 10px;
+
+	// 		color: greenyellow;
+	// 		cursor: pointer;
+
+	// 		&:hover {
+	// 			color: #979696;
+	// 		}
+	// 	}
+	// }
 
 	@media only screen and (max-width: 900px) {
 		.comment-container {

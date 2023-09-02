@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '@@shared/guards/auth.guard';
+import { NotFoundComponent } from '@@shared/not-found/components/not-found/not-found.component';
 
 const routes: Routes = [
 	{
@@ -63,6 +64,31 @@ const routes: Routes = [
 				(module) => module.PostsModule
 			),
 		canActivate: [AuthGuard],
+	},
+	{
+		path: 'about',
+		loadChildren: () =>
+			import('./features/about/about.module').then(
+				(module) => module.AboutModule
+			),
+	},
+	{
+		path: 'privacy-policy',
+		loadChildren: () =>
+			import('./features/privacy-policy/privacy-policy.module').then(
+				(module) => module.PrivacyPolicyModule
+			),
+	},
+	{
+		path: 'terms',
+		loadChildren: () =>
+			import('./features/terms/terms.module').then(
+				(module) => module.TermsModule
+			),
+	},
+	{
+		path: '**',
+		component: NotFoundComponent,
 	},
 ];
 

@@ -42,10 +42,13 @@ export class CommentFormComponent extends BaseComponent implements OnInit {
 	}
 
 	onFormSubmit() {
-		const postId = this.route.snapshot.params.id;
+		// const postId = this.route.snapshot.params.id;
+		const postObj = localStorage.getItem('post');
+		if (!postObj) return;
+		const post = JSON.parse(postObj);
 
 		this.commentsService
-			.createCommnet(this.commentForm.value.body!, postId)
+			.createCommnet(this.commentForm.value.body!, post._id)
 			.pipe(
 				takeUntil(this.destroy$),
 				tap((value: CommentRequestBody) => {
@@ -55,5 +58,6 @@ export class CommentFormComponent extends BaseComponent implements OnInit {
 			)
 			.subscribe();
 		this.commentForm.reset();
+		localStorage.removeItem('post');
 	}
 }

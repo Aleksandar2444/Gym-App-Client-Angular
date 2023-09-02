@@ -28,6 +28,8 @@ import {
 	postReducer,
 } from '@@shared/store/posts/post.reducer';
 import { PostEffects } from '@@shared/store/posts/post.effects';
+import { FooterModule } from '@@shared/footer/footer.module';
+import { NotFoundModule } from '@@shared/not-found/not-found.module';
 
 @NgModule({
 	declarations: [AppComponent, SpinnerComponent],
@@ -42,6 +44,8 @@ import { PostEffects } from '@@shared/store/posts/post.effects';
 		LoginModule,
 		SidenavModule,
 		HeaderModule,
+		FooterModule,
+		NotFoundModule,
 		AppRoutingModule,
 		HttpClientModule,
 		ToastrModule.forRoot({

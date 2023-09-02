@@ -20,24 +20,36 @@ import {
 	postUpdateRequest,
 	postUpdateRequestSuccess,
 } from './post.actions';
-import { BehaviorSubject, catchError, map, of, switchMap, tap } from 'rxjs';
+import {
+	BehaviorSubject,
+	catchError,
+	map,
+	of,
+	switchMap,
+	tap,
+	withLatestFrom,
+} from 'rxjs';
 import {
 	CreatePostRequestBody,
 	Post,
 	SelectedPost,
 } from './models/post.models';
+import { Store, select } from '@ngrx/store';
+import { selectPostById } from './post.selectors';
+import { selectPost } from './post.selectors';
 
 @Injectable()
 export class PostEffects {
 	@Input() post: Post | SelectedPost;
-	readonly posts$ = new BehaviorSubject<Post[]>([]);
-	readonly selectedPost$ = new BehaviorSubject<SelectedPost | null>(null);
+	// readonly posts$ = new BehaviorSubject<Post[]>([]);
+	// readonly selectedPost$ = new BehaviorSubject<SelectedPost | null>(null);
 
 	constructor(
 		private readonly actions$: Actions,
 		private readonly notificationService: NotificationService,
 		private readonly router: Router,
-		private readonly postService: PostsService
+		private readonly postService: PostsService,
+		private readonly store: Store
 	) {}
 
 	getAllPostsRequest$ = createEffect(() =>
@@ -70,7 +82,8 @@ export class PostEffects {
 				return this.postService.getPostById(action.payload).pipe(
 					map((postId) => {
 						const post = postId as SelectedPost;
-
+						console.log(postId);
+						console.log(post);
 						return postByIdRequestSuccess({
 							payload: post,
 						});
@@ -94,26 +107,30 @@ export class PostEffects {
 					map((value) => {
 						value as { likes: number };
 
-						if (this.selectedPost$.value) {
-							// User is in post details
-							const post = this.selectedPost$.value;
+						const post = value;
 
-							post.likes = value.likes;
+						post.likes = value.likes;
 
-							this.selectedPost$.next(post);
-						} else {
-							// User is in post list
-							const posts = this.posts$.value;
+						// if (this.selectedPost$.value) {
+						// 	// User is in post details
+						// 	const post = this.selectedPost$.value;
 
-							posts.forEach((post) => {
-								if (post._id === this.post._id) {
-									post.likes = value.likes;
-									return;
-								}
-							});
+						// 	post.likes = value.likes;
 
-							this.posts$.next(posts);
-						}
+						// 	this.selectedPost$.next(post);
+						// } else {
+						// 	// User is in post list
+						// 	const posts = this.posts$.value;
+
+						// 	posts.forEach((post) => {
+						// 		if (post._id === this.post._id) {
+						// 			post.likes = value.likes;
+						// 			return;
+						// 		}
+						// 	});
+
+						// 	this.posts$.next(posts);
+						// }
 
 						return postLikeRequestSuccess({
 							payload: value,
@@ -136,17 +153,19 @@ export class PostEffects {
 			switchMap((action) => {
 				return this.postService.deletePost(action.payload).pipe(
 					map((value) => {
-						const updatedPosts = this.posts$.value.filter(
-							(element) => element._id !== value._id
-						);
+						// const updatedPosts = this.posts$.value.filter(
+						// 	(element) => element._id !== value._id
+						// );
 
-						this.posts$.next(updatedPosts);
-
+						// YOU CAN GET THE STATE
+						const id = action.payload;
+						// this.posts$.next(updatedPosts);
 						return postDeleteRequestSuccess({
-							payload: value,
+							payload: { postId: id },
 						});
 					}),
 					catchError((error) => {
+						console.log(error);
 						this.notificationService.showError(
 							'Something went wrong.'
 						);

@@ -6,58 +6,56 @@
 
 		display: flex;
 		color: $white;
-		padding: 30px 40px;
-		box-shadow: $box-shadow2;
+		// padding: 30px 40px;
+		// box-shadow: $box-shadow2;
 		color: $gray-one;
 		background-color: $white;
-		margin: 15px;
+		// margin: 15px;
 		border-radius: 10px;
 
-		label {
-			font-size: 1.2rem;
-		}
+		// label {
+		// 	font-size: 1.2rem;
+		// }
 		.form-group {
 			width: 100%;
-
+			gap: 5px;
 			display: flex;
 			flex-direction: column;
 			border-radius: 8px;
-			margin: 25px 0px;
-			padding: 15px;
+			// margin: 25px 0px;
+			// padding: 15px;
 			background-color: $white;
 
 			textarea {
-				margin-top: 12px;
+				// margin-top: 12px;
 				resize: none;
-				border-radius: 5px;
-				padding: 0px 5px;
-				height: 35px;
+				// padding: 0px 5px;
+				border-radius: 25px;
+				height: 30px;
 			}
 		}
 
 		button {
-			margin: 20px 10px 0px 0px;
+			// margin: 20px 10px 0px 0px;
 			width: 100px;
-			margin-top: 20px;
-			margin-bottom: 0;
 			font-size: 1rem;
 			align-self: flex-end;
 			height: 30px;
-			border-radius: 5px;
+			border-radius: 15px;
 			cursor: pointer;
 		}
 	}
 
 	@media only screen and (max-width: 900px) {
 		.form-container {
-			padding: 0 10px;
+			// padding: 0 10px;
 
 			.form-group {
-				padding: 0px 10px;
+				// padding: 0px 10px;
 
-				label {
-					font-size: 17px;
-				}
+				// label {
+				// 	font-size: 17px;
+				// }
 
 				textarea {
 					height: 30px;

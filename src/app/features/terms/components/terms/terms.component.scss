@@ -1,0 +1,36 @@
+@import "variables";
+
+:host {
+	section {
+		padding: 4rem 10rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		div {
+			width: auto;
+
+			h4 {
+				margin: 0;
+			}
+
+			ol {
+				margin-bottom: 10px;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 900px) {
+		section {
+			padding: 2rem 2rem;
+
+			ul {
+				padding: 0rem 1rem;
+			}
+
+			ol {
+				padding: 1rem 1rem;
+			}
+		}
+	}
+}

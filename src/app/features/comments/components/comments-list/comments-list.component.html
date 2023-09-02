@@ -3,8 +3,8 @@
 		<h3>No Comments Yet</h3>
 	</ng-container>
 	<ng-container *ngIf="comments.length > 0">
-		<h3>Comments</h3>
-		<div class="comment" *ngFor="let comment of comments">
+		<!-- <h3>Comments</h3> -->
+		<!-- <div class="comment" *ngFor="let comment of comments">
 			<p class="comment-body">{{ comment.body }}</p>
 			<div class="comment-body-container">
 				<div>
@@ -28,6 +28,61 @@
 					</p>
 				</div>
 			</div>
+		</div> -->
+		<div class="comment" *ngFor="let comment of comments">
+			<div>
+				<img src="/assets/images/profileimg.jpg" alt="profile.jpg" />
+			</div>
+			<div>
+				<div class="comment-wrapper">
+					<div class="comment-wrapper-one">
+						<p class="comment-author">
+							<span>
+								{{ comment.author.firstName }}
+								{{ comment.author.lastName }}
+							</span>
+							<span class="gymNickname">
+								<p>{{ comment.author.gymNickname }}</p>
+							</span>
+						</p>
+						<p class="comment-date">
+							<span>
+								{{ comment.createdAt | date : "shortTime" }}
+							</span>
+							-
+							<span>
+								{{ comment.createdAt | date : "shortDate" }}
+							</span>
+						</p>
+					</div>
+					<div class="comment-wrapper-two">
+						<p>{{ comment.body }}</p>
+					</div>
+				</div>
+			</div>
+			<!-- <p class="comment-body">{{ comment.body }}</p>
+			<div class="comment-body-container">
+				<div>
+					<p class="comment-author">
+						<span>
+							<mat-icon>face</mat-icon>
+							{{ comment.author.firstName }}
+							{{ comment.author.lastName }}
+						</span>
+
+						<span>
+							{{ comment.createdAt | date : "shortDate" }}
+						</span>
+					</p>
+				</div>
+				<div>
+					<p class="comment-author-time">
+						<span>
+							{{ comment.createdAt | date : "shortTime" }}
+						</span>
+					</p>
+				</div>
+			</div> -->
 		</div>
 	</ng-container>
 </div>

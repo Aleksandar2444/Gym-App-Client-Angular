@@ -22,7 +22,6 @@ export interface UserDataResponse {
 	comments: string[];
 	createdAt: string;
 	updatedAt: string;
-	__v: number;
 	about: string;
 	city: string;
 	country: string;

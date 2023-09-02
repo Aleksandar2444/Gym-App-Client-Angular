@@ -7,11 +7,11 @@ export interface PostComment {
 		_id: string;
 		firstName: string;
 		lastName: string;
+		gymNickname: string;
 	};
 	post: string;
 	createdAt: string;
 	updatedAt: string;
-	__v: number;
 }
 
 export interface CommentForm {

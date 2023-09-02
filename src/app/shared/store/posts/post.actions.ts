@@ -77,7 +77,7 @@ export const postUpdateRequestSuccess = createAction(
 // Post delete request
 export const postDeleteRequest = createAction(
 	'[Post Delete] Post Delete Request',
-	props<{ payload: string }>()
+	props<{ payload: any }>()
 );
 
 // Post delete success

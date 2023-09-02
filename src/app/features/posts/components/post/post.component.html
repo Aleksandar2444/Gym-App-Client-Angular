@@ -1,25 +1,103 @@
-<div class="post" (click)="onPostSelect()">
-	<div class="post-heading">
-		<h3>{{ post.title }}</h3>
-		<span class="likes-display">
-			<span class="like" (click)="onPostLike($event)">
-				<mat-icon>thumb_up</mat-icon>
-				{{ post.likes }}
-			</span>
-		</span>
-	</div>
-	<div class="post-body">
-		{{ post.body }}
-	</div>
-	<div class="post-footer">
-		<span class="footer-info">
-			<i class="fa fa-user-circle"></i> {{ post.author.firstName }}
-			{{ post.author.lastName }} on
+<div class="post">
+	<div class="post-header" (click)="onPostSelect()">
+		<div class="post-h-profile">
+			<div class="img-wrapper">
+				<img src="/assets/images/profileimg.jpg" alt="profile.jpg" />
+			</div>
+			<div>
+				<span class="fullname">
+					<p>
+						{{ post.author.firstName }} {{ post.author.lastName }}
+					</p>
+				</span>
+				<span class="gymNickname">
+					<p>{{ post.author.gymNickname }}</p>
+				</span>
+			</div>
+		</div>
+		<div class="post-h-createdAt">
 			<span>{{ post.createdAt | date }}</span> |
 			<span>{{ post.createdAt | date : "shortTime" }}</span>
-		</span>
-		<div class="comments">
-			<span>Comments: {{ post.comments.length }}</span>
 		</div>
 	</div>
+	<div class="post-body">
+		<h3>{{ post.title }}</h3>
+		<div>
+			{{ post.body }}
+		</div>
+	</div>
+	<div class="post-body-like-comment">
+		<div class="likes">
+			<div>
+				<i class="fa-solid fa-thumbs-up"></i>
+			</div>
+			<div>
+				{{ post.likes }}
+			</div>
+		</div>
+		<div (click)="onPostComment()" class="comments">
+			<span>{{ post.comments.length }} comments</span>
+		</div>
+	</div>
+	<div class="post-footer">
+		<div (click)="onPostLike($event)">
+			<span> <i class="fa-solid fa-thumbs-up"></i> </span>Like
+		</div>
+		<!-- <div (click)="onPostComment()">
+			<span>
+				<i class="fa-sharp fa-solid fa-comment"></i>
+			</span>
+			Comment
+		</div> -->
+		<div (click)="onPostComment()">
+			<span>
+				<i class="fa-sharp fa-solid fa-comment"></i>
+			</span>
+			Comment
+		</div>
+		<div>
+			<span>
+				<i class="fa-sharp fa-solid fa-retweet"></i>
+			</span>
+			Repost
+		</div>
+		<div>
+			<span>
+				<i class="fa-sharp fa-solid fa-paper-plane"></i>
+			</span>
+			Send
+		</div>
+	</div>
+	<!--comments-->
+	<!-- <div *ngIf="selectedPost$ | async as post" class="comments_wrapper">
+		<div>
+			<img src="/assets/images/profileimg.jpg" alt="profile.jpg" />
+		</div>
+		<div>
+			<app-comment-form></app-comment-form>
+		</div>
+	</div> -->
+
+	<!-- *ngIf="selectedPost$ | async as post" -->
+	<ng-container *ngIf="commentToggler">
+		<div *ngIf="selectedPost$ | async as post" class="comments_wrapper">
+			<div>
+				<div>
+					<img
+						src="/assets/images/profileimg.jpg"
+						alt="profile.jpg"
+					/>
+				</div>
+				<div>
+					<app-comment-form></app-comment-form>
+				</div>
+			</div>
+			<div>
+				<app-comments-list
+					[comments]="post.comments"
+				></app-comments-list>
+			</div>
+		</div>
+	</ng-container>
 </div>
+<!-- [comments]="post.comments" -->
