@@ -1,5 +1,8 @@
 # GymApp
 
+## Note this application is still in progress
+Demo test link to the app: https://muscle-mind-2c5d9.web.app/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
 
 ## Development server
